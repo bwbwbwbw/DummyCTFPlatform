@@ -41,7 +41,7 @@ config.production.yaml
 
 # Compiled sources
 .gulp-cache
-dist/
+.dist/
 
 # Compiled front-end
 .uibuild/

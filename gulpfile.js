@@ -18,15 +18,15 @@ gulp.task('js', function () {
     }))
     .pipe(cache.cache())
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('./dist'));
+    .pipe(gulp.dest('./.dist'));
 });
 
 gulp.task('develop', ['js'], function () {
   nodemon({
-    script: 'dist/app.js',
+    script: '.dist/app.js',
     watch: ['.'],
     ext: 'js yaml',
-    ignore: ['node_modules/', 'ui/', 'dist/', '.uibuild/'],
+    ignore: ['node_modules/', 'ui/', '.uibuild/', '.dist/'],
     tasks: ['js'],
   });
 });
