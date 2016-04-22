@@ -1,5 +1,6 @@
 # Logs
-logs
+logs/*
+!.gitkeep
 *.log
 npm-debug.log*
 
@@ -31,3 +32,16 @@ node_modules
 
 # Optional REPL history
 .node_repl_history
+
+.debug
+
+# Config files
+config.debug.yaml
+config.production.yaml
+
+# Compiled sources
+.gulp-cache
+dist/
+
+# Compiled front-end
+.uibuild/

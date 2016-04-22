@@ -1,0 +1,7 @@
+# sample configuration
+
+base:
+  db: mongodb://localhost/ctf
+  secret: your_secret
+  cspReportUrl: /csp_violation
+  port: 80

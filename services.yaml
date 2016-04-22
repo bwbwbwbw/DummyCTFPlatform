@@ -1,0 +1,45 @@
+misc:
+  path: misc
+
+logger:
+  path: logger
+
+db:
+  path: database/mongodb
+  inject: ['config', 'logger']
+
+web.server:
+  path: web/server
+  inject: ['config', 'logger']
+
+web.accessLogger:
+  path: web/accessLogger
+  inject: ['web.server']
+
+web.templateEngine:
+  path: web/templateEngine
+  inject: ['web.server']
+
+web.session:
+  path: web/session
+  inject: ['web.server', 'config', 'db']
+
+web.security:
+  path: web/security
+  inject: ['web.server', 'config', 'logger']
+
+web.common:
+  path: web/common
+  inject: ['web.server']
+
+web.static:
+  path: web/static
+  inject: ['web.server']
+
+db.models:
+  path: database/models
+  inject: ['db']
+
+web.controllers:
+  path: web/controllers
+  inject: ['web.server']
