@@ -26,7 +26,7 @@ gulp.task('develop', ['js'], function () {
     script: 'dist/app.js',
     watch: ['.'],
     ext: 'js yaml',
-    ignore: ['node_modules/', 'static/', 'dist/'],
+    ignore: ['node_modules/', 'ui/', 'dist/', '.uibuild/'],
     tasks: ['js'],
   });
 });

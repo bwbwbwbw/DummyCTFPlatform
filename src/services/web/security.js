@@ -13,6 +13,7 @@ export default (DI, app, config, logger) => {
     directives: {
       defaultSrc: ["'self'"],
       scriptSrc: ["'self'", "'unsafe-inline'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
       reportUri: `${config.cspReportUrl}`,
     },
   }));
