@@ -1,8 +1,0 @@
-{% extends "layout/admin.nunjucks" %}
-{% block admin_content %}
-  <h1>
-    Something went wrong...
-    <small>{{ error.name }}({{ error.status }})</small>
-  </h1>
-  <p>{{ error.msg }}</p>
-{% endblock %}

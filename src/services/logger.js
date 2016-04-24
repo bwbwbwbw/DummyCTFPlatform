@@ -4,7 +4,7 @@ import chalk from 'chalk';
 
 const timeFormatter = () => moment().format('YYYY-MM-DD HH:mm:ss Z');
 
-export default function (DI) {
+export default (DI) => {
 
   const logger = new (winston.Logger)({
     exitOnError: false,

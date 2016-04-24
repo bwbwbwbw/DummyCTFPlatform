@@ -1,3 +1,6 @@
+# ========================
+# Essentials
+
 misc:
   path: misc
 
@@ -16,8 +19,8 @@ web.accessLogger:
   path: web/accessLogger
   inject: ['web.server']
 
-web.templateEngine:
-  path: web/templateEngine
+web.common:
+  path: web/common
   inject: ['web.server']
 
 web.session:
@@ -26,20 +29,33 @@ web.session:
 
 web.security:
   path: web/security
-  inject: ['web.server', 'config', 'logger']
-
-web.common:
-  path: web/common
-  inject: ['web.server']
+  inject: ['web.server', 'config']
 
 web.static:
   path: web/static
   inject: ['web.server']
 
+web.templateEngine:
+  path: web/templateEngine
+  inject: ['web.server', 'config']
+
 db.models:
   path: database/models
   inject: ['db']
 
+# ========================
+# Business Services
+
+miscService:
+  path: business/misc
+
+userService:
+  path: business/user
+  inject: ['db']
+
+# ========================
+# Presentation Layer
+
 web.controllers:
   path: web/controllers
-  inject: ['web.server']
+  inject: ['web.server', 'logger']

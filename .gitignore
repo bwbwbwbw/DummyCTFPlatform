@@ -45,3 +45,6 @@ config.production.yaml
 
 # Compiled front-end
 .uibuild/
+
+# Sublime Project
+*.sublime-*

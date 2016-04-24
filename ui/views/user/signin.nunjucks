@@ -1,0 +1,29 @@
+{% extends "layout/admin.nunjucks" %}
+{% block admin_content %}
+<div class="login-box" ng-controller="signInController as ctrl">
+  <div class="login-logo">
+    <a href="/">{{ config.title }}</a>
+  </div>
+  <div class="login-box-body">
+    <p class="login-box-msg">Sign in to join the contest</p>
+    <form ng-submit="ctrl.doSignIn()">
+      <div class="form-group has-feedback">
+        <input type="text" class="form-control" placeholder="Username" ng-model="ctrl.username" ng-disabled="ctrl.formDisabled" required>
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+      </div>
+      <div class="form-group has-feedback">
+        <input type="password" class="form-control" placeholder="Password" ng-model="ctrl.password" ng-disabled="ctrl.formDisabled" required>
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+      </div>
+      <div class="row">
+        <div class="col-xs-4">
+          <button type="submit" class="btn btn-primary btn-block btn-flat" ng-disabled="ctrl.formDisabled">Sign In</button>
+        </div>
+      </div>
+    </form>
+    <br>
+    <p><a href="/user/reset">Reset my password</a></p>
+    <p><a href="/user/register">Register new account</a></p>
+  </div>
+</div>
+{% endblock %}

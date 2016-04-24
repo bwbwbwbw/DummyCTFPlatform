@@ -1,13 +1,18 @@
 import glob from 'glob';
+import Router from 'express-promise-router';
+import escapeHtml from 'escape-html';
 
-export default (DI, app) => {
+export default (DI, app, logger) => {
+
+  const router = Router();
+  app.use(router);
 
   const controllers = glob.sync(`${__codeRoot}/webControllers/*.js`);
-  controllers.forEach(controller => require(controller).default(DI, app));
+  controllers.forEach(controller => require(controller).default(DI, router, app));
 
   // Fallback: Generate 404
   app.use((req, res, next) => {
-    const err = new Error('Not Found');
+    const err = new Error('Page not found');
     err.status = 404;
     next(err);
   });
@@ -35,17 +40,20 @@ export default (DI, app) => {
 
   // Handle Error outputs
   app.use((err, req, res, next) => {
+    if (err.status === 500) {
+      logger.error(err);
+    }
+    res.status(err.status);
     const errObject = {
       err: true,
       status: err.status,
       msg: err.message,
+      msgHtml: err.messageHtml || escapeHtml(err.message),
       name: err.name,
-      stack: err.stack,
     };
     if (req.xhr) {
       res.json(errObject);
     } else {
-      res.status(err.status);
       res.render('error', { error: errObject });
     }
   });

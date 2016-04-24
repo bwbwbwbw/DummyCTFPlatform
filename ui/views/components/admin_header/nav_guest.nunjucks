@@ -1,0 +1,6 @@
+<li>
+  <a href="/user/signin"><i class="fa fa-sign-in" aria-hidden="true"></i> Sign In</a>
+</li>
+<li>
+  <a href="/user/register">Register</a>
+</li>

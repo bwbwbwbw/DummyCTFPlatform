@@ -1,7 +1,7 @@
 import glob from 'glob';
 import mongoose from 'mongoose';
 
-export default async function (DI, config, logger) {
+export default async (DI, config, logger) => {
 
   const db = await new Promise((resolve, reject) => {
     logger.debug(`MongoDB: Connection Url = ${config.db}`);

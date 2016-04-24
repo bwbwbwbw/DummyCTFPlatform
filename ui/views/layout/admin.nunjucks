@@ -1,0 +1,10 @@
+{% extends "layout/base.nunjucks" %}
+{% block body %}
+<div class="wrapper" ng-app="dummyctf.dashboard">
+  {% include "components/admin_header.nunjucks" %}
+  {% include "components/admin_sidebar.nunjucks" %}
+  <div class="content-wrapper">
+    {% block admin_content %}{% endblock %}
+  </div>
+</div>
+{% endblock %}

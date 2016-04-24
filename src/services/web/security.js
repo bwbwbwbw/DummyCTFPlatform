@@ -2,18 +2,14 @@ import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import csrf from 'csurf';
 
-export default (DI, app, config, logger) => {
-
-  app.post(config.cspReportUrl, bodyParser.urlencoded({ extended: false }), (req, res, next) => {
-    logger.warn('CSP violation report', req.body);
-    res.end();
-  });
+export default (DI, app, config) => {
 
   app.use(helmet.csp({
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
       styleSrc: ["'self'", "'unsafe-inline'"],
+      imgSrc: ["'self'", 'data:'],
       reportUri: `${config.cspReportUrl}`,
     },
   }));
