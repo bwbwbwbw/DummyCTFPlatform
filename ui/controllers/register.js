@@ -24,8 +24,7 @@ export default class RegisterController {
     userService
       .register(this.username, this.password)
       .then(resp => {
-        toastr.info($translate.instant('ui.page.register.successMsg'));
-        setTimeout(() => window.location = '/', 3000);
+        window.location = '/';
       }, err => {
         dialogs.error(
           $translate.instant('ui.page.register.failMsg'),

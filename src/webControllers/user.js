@@ -7,13 +7,13 @@ export default (DI, parentRouter, app) => {
   parentRouter.use('/user', router);
 
   router.get('/signin',
-    (req, res, next) => {
+    (req, res) => {
       res.render('user/signin');
     }
   );
 
   router.get('/register',
-    (req, res, next) => {
+    (req, res) => {
       res.render('user/register');
     }
   );

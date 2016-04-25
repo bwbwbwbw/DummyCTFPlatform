@@ -16,8 +16,7 @@ export default class SignInController {
     userService
       .signIn(this.username, this.password)
       .then(resp => {
-        toastr.info($translate.instant('ui.page.signin.successMsg'));
-        setTimeout(() => window.location = '/', 3000);
+        window.location = '/';
       }, err => {
         dialogs.error(
           $translate.instant('ui.page.signin.failMsg'),

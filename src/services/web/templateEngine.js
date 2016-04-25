@@ -12,9 +12,11 @@ export default (DI, app, config) => {
   });
 
   // Notice that this would not escape chars like < and >
-  njenv.addFilter('json', (str) => {
-    return JSON.stringify(str);
-  });
+  njenv.addFilter('json', str => JSON.stringify(str));
+
+  const userMethods = DI.get('db').User.schema.methods;
+  njenv.addFilter('isContester', obj => userMethods.isContester.call(obj));
+  njenv.addFilter('isAdmin', obj => userMethods.isAdmin.call(obj));
 
   // Expose necessary object
   app.use((req, res, next) => {
@@ -22,5 +24,7 @@ export default (DI, app, config) => {
     res.locals.config = config;
     next();
   });
+
+  return njenv;
 
 }

@@ -1,12 +1,10 @@
 import mongoose, { Schema } from 'mongoose';
-import { roles } from 'constants/index';
 
 const UserSchema = new Schema({
   username: String,
   username_std: String, // normalized user name
   hash: String,
-  salt: String,
-  roles: [Number],
+  roles: [String],
   disabled: { type: Boolean, default: false },
   validated: { type: Boolean, default: false },
   profile: {
@@ -18,11 +16,11 @@ const UserSchema = new Schema({
 });
 
 UserSchema.methods.isContester = function () {
-  return this.roles.indexOf(roles.ROLE_CONTESTER) !== -1;
+  return this.roles.indexOf('CONTESTER') !== -1;
 };
 
 UserSchema.methods.isAdmin = function () {
-  return this.roles.indexOf(roles.ROLE_ADMIN) !== -1;
+  return this.roles.indexOf('ADMIN') !== -1;
 };
 
 UserSchema.index({ username_std: 1 }, { unique: true });

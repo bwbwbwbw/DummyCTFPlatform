@@ -1,5 +1,4 @@
-import randomstring from 'randomstring';
-import crypto from 'crypto';
+import bcrypt from 'bcrypt-as-promised';
 import i18n from 'i18n';
 
 export default (DI, db) => {
@@ -14,22 +13,6 @@ export default (DI, db) => {
    */
   userService.normalizeUserNameSync = (username) => {
     return String(username).toLowerCase().trim();
-  };
-
-  /**
-   * Make hash from specified password and salt
-   * @return {String} hash
-   */
-  userService.hashPasswordSync = (password, salt) => {
-    return crypto.createHmac('sha256', password).update(salt).digest('hex');
-  };
-
-  /**
-   * Generate a salt using PRNG
-   * @return {String} 64-byte long random salt
-   */
-  userService.makeSaltSync = () => {
-    return randomstring.generate({ length: 64 });
   };
 
   /**
@@ -65,13 +48,10 @@ export default (DI, db) => {
     if (await userService.getUserObjectByUsername(username, false) !== null) {
       throw new UserError(i18n.__('error.username.taken'));
     }
-    const salt = userService.makeSaltSync();
-    const hash = userService.hashPasswordSync(password, salt);
     const newUser = new User({
       username,
       username_std: userService.normalizeUserNameSync(username),
-      hash,
-      salt,
+      hash: await bcrypt.hash(password, 10),
       roles,
       disabled: false,
       validated: false,
@@ -96,8 +76,14 @@ export default (DI, db) => {
    */
   userService.authenticate = async (username, password, allowDisabled = false) => {
     const user = await userService.getUserObjectByUsername(username);
-    if (userService.hashPasswordSync(password, user.salt) !== user.hash) {
-      throw new UserError(i18n.__('error.password.mismatch'));
+    try {
+      await bcrypt.compare(password, user.hash);
+    } catch (e) {
+      if (e instanceof bcrypt.MISMATCH_ERROR) {
+        throw new UserError(i18n.__('error.password.mismatch'));
+      } else {
+        throw e;
+      }
     }
     if (user.disabled && !allowDisabled) {
       throw new UserError(i18n.__('error.user.disabled'));
@@ -111,10 +97,7 @@ export default (DI, db) => {
    */
   userService.resetPassword = async (username, newPassword) => {
     const user = await userService.getUserObjectByUsername(username);
-    const salt = userService.makeSaltSync();
-    const hash = userService.hashPasswordSync(password, salt);
-    user.salt = salt;
-    user.hash = hash;
+    user.hash = await bcrypt.hash(newPassword);
     await user.save();
     return user;
   };
@@ -146,11 +129,11 @@ export default (DI, db) => {
    * @return {User} The new user object
    */
   userService.updateProfile = async (username, profile) => {
-    const user = await userService.getUserObjectByUsername(username);
     if (profile !== Object(profile)) {
       // not an object
       return null;
     }
+    const user = await userService.getUserObjectByUsername(username);
     user.profile = profile;
     await user.save();
     return user;

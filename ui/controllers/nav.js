@@ -11,8 +11,7 @@ export default class RegisterController {
     userService
       .logout()
       .then(resp => {
-        toastr.success($translate.instant('ui.page.signout.successMsg'));
-        setInterval(() => location.reload(), 1000);
+        location.reload();
       }, err => {
         toastr.error($translate.instant('ui.page.signout.successMsg', err.data));
       });

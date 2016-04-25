@@ -38,15 +38,19 @@
 			"announcements": "公告",
 			"contests": "比赛",
 			"tasks": "任务",
-			"scoreboard": "积分榜"
+			"scoreboard": "积分榜",
+			"manage": {
+				"header": "管理",
+				"announcements": "公告",
+				"tasks": "任务池",
+				"contests": "比赛"
+			}
 		},
 		"page": {
 			"signout": {
-				"successMsg": "您已成功登出",
 				"failMsg": "登出失败: {{ msg }}"
 			},
 			"signin": {
-				"successMsg": "登录成功，您即将被跳转到首页",
 				"failMsg": "登录失败",
 				"msg": "登录后才能参加比赛",
 				"username": "用户名",
@@ -62,7 +66,6 @@
 			},
 			"register": {
 				"retypeNotMatchMsg": "您两次输入的密码不一致",
-				"successMsg": "注册用户成功，您即将被跳转到完善资料页",
 				"failMsg": "注册失败",
 				"msg": "创建新账户",
 				"username": "用户名",
