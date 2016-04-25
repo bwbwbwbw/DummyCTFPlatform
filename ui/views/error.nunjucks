@@ -4,10 +4,9 @@
   <div class="error-page">
     <h2 class="headline text-yellow" style="margin:0;line-height:1;"> {{ error.status }}</h2>
     <div class="error-content">
-      <h3><i class="fa fa-warning text-yellow"></i> Oops! Something went wrong.</h3>
-      <p>Type: {{ error.name }}</p>
-      <p>Message: {{ error.msg }}</p>
-      <p><a href="mailto:{{ config.reportMail }}">Click here</a> to report this error to us</p>
+      <h3><i class="fa fa-warning text-yellow"></i> {{ __('ui.page.error.title') }}</h3>
+      <p>{{ __('ui.page.error.type', error) }}</p>
+      <p>{{ __('ui.page.error.message', error) }}</p>
     </div>
   </div>
 </section>

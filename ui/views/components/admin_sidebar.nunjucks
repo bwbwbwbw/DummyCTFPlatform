@@ -1,17 +1,11 @@
 <aside class="main-sidebar">
   <section class="sidebar">
     <ul class="sidebar-menu">
-      <li class="header">NAVIGATION</li>
-      <!-- Optionally, you can add icons to the links -->
-      <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
-      <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
-      <li class="treeview">
-        <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span> <i class="fa fa-angle-left pull-right"></i></a>
-        <ul class="treeview-menu">
-          <li><a href="#">Link in level 2</a></li>
-          <li><a href="#">Link in level 2</a></li>
-        </ul>
-      </li>
+      <li><a href="/announcements"><i class="fa fa-rss"></i> <span>{{ __('ui.sidebar.announcements') }}</span></a></li>
+      <li><a href="/contests"><i class="fa fa-flag"></i> <span>{{ __('ui.sidebar.contests') }}</span></a></li>
+      <li class="header">TONGJI CTF 2016</li>
+      <li><a href="/contests/tasks"><i class="fa fa-list-ul"></i> <span>{{ __('ui.sidebar.tasks') }}</span></a></li>
+      <li><a href="/contests/scoreboard"><i class="fa fa-trophy"></i> <span>{{ __('ui.sidebar.scoreboard') }}</span></a></li>
     </ul>
   </section>
 </aside>

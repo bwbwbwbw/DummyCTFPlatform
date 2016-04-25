@@ -7,6 +7,9 @@ misc:
 logger:
   path: logger
 
+i18n:
+  path: i18n
+
 db:
   path: database/mongodb
   inject: ['config', 'logger']

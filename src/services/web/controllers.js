@@ -1,6 +1,7 @@
 import glob from 'glob';
 import Router from 'express-promise-router';
 import escapeHtml from 'escape-html';
+import i18n from 'i18n';
 
 export default (DI, app, logger) => {
 
@@ -12,7 +13,7 @@ export default (DI, app, logger) => {
 
   // Fallback: Generate 404
   app.use((req, res, next) => {
-    const err = new Error('Page not found');
+    const err = new Error(i18n.__('error.generic.404'));
     err.status = 404;
     next(err);
   });
@@ -22,7 +23,7 @@ export default (DI, app, logger) => {
     if (err.code !== 'EBADCSRFTOKEN') {
       return next(err)
     }
-    err = new UserError('Bad CSRF token');
+    err = new UserError(i18n.__('error.generic.csrf'));
     err.status = 403;
     next(err);
   });
@@ -33,7 +34,7 @@ export default (DI, app, logger) => {
       err.status = 500;
     }
     if (err.status === 500) {
-      err.message = `Server internal error: ${err.message}`;
+      err.message = i18n.__('error.generic.500', { err });
     }
     next(err);
   });

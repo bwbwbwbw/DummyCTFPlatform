@@ -1,10 +1,11 @@
-let dialogs, toastr, userService;
+let dialogs, toastr, userService, $translate;
 
 export default class RegisterController {
-  constructor(_dialogs, _toastr, _userService) {
+  constructor(_dialogs, _toastr, _userService, _$translate) {
     dialogs = _dialogs;
     toastr = _toastr;
     userService = _userService;
+    $translate = _$translate;
     this.formDisabled = false;
     this.username = '';
     this.password = '';
@@ -13,20 +14,26 @@ export default class RegisterController {
 
   doRegister() {
     if (this.password !== this.password2) {
-      dialogs.notify('Password mismatch', 'The two passwords you entered is not identical');
+      dialogs.error(
+        $translate.instant('ui.page.register.failMsg'),
+        $translate.instant('ui.page.register.retypeNotMatchMsg')
+      );
       return;
     }
     this.formDisabled = true;
     userService
       .register(this.username, this.password)
       .then(resp => {
-        toastr.info('New user register successfully. You will be redirected soon.');
+        toastr.info($translate.instant('ui.page.register.successMsg'));
         setTimeout(() => window.location = '/', 3000);
       }, err => {
-        dialogs.error('Register failed', err.data.msgHtml);
+        dialogs.error(
+          $translate.instant('ui.page.register.failMsg'),
+          err.data.msgHtml
+        );
         this.formDisabled = false;
       });
   }
 }
 
-RegisterController.$inject = ['dialogs', 'toastr', 'userService'];
+RegisterController.$inject = ['dialogs', 'toastr', 'userService', '$translate'];

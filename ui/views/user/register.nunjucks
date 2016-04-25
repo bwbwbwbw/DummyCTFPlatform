@@ -1,32 +1,32 @@
 {% extends "layout/admin.nunjucks" %}
 {% block admin_content %}
-<div class="register-box" ng-controller="registerController as ctrl">
+<div class="bfc"><div class="register-box" ng-controller="registerController as ctrl">
   <div class="register-logo">
     <a href="/">{{ config.title }}</a>
   </div>
   <div class="register-box-body">
-    <p class="login-box-msg">Create new account</p>
+    <p class="login-box-msg">{{ __('ui.page.register.msg') }}</p>
     <form ng-submit="ctrl.doRegister()">
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="Username" ng-model="ctrl.username" ng-disabled="ctrl.formDisabled" required>
+        <input type="text" class="form-control" placeholder="{{ __('ui.page.register.username') }}" ng-model="ctrl.username" ng-disabled="ctrl.formDisabled" required>
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Password" ng-model="ctrl.password" ng-disabled="ctrl.formDisabled" required>
+        <input type="password" class="form-control" placeholder="{{ __('ui.page.register.password') }}" ng-model="ctrl.password" ng-disabled="ctrl.formDisabled" required>
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Retype Password" ng-model="ctrl.password2" ng-disabled="ctrl.formDisabled" required>
+        <input type="password" class="form-control" placeholder="{{ __('ui.page.register.retypePassword') }}" ng-model="ctrl.password2" ng-disabled="ctrl.formDisabled" required>
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
         <div class="col-xs-4">
-          <button type="submit" class="btn bg-olive btn-block btn-flat" ng-disabled="ctrl.formDisabled">Register</button>
+          <button type="submit" class="btn bg-olive btn-block btn-flat" ng-disabled="ctrl.formDisabled">{{ __('ui.page.register.register') }}</button>
         </div>
       </div>
     </form>
     <br>
-    <p><a href="/user/signin">Already have an account</a></p>
+    <p><a href="/user/signin">{{ __('ui.page.register.signin') }}</a></p>
   </div>
-</div>
+</div></div>
 {% endblock %}

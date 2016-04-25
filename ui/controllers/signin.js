@@ -1,10 +1,11 @@
-let dialogs, toastr, userService;
+let dialogs, toastr, userService, $translate;
 
 export default class SignInController {
-  constructor(_dialogs, _toastr, _userService) {
+  constructor(_dialogs, _toastr, _userService, _$translate) {
     dialogs = _dialogs;
     toastr = _toastr;
     userService = _userService;
+    $translate = _$translate;
     this.formDisabled = false;
     this.username = '';
     this.password = '';
@@ -15,13 +16,16 @@ export default class SignInController {
     userService
       .signIn(this.username, this.password)
       .then(resp => {
-        toastr.info('Sign in successfully. You will be redirected soon.');
+        toastr.info($translate.instant('ui.page.signin.successMsg'));
         setTimeout(() => window.location = '/', 3000);
       }, err => {
-        dialogs.error('Sign in failed', err.data.msgHtml);
+        dialogs.error(
+          $translate.instant('ui.page.signin.failMsg'),
+          err.data.msgHtml
+        );
         this.formDisabled = false;
       });
   }
 }
 
-SignInController.$inject = ['dialogs', 'toastr', 'userService'];
+SignInController.$inject = ['dialogs', 'toastr', 'userService', '$translate'];

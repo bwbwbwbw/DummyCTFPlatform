@@ -1,5 +1,6 @@
 import randomstring from 'randomstring';
 import crypto from 'crypto';
+import i18n from 'i18n';
 
 export default (DI, db) => {
 
@@ -39,7 +40,7 @@ export default (DI, db) => {
     const usernameNormalized = userService.normalizeUserNameSync(username);
     const user = await User.findOne({ username_std: usernameNormalized });
     if (user === null && throwWhenNotFound) {
-      throw new UserError('Could not find the specified user');
+      throw new UserError(i18n.__('error.username.notfound'));
     }
     return user;
   };
@@ -51,7 +52,7 @@ export default (DI, db) => {
   userService.getUserObjectById = async (id, throwWhenNotFound = true) => {
     const user = await User.findOne({ id });
     if (user === null && throwWhenNotFound) {
-      throw new UserError('Could not find the specified user');
+      throw new UserError(i18n.__('error.username.notfound'));
     }
     return user;
   };
@@ -62,7 +63,7 @@ export default (DI, db) => {
    */
   userService.createUser = async (username, password, roles) => {
     if (await userService.getUserObjectByUsername(username, false) !== null) {
-      throw new UserError('Username has been taken');
+      throw new UserError(i18n.__('error.username.taken'));
     }
     const salt = userService.makeSaltSync();
     const hash = userService.hashPasswordSync(password, salt);
@@ -81,7 +82,7 @@ export default (DI, db) => {
     } catch (e) {
       if (e.name === 'MongoError' && e.code === 11000) {
         // duplicate key error
-        throw new UserError('Username has been taken');
+        throw new UserError(i18n.__('error.username.taken'));
       } else {
         throw e;
       }
@@ -96,10 +97,10 @@ export default (DI, db) => {
   userService.authenticate = async (username, password, allowDisabled = false) => {
     const user = await userService.getUserObjectByUsername(username);
     if (userService.hashPasswordSync(password, user.salt) !== user.hash) {
-      throw new UserError('Password mismatch');
+      throw new UserError(i18n.__('error.password.mismatch'));
     }
     if (user.disabled && !allowDisabled) {
-      throw new UserError('User is disabled');
+      throw new UserError(i18n.__('error.user.disabled'));
     }
     return user;
   };
@@ -159,18 +160,18 @@ export default (DI, db) => {
     req.checkBody({
       username: {
         notEmpty: true,
-        errorMessage: 'Required',
+        errorMessage: i18n.__('error.validation.required'),
         isLength: {
           options: [{ min: 2, max: 15 }],
-          errorMessage: 'Must be between 2 and 15 chars long',
+          errorMessage: i18n.__('error.username.validation.length', { min: 2, max: 15 }),
         },
       },
       password: {
         notEmpty: true,
-        errorMessage: 'Required',
+        errorMessage: i18n.__('error.validation.required'),
         isLength: {
           options: [{ min: 5 }],
-          errorMessage: 'Must be longer than 5 chars',
+          errorMessage: i18n.__('error.password.validation.length', { min: 5 }),
         },
       },
     });

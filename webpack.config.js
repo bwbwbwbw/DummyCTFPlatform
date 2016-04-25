@@ -52,6 +52,12 @@ var config = {
         },
       },
       {
+        // JSON files
+        test: /\.json$/,
+        exclude: /node_modules\//,
+        loader: 'json'
+      },
+      {
         // vendors stylesheets
         test: /\.css$/,
         include: /node_modules\//,

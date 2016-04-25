@@ -1,0 +1,80 @@
+{
+	"error": {
+		"username": {
+			"notfound": "用户名不存在",
+			"taken": "用户名已被使用",
+			"validation": {
+				"length": "长度至少为 {{ min }} 个字符，至多为 {{ max }} 个字符"
+			}
+		},
+		"password": {
+			"mismatch": "用户名或密码错误",
+			"validation": {
+				"length": "长度至少为 {{ min }} 个字符"
+			}
+		},
+		"user": {
+			"disabled": "用户已被禁用"
+		},
+		"validation": {
+			"field": "无效字段",
+			"required": "必填"
+		},
+		"generic": {
+			"404": "该页未找到",
+			"500": "服务器内部错误: {{ message }}",
+			"csrf": "表单验证失败"
+		}
+	},
+	"ui": {
+		"nav": {
+			"togglenav": "切换导航",
+			"signin": "登录",
+			"register": "注册",
+			"profile": "个人资料",
+			"signout": "登出"
+		},
+		"sidebar": {
+			"announcements": "公告",
+			"contests": "比赛",
+			"tasks": "任务",
+			"scoreboard": "积分榜"
+		},
+		"page": {
+			"signout": {
+				"successMsg": "您已成功登出",
+				"failMsg": "登出失败: {{ msg }}"
+			},
+			"signin": {
+				"successMsg": "登录成功，您即将被跳转到首页",
+				"failMsg": "登录失败",
+				"msg": "登录后才能参加比赛",
+				"username": "用户名",
+				"password": "密码",
+				"signin": "登录",
+				"resetpass": "忘记密码：重设账户密码",
+				"register": "没有账户：注册新账户"
+			},
+			"error": {
+				"title": "似乎发生了错误 :(",
+				"type": "类型: {{ name }}",
+				"message": "消息: {{ msg }}"
+			},
+			"register": {
+				"retypeNotMatchMsg": "您两次输入的密码不一致",
+				"successMsg": "注册用户成功，您即将被跳转到完善资料页",
+				"failMsg": "注册失败",
+				"msg": "创建新账户",
+				"username": "用户名",
+				"password": "密码",
+				"retypePassword": "再次输入密码",
+				"register": "注册",
+				"signin": "已有账户：登录"
+			}
+		}
+	},
+	"DIALOGS_OK": "确定",
+	"DIALOGS_YES": "是",
+	"DIALOGS_NO": "否",
+	"DIALOGS_CLOSE": "关闭"
+}

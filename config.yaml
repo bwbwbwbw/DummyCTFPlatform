@@ -2,7 +2,6 @@
 
 base:
   title: Dummy CTF
-  reportMail: dummy@dummy.com
   db: mongodb://localhost/ctf
   secret: your_secret
   cspReportUrl: /csp_violation
