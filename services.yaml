@@ -49,9 +49,6 @@ web.templateEngine:
 # ========================
 # Business Services
 
-miscService:
-  path: business/misc
-
 challengeService:
   path: business/challenge
   inject: ['db']

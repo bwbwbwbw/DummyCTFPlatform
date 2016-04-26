@@ -1,8 +1,6 @@
-export default (DI, db) => {
+const libRequestChecker = {
 
-  const miscService = {};
-
-  miscService.enforceRole = (roles) => {
+  enforceRole: (roles) => {
     return (req, res, next) => {
       if (roles.length === 0) {
         next();
@@ -23,17 +21,17 @@ export default (DI, db) => {
         }
       }
     };
-  };
+  },
 
-  miscService.enforceCorrectBody = (req, res, next) => {
+  raiseValidationErrors: (req, res, next) => {
     const errors = req.validationErrors();
     if (errors) {
       next(new ValidationError(errors));
     } else {
       next();
     }
-  };
-
-  return miscService;
+  },
 
 };
+
+export default libRequestChecker;

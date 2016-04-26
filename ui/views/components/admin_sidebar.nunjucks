@@ -10,9 +10,10 @@
       {% endif %}
       {% if req.session.user and req.session.user|isContester %}
       <li class="header">{{ __('ui.sidebar.manage.header') }}</li>
-      <li><a href="/manage/announcements"><i class="fa fa-wrench"></i> <span>{{ __('ui.sidebar.manage.announcements') }}</span></a></li>
+      <li><a ui-sref="manage"><i class="fa fa-tachometer"></i> <span>{{ __('ui.sidebar.manage.dashboard') }}</span></a></li>
+      <li><a ui-sref="manage_announcement"><i class="fa fa-wrench"></i> <span>{{ __('ui.sidebar.manage.announcements') }}</span></a></li>
       <li><a ui-sref="manage_challenge"><i class="fa fa-wrench"></i> <span>{{ __('ui.sidebar.manage.tasks') }}</span></a></li>
-      <li><a href="/manage/contests"><i class="fa fa-wrench"></i> <span>{{ __('ui.sidebar.manage.contests') }}</span></a></li>
+      <li><a ui-sref="manage_contest"><i class="fa fa-wrench"></i> <span>{{ __('ui.sidebar.manage.contests') }}</span></a></li>
       {% endif %}
     </ul>
   </section>

@@ -1,3 +1,4 @@
+import libObjectId from 'libs/objectId';
 import bcrypt from 'bcrypt-as-promised';
 import i18n from 'i18n';
 
@@ -33,6 +34,13 @@ export default (DI, db) => {
    * @return {User} The mongoose user object
    */
   userService.getUserObjectById = async (id, throwWhenNotFound = true) => {
+    if (!libObjectId.isValid(id)) {
+      if (throwWhenNotFound) {
+        throw new UserError(i18n.__('error.username.notfound'));
+      } else {
+        return null;
+      }
+    }
     const user = await User.findOne({ id });
     if (user === null && throwWhenNotFound) {
       throw new UserError(i18n.__('error.username.notfound'));

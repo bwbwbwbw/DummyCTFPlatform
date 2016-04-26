@@ -1,3 +1,5 @@
+import libObjectId from 'libs/objectId';
+import mongoose from 'mongoose';
 import bcrypt from 'bcrypt-as-promised';
 import randomstring from 'randomstring';
 import i18n from 'i18n';
@@ -8,6 +10,8 @@ export default (DI, db) => {
   const Challenge = db.Challenge;
 
   const challengeService = {};
+
+  const updateFields = ['name', 'category', 'difficulty', 'description'];
 
   /**
    * Get a list of all challenges
@@ -42,6 +46,13 @@ export default (DI, db) => {
    * @return {Challange} The challenge object
    */
   challengeService.getChallengeObjectById = async (id, throwWhenNotFound = true) => {
+    if (!libObjectId.isValid(id)) {
+      if (throwWhenNotFound) {
+        throw new UserError(i18n.__('error.challenge.notfound'));
+      } else {
+        return null;
+      }
+    }
     const challenge = await Challenge.findOne({ _id: id }, { flag: 0 });
     if (challenge === null && throwWhenNotFound) {
       throw new UserError(i18n.__('error.challenge.notfound'));
@@ -55,7 +66,7 @@ export default (DI, db) => {
    * @return {Object} New challenge object
    */
   challengeService.createChallenge = async (props) => {
-    const obj = _.omit(props, ['_id', 'id']);
+    const obj = _.pick(props, updateFields);
     _.assign(obj, await challengeService.makeFlagHashAndThumb(`ctf{${randomstring.generate()}}`));
     const challenge = new Challenge(obj);
     await challenge.save();
@@ -71,7 +82,7 @@ export default (DI, db) => {
       return null;
     }
     const challenge = await challengeService.getChallengeObjectById(id);
-    const updater = _.omit(props, ['flag', 'flagThumb', '_id', 'id']);
+    const updater = _.pick(props, updateFields);
     _.assign(challenge, updater);
     await challenge.save();
     return challenge;

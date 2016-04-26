@@ -45,6 +45,7 @@
 			"scoreboard": "积分榜",
 			"manage": {
 				"header": "管理",
+				"dashboard": "系统状态",
 				"announcements": "公告",
 				"tasks": "任务池",
 				"contests": "比赛"
