@@ -4,7 +4,7 @@ const ChallengeSchema = new Schema({
   name: String,
   flag: String,   // salt+hash
   flagThumb: String, // part of the original flag, for searching purpose
-  category: String,
+  category: { type: String, lowercase: true },
   difficulty: Number,
   description: String,
 });

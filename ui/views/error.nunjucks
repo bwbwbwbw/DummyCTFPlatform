@@ -1,5 +1,6 @@
-{% extends "layout/admin.nunjucks" %}
-{% block admin_content %}
+{% extends "layout/minimal.nunjucks" %}
+{% set bodyClass = 'error-page' %}
+{% block minimal_content %}
 <section class="content">
   <div class="error-page">
     <h2 class="headline text-yellow" style="margin:0;line-height:1;"> {{ error.status }}</h2>

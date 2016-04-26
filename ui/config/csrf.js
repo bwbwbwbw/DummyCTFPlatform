@@ -1,5 +1,5 @@
 export default function csrf ($httpProvider) {
-  $httpProvider.defaults.headers.post['x-csrf-token'] = csrfToken;
+  $httpProvider.interceptors.push('CSRFInjector');
 };
 
 csrf.$inject = ['$httpProvider'];

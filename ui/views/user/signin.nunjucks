@@ -1,6 +1,7 @@
-{% extends "layout/admin.nunjucks" %}
-{% block admin_content %}
-<div class="bfc"><div class="login-box" ng-controller="signInController as ctrl">
+{% extends "layout/minimal.nunjucks" %}
+{% set bodyClass = 'login-page' %}
+{% block minimal_content %}
+<div class="bfc" ng-app="dummyctf.userbase"><div class="login-box" ng-controller="signInController as ctrl">
   <div class="login-logo">
     <a href="/">{{ config.title }}</a>
   </div>

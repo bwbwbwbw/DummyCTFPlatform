@@ -1,11 +1,12 @@
-let dialogs, toastr, userService, $translate;
+let dialogs, toastr, User, $translate;
 
 export default class SignInController {
-  constructor(_dialogs, _toastr, _userService, _$translate) {
+  constructor(_dialogs, _toastr, _User, _$translate) {
     dialogs = _dialogs;
     toastr = _toastr;
-    userService = _userService;
+    User = _User;
     $translate = _$translate;
+
     this.formDisabled = false;
     this.username = '';
     this.password = '';
@@ -13,7 +14,7 @@ export default class SignInController {
 
   doSignIn() {
     this.formDisabled = true;
-    userService
+    User
       .signIn(this.username, this.password)
       .then(resp => {
         window.location = '/';
@@ -27,4 +28,4 @@ export default class SignInController {
   }
 }
 
-SignInController.$inject = ['dialogs', 'toastr', 'userService', '$translate'];
+SignInController.$inject = ['dialogs', 'toastr', 'User', '$translate'];

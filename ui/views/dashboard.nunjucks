@@ -1,0 +1,2 @@
+{% extends "layout/admin.nunjucks" %}
+{% block admin_content %}<div ui-view></div>{% endblock %}

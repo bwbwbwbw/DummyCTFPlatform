@@ -2,7 +2,7 @@ import angular from 'angular';
 
 let $http;
 
-class UserService {
+export default class User {
   constructor(_$http) {
     $http = _$http;
   }
@@ -27,8 +27,4 @@ class UserService {
 
 }
 
-UserService.$inject = ['$http'];
-
-export default angular.module('dummyctf.services', [])
-  .service('userService', UserService)
-  .name;
+User.$inject = ['$http'];

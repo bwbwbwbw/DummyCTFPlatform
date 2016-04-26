@@ -1,14 +1,14 @@
-let toastr, userService, $translate;
+let toastr, User, $translate;
 
 export default class RegisterController {
-  constructor(_toastr, _userService, _$translate) {
+  constructor(_toastr, _User, _$translate) {
     toastr = _toastr;
-    userService = _userService;
+    User = _User;
     $translate = _$translate;
   }
 
   doLogout() {
-    userService
+    User
       .logout()
       .then(resp => {
         location.reload();
@@ -18,4 +18,4 @@ export default class RegisterController {
   }
 }
 
-RegisterController.$inject = ['toastr', 'userService', '$translate'];
+RegisterController.$inject = ['toastr', 'User', '$translate'];

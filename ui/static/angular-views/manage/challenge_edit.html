@@ -1,0 +1,49 @@
+<section class="content-header">
+  <h1>
+    Edit Challenge
+  </h1>
+  <ol class="breadcrumb">
+    <li><a ui-sref="manage"><i class="fa fa-wrench"></i> Manage</a></li>
+    <li><a ui-sref="manage_challenge">Challenges</a></li>
+    <li class="active">Edit</li>
+  </ol>
+</section>
+
+<section class="content">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="box box-info">
+        <form ng-submit="ctrl.doUpdate()">
+          <div class="box-header with-border">
+            <h3 class="box-title">{{ 'ui.page.manage.challenge.edit.basic.title' | translate }}</h3>
+          </div>
+          <div class="box-body" ng-include="'/static/angular-views/manage/challenge_form.html'"></div>
+          <div class="box-footer">
+            <button type="submit" class="btn btn-info" ng-disabled="ctrl.basicFormDisabled">{{ 'ui.page.manage.challenge.edit.basic.submit' | translate }}</button>
+            <a class="btn btn-default pull-right" ui-sref="manage_challenge">{{ 'ui.page.manage.challenge.edit.basic.cancel' | translate }}</a>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="box box-warning">
+        <form ng-submit="ctrl.doSetFlag()">
+          <div class="box-header with-border">
+            <h3 class="box-title">{{ 'ui.page.manage.challenge.edit.flag.title' | translate }}</h3>
+          </div>
+          <div class="box-body">
+            <div class="form-group">
+              <label class="control-label">{{ 'ui.page.manage.challenge.edit.flag.flag' | translate }}</label>
+              <div>
+                <input type="text" class="form-control" placeholder="{{ 'ui.page.manage.challenge.edit.flag.placeholder' | translate:{flag: ctrl.challenge.flagThumb} }}" ng-model="ctrl.challenge.flag" ng-disabled="ctrl.setFlagFormDisabled">
+              </div>
+            </div>
+          </div>
+          <div class="box-footer">
+            <button type="submit" class="btn btn-warning" ng-disabled="ctrl.setFlagFormDisabled">{{ 'ui.page.manage.challenge.edit.flag.submit' | translate }}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

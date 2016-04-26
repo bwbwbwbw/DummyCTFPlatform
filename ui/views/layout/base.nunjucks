@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="/dummyctf.css">
 <script>window.csrfToken = {{ csrfToken|json|safe }};</script>
 </head>
-<body class="hold-transition skin-red-light fixed sidebar-mini">
+<body class="{{ bodyClass }}">
 {% block body %}{% endblock %}
 <script src="/vendors.js"></script>
 <script src="/dummyctf.js"></script>

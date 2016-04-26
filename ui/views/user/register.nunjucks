@@ -1,6 +1,7 @@
-{% extends "layout/admin.nunjucks" %}
-{% block admin_content %}
-<div class="bfc"><div class="register-box" ng-controller="registerController as ctrl">
+{% extends "layout/minimal.nunjucks" %}
+{% set bodyClass = 'register-page' %}
+{% block minimal_content %}
+<div class="bfc" ng-app="dummyctf.userbase"><div class="register-box" ng-controller="registerController as ctrl">
   <div class="register-logo">
     <a href="/">{{ config.title }}</a>
   </div>

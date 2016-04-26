@@ -1,0 +1,4 @@
+{% extends "layout/base.nunjucks" %}
+{% block body %}
+{% block minimal_content %}{% endblock %}
+{% endblock %}

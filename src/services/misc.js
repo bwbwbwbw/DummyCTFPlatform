@@ -4,6 +4,11 @@ import i18n from 'i18n';
 
 export default (DI) => {
 
+  global.PrivilegeError = errorFactory('PrivilegeError', function () {
+    this.status = 403;
+    this.message = i18n.__('error.generic.privilege');
+  });
+
   global.UserError = errorFactory('UserError', function () {
     this.status = 400;
   });

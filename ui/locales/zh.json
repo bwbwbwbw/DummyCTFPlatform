@@ -16,6 +16,9 @@
 		"user": {
 			"disabled": "用户已被禁用"
 		},
+		"challenge": {
+			"notfound": "任务未找到"
+		},
 		"validation": {
 			"field": "无效字段",
 			"required": "必填"
@@ -23,7 +26,8 @@
 		"generic": {
 			"404": "该页未找到",
 			"500": "服务器内部错误: {{ message }}",
-			"csrf": "表单验证失败"
+			"csrf": "表单验证失败",
+			"privilege": "没有权限执行此操作"
 		}
 	},
 	"ui": {
@@ -73,6 +77,43 @@
 				"retypePassword": "再次输入密码",
 				"register": "注册",
 				"signin": "已有账户：登录"
+			},
+			"manage": {
+				"challenge": {
+					"list": {
+						"failMsg": "查询任务列表失败"
+					},
+					"create": {
+						"failMsg": "创建任务失败",
+						"successMsg": "创新任务成功",
+						"submit": "创建任务",
+						"cancel": "取消"
+					},
+					"edit": {
+						"load": {
+							"failMsg": "加载任务信息失败"
+						},
+						"basic": {
+							"title": "基本信息",
+							"name": "名称",
+							"category": "分类名称",
+							"difficulty": "难度",
+							"description": "描述",
+							"submit": "更新信息",
+							"cancel": "取消",
+							"successMsg": "任务更新成功",
+							"failMsg": "任务更新失败"
+						},
+						"flag": {
+							"title": "Flag",
+							"flag": "Flag",
+							"placeholder": "当前 Flag: {{ flag }}",
+							"successMsg": "Flag 更新成功",
+							"failMsg": "Flag 更新失败",
+							"submit": "更新 Flag"
+						}
+					}
+				}
 			}
 		}
 	},

@@ -34,7 +34,7 @@ export default (DI, app, logger) => {
       err.status = 500;
     }
     if (err.status === 500) {
-      err.message = i18n.__('error.generic.500', { err });
+      err.message = i18n.__('error.generic.500', { message: err.message });
     }
     next(err);
   });
