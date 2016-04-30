@@ -4,21 +4,22 @@ const libRequestChecker = {
     return (req, res, next) => {
       if (roles.length === 0) {
         next();
+        return;
+      }
+      if (!req.session.user) {
+        next(new PrivilegeError());
+        return;
+      }
+      let hasAllRole = true;
+      roles.forEach(role => {
+        if (req.session.user.roles.indexOf(role) === -1) {
+          hasAllRole = false;
+        }
+      });
+      if (!hasAllRole) {
+        next(new PrivilegeError());
       } else {
-        if (!req.session.user) {
-          next(new PrivilegeError());
-        }
-        let hasAllRole = true;
-        roles.forEach(role => {
-          if (req.session.user.roles.indexOf(role) === -1) {
-            hasAllRole = false;
-          }
-        });
-        if (!hasAllRole) {
-          next(new PrivilegeError());
-        } else {
-          next();
-        }
+        next();
       }
     };
   },

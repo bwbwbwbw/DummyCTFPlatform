@@ -2,7 +2,7 @@ import libObjectId from 'libs/objectId';
 import bcrypt from 'bcrypt-as-promised';
 import i18n from 'i18n';
 
-export default (DI, db) => {
+export default (DI, eventBus, db) => {
 
   const User = db.User;
 
@@ -22,7 +22,7 @@ export default (DI, db) => {
    */
   userService.getUserObjectByUsername = async (username, throwWhenNotFound = true) => {
     const usernameNormalized = userService.normalizeUserNameSync(username);
-    const user = await User.findOne({ username_std: usernameNormalized });
+    const user = await User.findOne({ username_std: usernameNormalized, deleted: false });
     if (user === null && throwWhenNotFound) {
       throw new UserError(i18n.__('error.username.notfound'));
     }
@@ -41,7 +41,7 @@ export default (DI, db) => {
         return null;
       }
     }
-    const user = await User.findOne({ id });
+    const user = await User.findOne({ _id: id, deleted: false });
     if (user === null && throwWhenNotFound) {
       throw new UserError(i18n.__('error.username.notfound'));
     }
@@ -63,6 +63,7 @@ export default (DI, db) => {
       roles,
       disabled: false,
       validated: false,
+      deleted: false,
       profile: {},
     });
     try {
@@ -138,8 +139,7 @@ export default (DI, db) => {
    */
   userService.updateProfile = async (username, profile) => {
     if (profile !== Object(profile)) {
-      // not an object
-      return null;
+      throw new Error('Expect parameter "profile" to be an object');
     }
     const user = await userService.getUserObjectByUsername(username);
     user.profile = profile;

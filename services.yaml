@@ -10,6 +10,9 @@ logger:
 i18n:
   path: i18n
 
+eventBus:
+  path: eventbus
+
 db:
   path: database/mongodb
   inject: ['config', 'logger']
@@ -49,13 +52,17 @@ web.templateEngine:
 # ========================
 # Business Services
 
-challengeService:
-  path: business/challenge
-  inject: ['db']
-
 userService:
   path: business/user
-  inject: ['db']
+  inject: ['eventBus', 'db']
+
+challengeService:
+  path: business/challenge
+  inject: ['eventBus', 'db']
+
+contestService:
+  path: business/contest
+  inject: ['eventBus', 'db']
 
 # ========================
 # Presentation Layer

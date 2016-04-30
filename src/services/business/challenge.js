@@ -1,11 +1,10 @@
 import libObjectId from 'libs/objectId';
-import mongoose from 'mongoose';
 import bcrypt from 'bcrypt-as-promised';
 import randomstring from 'randomstring';
 import i18n from 'i18n';
 import _ from 'lodash';
 
-export default (DI, db) => {
+export default (DI, eventBus, db) => {
 
   const Challenge = db.Challenge;
 
@@ -18,7 +17,7 @@ export default (DI, db) => {
    * @return {[Challenge]} Challenge list
    */
   challengeService.getChallenges = async () => {
-    return await Challenge.find({}, {
+    return await Challenge.find({ deleted: false }, {
       flag: 0,
       description: 0
     }).sort({ category: 1, name: 1 });
@@ -53,7 +52,7 @@ export default (DI, db) => {
         return null;
       }
     }
-    const challenge = await Challenge.findOne({ _id: id }, { flag: 0 });
+    const challenge = await Challenge.findOne({ _id: id, deleted: false }, { flag: 0 });
     if (challenge === null && throwWhenNotFound) {
       throw new UserError(i18n.__('error.challenge.notfound'));
     }
@@ -66,10 +65,17 @@ export default (DI, db) => {
    * @return {Object} New challenge object
    */
   challengeService.createChallenge = async (props) => {
-    const obj = _.pick(props, updateFields);
+    if (props !== Object(props)) {
+      throw new Error('Expect parameter "props" to be an object');
+    }
+    const obj = {
+      deleted: false,
+      ..._.pick(props, updateFields),
+    };
     _.assign(obj, await challengeService.makeFlagHashAndThumb(`ctf{${randomstring.generate()}}`));
     const challenge = new Challenge(obj);
     await challenge.save();
+    eventBus.emit('challenge.create', challenge);
     return challenge;
   };
 
@@ -79,12 +85,13 @@ export default (DI, db) => {
    */
   challengeService.updateChallenge = async (id, props) => {
     if (props !== Object(props)) {
-      return null;
+      throw new Error('Expect parameter "props" to be an object');
     }
     const challenge = await challengeService.getChallengeObjectById(id);
     const updater = _.pick(props, updateFields);
     _.assign(challenge, updater);
     await challenge.save();
+    eventBus.emit('challenge.update', challenge);
     return challenge;
   };
 
@@ -100,23 +107,8 @@ export default (DI, db) => {
   };
 
   challengeService.checkBodyForCreateOrEdit = (req, res, next) => {
-    req.checkBody({
-      name: {
-        notEmpty: true,
-        errorMessage: i18n.__('error.validation.required'),
-      },
-      category: {
-        notEmpty: true,
-        errorMessage: i18n.__('error.validation.required'),
-      },
-      difficulty: {
-        notEmpty: true,
-        errorMessage: i18n.__('error.validation.required'),
-      },
-      description: {
-        notEmpty: true,
-        errorMessage: i18n.__('error.validation.required'),
-      },
+    updateFields.forEach(field => {
+      req.checkBody(field, i18n.__('error.validation.required')).notEmpty();
     });
     next();
   };

@@ -6,6 +6,9 @@ import manageController from 'controllers/dashboard/manage';
 import manageChallengeListController from 'controllers/dashboard/manage/challengeList';
 import manageChallengeCreateController from 'controllers/dashboard/manage/challengeCreate';
 import manageChallengeEditController from 'controllers/dashboard/manage/challengeEdit';
+import manageContestListController from 'controllers/dashboard/manage/contestList';
+import manageContestCreateController from 'controllers/dashboard/manage/contestCreate';
+import manageContestEditController from 'controllers/dashboard/manage/contestEdit';
 
 const app = angular
   .module('dummyctf.dashboard', ['dummyctf.shared'])
@@ -15,6 +18,9 @@ const app = angular
   .controller('manageChallengeListController', manageChallengeListController)
   .controller('manageChallengeCreateController', manageChallengeCreateController)
   .controller('manageChallengeEditController', manageChallengeEditController)
+  .controller('manageContestListController', manageContestListController)
+  .controller('manageContestCreateController', manageContestCreateController)
+  .controller('manageContestEditController', manageContestEditController)
   ;
 
 export default app;

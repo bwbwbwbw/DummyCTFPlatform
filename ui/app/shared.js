@@ -1,3 +1,5 @@
+import 'angular-datepicker/dist/index.min.css';
+
 import angular from 'angular';
 import angularResource from 'angular-resource';
 import angularTranslate from 'angular-translate';
@@ -7,6 +9,7 @@ import angularUiRouter from 'angular-ui-router';
 import angularUiBootstrap from 'angular-ui-bootstrap';
 import angularDialog from 'angular-dialog-service';
 import angularToastr from 'angular-toastr';
+import angularDatePicker from 'angular-datepicker/index.js';
 
 import configToastr from 'config/toastr';
 import configXHR from 'config/xhr';
@@ -23,6 +26,7 @@ const app = angular
     angularUiBootstrap,
     angularDialog,
     angularToastr,
+    angularDatePicker,
     'dummyctf.services',
   ])
   .config(configToastr)

@@ -19,6 +19,27 @@
 		"challenge": {
 			"notfound": "任务未找到"
 		},
+		"contest": {
+			"notfound": "比赛未找到",
+			"regBegin": {
+				"greaterThanEnd": "报名开始时间必须小于报名结束时间"
+			},
+			"regEnd": {
+				"greaterThanEnd": "报名结束时间必须小于比赛结束时间"
+			},
+			"begin": {
+				"greaterThanEnd": "比赛开始时间必须小于比赛结束时间",
+				"lessThanNow": "比赛开始时间必须大于当前时间"
+			},
+			"registration": {
+				"notReady": "该比赛还没到报名时间",
+				"passed": "该比赛报名已结束",
+				"registered": "您已经报名参加该比赛"
+			}
+		},
+		"contestEvent": {
+			"notfound": "比赛事件未找到"
+		},
 		"validation": {
 			"field": "无效字段",
 			"required": "必填"
@@ -28,6 +49,15 @@
 			"500": "服务器内部错误: {{ message }}",
 			"csrf": "表单验证失败",
 			"privilege": "没有权限执行此操作"
+		}
+	},
+	"event": {
+		"contest": {
+			"announcement": "{{ message }}",
+			"challenge": {
+				"open": "已开放新题目「{{ name }}」。",
+				"updated": "题目「{{ name }}」的内容已调整。"
+			}
 		}
 	},
 	"ui": {
@@ -113,6 +143,24 @@
 							"failMsg": "Flag 更新失败",
 							"submit": "更新 Flag"
 						}
+					}
+				},
+				"contest": {
+					"edit": {
+						"basic": {
+							"title": "基本信息",
+							"name": "名称",
+							"begin": "开始时间",
+							"end": "结束时间",
+							"regBegin": "报名开始时间",
+							"regEnd": "报名结束时间"
+						}
+					},
+					"create": {
+						"failMsg": "创建比赛失败",
+						"successMsg": "创建比赛成功",
+						"submit": "创建比赛",
+						"cancel": "取消"
 					}
 				}
 			}

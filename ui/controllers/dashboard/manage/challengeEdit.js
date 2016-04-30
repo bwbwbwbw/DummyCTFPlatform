@@ -29,7 +29,7 @@ export default class ChallengeEditController {
     Challenge
       .setFlag(this.challenge._id, this.challenge.flag)
       .then(data => {
-        toastr.success('ui.page.manage.challenge.edit.flag.successMsg');
+        toastr.success($translate.instant('ui.page.manage.challenge.edit.flag.successMsg'));
         this.challenge.flag = '';
         this.challenge.flagThumb = data.data.flagThumb;
       })
@@ -47,7 +47,7 @@ export default class ChallengeEditController {
     this.challenge
       .$update()
       .then(data => {
-        toastr.success('ui.page.manage.challenge.edit.basic.successMsg');
+        toastr.success($translate.instant('ui.page.manage.challenge.edit.basic.successMsg'));
         $state.go('manage_challenge');
       })
       .catch(err => {

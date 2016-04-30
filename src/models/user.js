@@ -1,6 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 
 const UserSchema = new Schema({
+  deleted: { type: Boolean, default: false },
   username: String,
   username_std: String, // normalized user name
   hash: String,

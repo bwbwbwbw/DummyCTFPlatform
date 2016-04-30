@@ -3,7 +3,6 @@ import Router from 'express-promise-router';
 
 export default (DI, parentRouter, app) => {
 
-  const miscService = DI.get('miscService');
   const userService = DI.get('userService');
 
   const router = Router();

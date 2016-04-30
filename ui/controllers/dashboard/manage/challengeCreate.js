@@ -21,8 +21,8 @@ export default class ChallengeCreateController {
     this.challenge
       .$save()
       .then(data => {
-        toastr.success('ui.page.manage.challenge.create.successMsg');
-        $state.go('manage.challenge');
+        toastr.success($translate.instant('ui.page.manage.challenge.create.successMsg'));
+        $state.go('manage_challenge');
       })
       .catch(err => {
         dialogs.error(
