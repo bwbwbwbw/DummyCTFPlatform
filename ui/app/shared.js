@@ -10,11 +10,13 @@ import angularUiBootstrap from 'angular-ui-bootstrap';
 import angularDialog from 'angular-dialog-service';
 import angularToastr from 'angular-toastr';
 import angularDatePicker from 'angular-datepicker/index.js';
+import textAngular from 'textangular';
 
 import configToastr from 'config/toastr';
 import configXHR from 'config/xhr';
 import configCSRF from 'config/csrf';
 import configTranslation from 'config/translation';
+import configTextAngular from 'config/textAngular';
 
 const app = angular
   .module('dummyctf.shared', [
@@ -27,12 +29,14 @@ const app = angular
     angularDialog,
     angularToastr,
     angularDatePicker,
+    textAngular,
     'dummyctf.services',
   ])
   .config(configToastr)
   .config(configXHR)
   .config(configCSRF)
   .config(configTranslation)
+  .config(configTextAngular)
   ;
 
 export default app;

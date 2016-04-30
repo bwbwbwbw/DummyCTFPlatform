@@ -10,6 +10,7 @@ import 'angular-toastr/dist/angular-toastr.min.css';
 
 import 'components/typography.styl';
 import 'components/misc.styl';
+import 'components/taeditor.styl';
 import 'components/login.styl';
 
 import appServices from 'app/services';
