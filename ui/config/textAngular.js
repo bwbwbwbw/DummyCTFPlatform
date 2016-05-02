@@ -4,10 +4,10 @@ export default function textAngular ($provide) {
     taOptions.toolbar = [
         ['p', 'pre', 'quote'],
         ['bold', 'italics', 'underline', 'ul', 'ol'],
-        ['html', 'insertLink']
+        ['html', 'insertLink'],
     ];
     return taOptions;
   }]);
-};
+}
 
 textAngular.$inject = ['$provide'];

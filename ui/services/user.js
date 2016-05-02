@@ -1,30 +1,32 @@
 import angular from 'angular';
+import ServiceInjector from 'utils/ServiceInjector';
 
-let $http;
-
-export default class User {
-  constructor(_$http) {
-    $http = _$http;
+export default class Service extends ServiceInjector {
+  constructor(...args) {
+    super(...args);
   }
 
   register(username, password) {
-    return $http.post('/api/user/register', {
+    return this.$http.post('/api/user/register', {
       username,
       password,
     });
   }
 
   signIn(username, password) {
-    return $http.post('/api/user/signin', {
+    return this.$http.post('/api/user/signin', {
       username,
       password,
     });
   }
 
   logout() {
-    return $http.post('/api/user/logout');
+    return this.$http.post('/api/user/logout');
   }
-
 }
 
-User.$inject = ['$http'];
+Service.$inject = ['$http'];
+
+angular
+  .module('dummyctf.services')
+  .service('User', Service);

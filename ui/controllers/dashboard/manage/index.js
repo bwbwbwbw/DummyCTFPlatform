@@ -1,4 +1,11 @@
-export default class ManageController {
+import angular from 'angular';
+import ServiceInjector from 'utils/ServiceInjector';
+
+export default class Controller extends ServiceInjector {
 }
 
-ManageController.$inject = [];
+Controller.$inject = [];
+
+angular
+  .module('dummyctf.dashboard')
+  .controller('manageController', Controller);

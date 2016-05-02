@@ -1,42 +1,37 @@
-let dialogs, toastr, $translate, Challenge, $state, $stateParams;
+import angular from 'angular';
+import ServiceInjector from 'utils/ServiceInjector';
 
-export default class ChallengeEditController {
-  constructor(_dialogs, _toastr, _$translate, _$state, _$stateParams, _Challenge) {
-    dialogs = _dialogs;
-    toastr = _toastr;
-    $translate = _$translate;
-    $state = _$state;
-    $stateParams = _$stateParams;
-    Challenge = _Challenge;
-
+export default class Controller extends ServiceInjector {
+  constructor(...args) {
+    super(...args);
     this.setFlagFormDisabled = false;
     this.load();
   }
 
   load() {
-    this.challenge = Challenge.get({ id: $stateParams.id });
+    this.challenge = this.Challenge.get({ id: this.$stateParams.id });
     this.challenge.$promise
-      .catch(err => {
-        dialogs.error(
-          $translate.instant('ui.page.manage.challenge.edit.load.failMsg'),
-          err.data.msgHtml
+      .catch(resp => {
+        this.dialogs.error(
+          this.$translate.instant('ui.page.manage.challenge.edit.load.failMsg'),
+          resp.data.msgHtml
         );
       });
   }
 
   doSetFlag() {
     this.setFlagFormDisabled = true;
-    Challenge
+    this.Challenge
       .setFlag(this.challenge._id, this.challenge.flag)
-      .then(data => {
-        toastr.success($translate.instant('ui.page.manage.challenge.edit.flag.successMsg'));
+      .then(resp => {
+        this.toastr.success(this.$translate.instant('ui.page.manage.challenge.edit.flag.successMsg'));
         this.challenge.flag = '';
-        this.challenge.flagThumb = data.data.flagThumb;
+        this.challenge.flagThumb = resp.data.flagThumb;
       })
-      .catch(err => {
-        dialogs.error(
-          $translate.instant('ui.page.manage.challenge.edit.flag.failMsg'),
-          err.data.msgHtml
+      .catch(resp => {
+        this.dialogs.error(
+          this.$translate.instant('ui.page.manage.challenge.edit.flag.failMsg'),
+          resp.data.msgHtml
         );
       })
       .then(() => this.setFlagFormDisabled = false);
@@ -46,14 +41,14 @@ export default class ChallengeEditController {
     this.basicFormDisabled = true;
     this.challenge
       .$update()
-      .then(data => {
-        toastr.success($translate.instant('ui.page.manage.challenge.edit.basic.successMsg'));
-        $state.go('manage_challenge');
+      .then(resp => {
+        this.toastr.success(this.$translate.instant('ui.page.manage.challenge.edit.basic.successMsg'));
+        this.$state.go('manage_challenge');
       })
-      .catch(err => {
-        dialogs.error(
-          $translate.instant('ui.page.manage.challenge.edit.basic.failMsg'),
-          err.data.msgHtml
+      .catch(resp => {
+        this.dialogs.error(
+          this.$translate.instant('ui.page.manage.challenge.edit.basic.failMsg'),
+          resp.data.msgHtml
         );
       })
       .then(() => this.setFlagFormDisabled = false);
@@ -61,4 +56,8 @@ export default class ChallengeEditController {
 
 }
 
-ChallengeEditController.$inject = ['dialogs', 'toastr', '$translate', '$state', '$stateParams', 'Challenge'];
+Controller.$inject = ['dialogs', 'toastr', '$translate', '$state', '$stateParams', 'Challenge'];
+
+angular
+  .module('dummyctf.dashboard')
+  .controller('manageChallengeEditController', Controller);

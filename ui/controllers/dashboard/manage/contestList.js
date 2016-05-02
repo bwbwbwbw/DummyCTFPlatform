@@ -1,21 +1,22 @@
-let dialogs, toastr, $translate, Contest;
+import angular from 'angular';
+import ServiceInjector from 'utils/ServiceInjector';
 
-export default class ContestListController {
-  constructor(_dialogs, _toastr, _$translate, _Contest) {
-    dialogs = _dialogs;
-    toastr = _toastr;
-    $translate = _$translate;
-    Contest = _Contest;
-
-    this.contests = Contest.query();
+export default class Controller extends ServiceInjector {
+  constructor(...args) {
+    super(...args);
+    this.contests = this.Contest.query();
     this.contests.$promise
-      .catch(err => {
-        dialogs.error(
-          $translate.instant('ui.page.manage.contest.list.failMsg'),
-          err.data.msgHtml
+      .catch(resp => {
+        this.dialogs.error(
+          this.$translate.instant('ui.page.manage.contest.list.failMsg'),
+          resp.data.msgHtml
         );
       });
   }
 }
 
-ContestListController.$inject = ['dialogs', 'toastr', '$translate', 'Contest'];
+Controller.$inject = ['dialogs', 'toastr', '$translate', 'Contest'];
+
+angular
+  .module('dummyctf.dashboard')
+  .controller('manageContestListController', Controller);

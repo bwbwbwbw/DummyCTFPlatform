@@ -1,12 +1,9 @@
 import angular from 'angular';
 
-import signInController from 'controllers/userbase/signin';
-import registerController from 'controllers/userbase/register';
-
 const app = angular
-  .module('dummyctf.userbase', ['dummyctf.shared'])
-  .controller('registerController', registerController)
-  .controller('signInController', signInController)
-  ;
+  .module('dummyctf.userbase', ['dummyctf.shared']);
+
+const userbaseCtrlCtx = require.context('controllers/userbase/', true, /\.js$/);
+userbaseCtrlCtx.keys().map(userbaseCtrlCtx);
 
 export default app;

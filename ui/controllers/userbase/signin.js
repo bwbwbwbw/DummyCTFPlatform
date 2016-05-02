@@ -1,12 +1,9 @@
-let dialogs, toastr, User, $translate;
+import angular from 'angular';
+import ServiceInjector from 'utils/ServiceInjector';
 
-export default class SignInController {
-  constructor(_dialogs, _toastr, _User, _$translate) {
-    dialogs = _dialogs;
-    toastr = _toastr;
-    User = _User;
-    $translate = _$translate;
-
+export default class Controller extends ServiceInjector {
+  constructor(...args) {
+    super(...args);
     this.formDisabled = false;
     this.username = '';
     this.password = '';
@@ -14,18 +11,23 @@ export default class SignInController {
 
   doSignIn() {
     this.formDisabled = true;
-    User
+    this.User
       .signIn(this.username, this.password)
       .then(resp => {
         window.location = '/';
-      }, err => {
-        dialogs.error(
-          $translate.instant('ui.page.signin.failMsg'),
-          err.data.msgHtml
+      })
+      .catch(resp => {
+        this.dialogs.error(
+          this.$translate.instant('ui.page.signin.failMsg'),
+          resp.data.msgHtml
         );
         this.formDisabled = false;
       });
   }
 }
 
-SignInController.$inject = ['dialogs', 'toastr', 'User', '$translate'];
+Controller.$inject = ['dialogs', 'toastr', 'User', '$translate'];
+
+angular
+  .module('dummyctf.userbase')
+  .controller('signInController', Controller);

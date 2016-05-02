@@ -1,25 +1,24 @@
-import assign from 'lodash/assign';
 import angular from 'angular';
+import assign from 'lodash/assign';
+import ServiceInjector from 'utils/ServiceInjector';
 
-let $resource, $http;
-
-const challengeMixin = {
-  setFlag: (id, flag) => {
-    return $http.post(`/api/challenges/${id}/flag`, { flag });
-  }
-};
-
-export default class Dummy {
-  constructor(_$resource, _$http) {
-    $resource = _$resource;
-    $http = _$http;
-    const rChallenge = $resource(
+export default class Service extends ServiceInjector {
+  constructor(...args) {
+    super(...args);
+    assign(this, this.$resource(
       '/api/challenges/:id',
       { id: '@_id' },
       { update: { method: 'PUT'} }
-    );
-    return assign(rChallenge, challengeMixin);
+    ));
   }
-};
 
-Dummy.$inject = ['$resource', '$http'];
+  setFlag(id, flag) {
+    return this.$http.post(`/api/challenges/${id}/flag`, { flag });
+  }
+}
+
+Service.$inject = ['$resource', '$http'];
+
+angular
+  .module('dummyctf.services')
+  .service('Challenge', Service);

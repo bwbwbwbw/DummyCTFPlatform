@@ -1,5 +1,7 @@
-export default class csrfInjector {
+/*global csrfToken */
+import angular from 'angular';
 
+export default class Service {
   request(config) {
     if (config.method === 'GET') {
       return config;
@@ -10,5 +12,8 @@ export default class csrfInjector {
     config.headers['x-csrf-token'] = csrfToken;
     return config;
   }
-
 }
+
+angular
+  .module('dummyctf.services')
+  .service('CSRFInjector', Service);

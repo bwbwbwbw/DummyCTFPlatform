@@ -1,21 +1,21 @@
-let toastr, User, $translate;
+import angular from 'angular';
+import ServiceInjector from 'utils/ServiceInjector';
 
-export default class RegisterController {
-  constructor(_toastr, _User, _$translate) {
-    toastr = _toastr;
-    User = _User;
-    $translate = _$translate;
-  }
-
+export default class Controller extends ServiceInjector {
   doLogout() {
-    User
+    this.User
       .logout()
       .then(resp => {
-        location.reload();
-      }, err => {
-        toastr.error($translate.instant('ui.page.signout.successMsg', err.data));
+        window.location.reload();
+      })
+      .catch(resp => {
+        this.toastr.error(this.$translate.instant('ui.page.signout.successMsg', resp.data));
       });
   }
 }
 
-RegisterController.$inject = ['toastr', 'User', '$translate'];
+Controller.$inject = ['toastr', 'User', '$translate'];
+
+angular
+  .module('dummyctf.dashboard')
+  .controller('navController', Controller);

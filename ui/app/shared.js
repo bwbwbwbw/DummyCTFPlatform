@@ -1,4 +1,6 @@
 import 'angular-datepicker/dist/index.min.css';
+import 'textangular/dist/textAngular.css';
+import 'balloon-css/balloon.min.css';
 
 import angular from 'angular';
 import angularResource from 'angular-resource';
@@ -10,6 +12,7 @@ import angularUiBootstrap from 'angular-ui-bootstrap';
 import angularDialog from 'angular-dialog-service';
 import angularToastr from 'angular-toastr';
 import angularDatePicker from 'angular-datepicker/index.js';
+import 'angular-moment';
 import textAngular from 'textangular';
 
 import configToastr from 'config/toastr';
@@ -29,6 +32,7 @@ const app = angular
     angularDialog,
     angularToastr,
     angularDatePicker,
+    'angularMoment',
     textAngular,
     'dummyctf.services',
   ])

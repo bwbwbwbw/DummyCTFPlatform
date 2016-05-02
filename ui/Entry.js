@@ -13,7 +13,7 @@ import 'components/misc.styl';
 import 'components/taeditor.styl';
 import 'components/login.styl';
 
-import appServices from 'app/services';
-import appShared from 'app/shared';
-import appUserbase from 'app/userbase';
-import appDashboard from 'app/dashboard';
+import 'app/services';
+import 'app/shared';
+import 'app/userbase';
+import 'app/dashboard';
