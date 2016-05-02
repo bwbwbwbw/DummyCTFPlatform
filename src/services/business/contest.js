@@ -5,13 +5,14 @@ import _ from 'lodash';
 export default (DI, eventBus, db) => {
 
   const Contest = db.Contest;
-  const ContestRegistration = db.ContestRegistration;
+  const ContestChallenge = db.ContestChallenge;
   const ContestEvent = db.ContestEvent;
+  const ContestRegistration = db.ContestRegistration;
 
   const contestService = {};
 
   const updateFields = ['name', 'begin', 'end', 'regBegin', 'regEnd'];
-  const updateProps = ['score', 'scoreDecrease', 'minScore'];
+  const updateChallengeFields = ['score', 'scoreDecrease', 'minScore'];
 
   /**
    * Create an contest event
@@ -23,7 +24,7 @@ export default (DI, eventBus, db) => {
     }
     const event = new ContestEvent({
       published: false,
-      createAt: new Date(),
+      processed: false,
       contest: contestId,
       content: content,
       args: args,
@@ -42,9 +43,35 @@ export default (DI, eventBus, db) => {
       throw new UserError(i18n.__('error.contestEvent.notfound'));
     }
     event.published = published;
-    event.updateAt = new Date();
+    event.processed = true;
     await event.save();
     return event;
+  };
+
+  /**
+   * Get events of a contest
+   * @return {[ContestEvent]}
+   */
+  contestService.getEvents = async (contestId, filterNotPublished = true) => {
+    const findExp = { contest: contestId };
+    if (filterNotPublished) {
+      findExp.published = true;
+    }
+    const events = await ContestEvent.find(findExp).sort({ updatedAt: -1 });
+    return events;
+  };
+
+  /**
+   * Retrive the count of challenges group by each contest
+   */
+  contestService.groupContestChallengeCount = async () => {
+    // TODO
+    return await ContestChallenge.aggregate([{
+      $group: {
+        _id: 'contest',
+        count: {$sum: 1},
+      }
+    }]).exec();
   };
 
   /**
@@ -59,19 +86,38 @@ export default (DI, eventBus, db) => {
    * Get a contest by its id
    * @return {Contest}
    */
-  contestService.getContestObjectById = async (id, throwWhenNotFound = true) => {
-    if (!libObjectId.isValid(id)) {
+  contestService.getContestObjectById = async (contestId, throwWhenNotFound = true) => {
+    if (!libObjectId.isValid(contestId)) {
       if (throwWhenNotFound) {
         throw new UserError(i18n.__('error.contest.notfound'));
       } else {
         return null;
       }
     }
-    const contest = await Contest.findOne({ _id: id, deleted: false });
+    const contest = await Contest.findOne({ _id: contestId, deleted: false });
     if (contest === null && throwWhenNotFound) {
       throw new UserError(i18n.__('error.contest.notfound'));
     }
     return contest;
+  };
+
+  /**
+   * Get a contest challenge by its id
+   * @return {ContestChallenge}
+   */
+  contestService.getContestChallengeObjectById = async (contestChallengeId, throwWhenNotFound = true) => {
+    if (!libObjectId.isValid(contestChallengeId)) {
+      if (throwWhenNotFound) {
+        throw new UserError(i18n.__('error.contest.challenge.notfound'));
+      } else {
+        return null;
+      }
+    }
+    const cc = await ContestChallenge.findOne({ _id: contestChallengeId });
+    if (cc === null && throwWhenNotFound) {
+      throw new UserError(i18n.__('error.contest.challenge.notfound'));
+    }
+    return cc;
   };
 
   /**
@@ -114,11 +160,11 @@ export default (DI, eventBus, db) => {
    * Update contest properties
    * @return {Contest} The new contest object
    */
-  contestService.updateContest = async (id, props) => {
+  contestService.updateContest = async (contestId, props) => {
     if (props !== Object(props)) {
       throw new Error('Expect parameter "props" to be an object');
     }
-    const contest = await contestService.getContestObjectById(id);
+    const contest = await contestService.getContestObjectById(contestId);
     const updater = _.pick(props, updateFields);
     _.assign(contest, updater);
     contestService.validateContestDate(contest);
@@ -128,100 +174,87 @@ export default (DI, eventBus, db) => {
 
   /**
    * Add a challenge to the contest
-   * @return {Contest} The new contest object if updated successfully
+   * @return {ContestChallenge}
    */
-  contestService.contestAddChallenge = async (_id, _challengeId, props) => {
+  contestService.addChallenge = async (contestId, challengeId, props) => {
     if (props !== Object(props)) {
       throw new Error('Expect parameter "props" to be an object');
     }
-    if (!libObjectId.isValid(_id)) {
-      throw new UserError(i18n.__('error.contest.notfound'));
-    }
-    if (!libObjectId.isValid(_challengeId)) {
-      throw new UserError(i18n.__('error.challenge.notfound'));
-    }
-    const id = libObjectId.create(_id);
-    const challengeId = libObjectId.create(_challengeId);
-    return await Contest.findOneAndUpdate({
-      '_id': id,
-      'deleted': false,
-      'challenges.id': { $ne: challengeId },
-    }, {
-      $push: {
-        challenges: {
-          id: challengeId,
-          visible: false,
-          ..._.pick(props, updateProps),
-        }
-      }
-    }, {
-      new: true,
+    // check existance and deletion
+    const contest = contestService.getContestObjectById(contestId);
+    const challenge = DI.get('challengeService').getChallengeObjectById(challengeId);
+
+    const contestChallenge = new ContestChallenge({
+      contest: contest._id,
+      challenge: challenge._id,
+      visible: false,
+      ..._.pick(props, updateChallengeFields),
     });
+    try {
+      await contestChallenge.save();
+    } catch(e) {
+      if (e.name === 'MongoError' && e.code === 11000) {
+        // duplicate key error
+        throw new UserError(i18n.__('error.contest.challenge.exist'));
+      } else {
+        throw e;
+      }
+    }
+    return contestChallenge;
   };
 
   /**
    * Set the property of a challenge of a contest
-   * @return {Contest} The new contest object if updated successfully
+   * @return {ContestChallenge}
    */
-  contestService.setContestChallengeProps = async (_id, _challengeId, props) => {
+  contestService.setChallengeProps = async (contestChallengeId, props) => {
     if (props !== Object(props)) {
       throw new Error('Expect parameter "props" to be an object');
     }
-    if (!libObjectId.isValid(_id)) {
-      throw new UserError(i18n.__('error.contest.notfound'));
-    }
-    if (!libObjectId.isValid(_challengeId)) {
-      throw new UserError(i18n.__('error.challenge.notfound'));
-    }
-    const id = libObjectId.create(_id);
-    const challengeId = libObjectId.create(_challengeId);
-    const updater = _.mapKeys(
-      _.pick(props, updateProps),
-      (value, key) => `challenges.$.${key}`
-    );
-    return await Contest.findOneAndUpdate({
-      '_id': id,
-      'deleted': false,
-      'challenges.id': challengeId,
-    }, { $set: updater }, { new: true });
+    const contestChallenge = await contestService.getContestChallengeObjectById(contestChallengeId);
+    const updater = _.pick(props, updateChallengeFields);
+    _.assign(contestChallenge, updater);
+    await contestChallenge.save();
+    return contestChallenge;
   };
 
   /**
    * Open or close a challenge to contesters
-   * @return {Contest}
+   * @return {ContestChallenge}
    */
-  contestService.setChallengeVisibility = async (_id, _challengeId, visibility = true) => {
-    if (!libObjectId.isValid(_id)) {
-      throw new UserError(i18n.__('error.contest.notfound'));
+  contestService.setChallengeVisibility = async (contestChallengeId, visibility = true) => {
+    const contestChallenge = await contestService.getContestChallengeObjectById(contestChallengeId);
+    const emitEvent = (contestChallenge.visible !== true && visibility === true);
+    contestChallenge.visible = (visibility === true);
+    await contestChallenge.save();
+    if (emitEvent) {
+      eventBus.emit('contest.challenge.open', contestChallenge);
     }
-    const id = libObjectId.create(_id);
-    const challenge = DI.get('challengeService').getChallengeObjectById(_challengeId);
-    const contest = await Contest.findOneAndUpdate({
-      '_id': id,
-      'deleted': false,
-      'challenges.id': challenge._id,
-    }, {
-      $set: { 'challenges.$.visible': visibility === true }
-    }, {
-      new: true,
-    });
-    // no such contest
-    // or no such challenge in contest
-    if (contest === null) {
-      throw new UserError(i18n.__('error.contest.notfound'));
+    return contestChallenge;
+  };
+
+  /**
+   * Get all challenges of a contest
+   * @return {[ContestChallenge]}
+   */
+  contestService.getChallenges = async (contestId, filterNotVisible = true) => {
+    const findExp = { contest: contestId };
+    if (filterNotVisible) {
+      findExp.visible = true;
     }
-    if (visibility === true) {
-      eventBus.emit('contest.openChallenge', contest, challenge);
-    }
-    return contest;
+    const contestChallenges = await ContestChallenge
+      .find(findExp)
+      .sort({ updatedAt: -1 })
+      .populate('challenge', { name: 1, category: 1, difficulty: 1 });
+    return contestChallenges;
   };
 
   /**
    * Whether a user has registered a contest
    * @return {Boolean}
    */
-  contestService.isContestRegistered = async (id, userId) => {
-    if (!libObjectId.isValid(id)) {
+  contestService.isContestRegistered = async (contestId, userId) => {
+    if (!libObjectId.isValid(contestId)) {
       return false;
     }
     if (!libObjectId.isValid(userId)) {
@@ -229,7 +262,7 @@ export default (DI, eventBus, db) => {
     }
     const rec = await ContestRegistration.findOne({
       user: userId,
-      contest: id,
+      contest: contestId,
     });
     return (rec !== null);
   };
@@ -238,24 +271,24 @@ export default (DI, eventBus, db) => {
    * Register a contest
    * @return {ContestRegistration}
    */
-  contestService.registerContest = async (id, userId) => {
-    if (!libObjectId.isValid(id)) {
+  contestService.registerContest = async (contestId, userId) => {
+    if (!libObjectId.isValid(contestId)) {
       throw new UserError(i18n.__('error.contest.notfound'));
     }
     if (!libObjectId.isValid(userId)) {
       throw new UserError(i18n.__('error.user.notfound'));
     }
-    const contest = contestService.getContestObjectById(id);
-    if (Date.now() < contest.regBegin.getTime()) {
+    const contest = contestService.getContestObjectById(contestId);
+    const now = Date.now();
+    if (now < contest.regBegin.getTime()) {
       throw new UserError(i18n.__('error.contest.registration.notReady'));
     }
-    if (Date.now() >= contest.regEnd.getTime()) {
+    if (now >= contest.regEnd.getTime()) {
       throw new UserError(i18n.__('error.contest.registration.passed'));
     }
     const reg = new ContestRegistration({
-      contest: id,
+      contest: contestId,
       user: userId,
-      at: new Date(),
     });
     try {
       await reg.save();
@@ -270,6 +303,18 @@ export default (DI, eventBus, db) => {
     return reg;
   };
 
+  /**
+   * Get all registrants of a contest
+   * @return {[User]}
+   */
+  contestService.getRegistrants = async (contestId) => {
+    const registrants = await ContestRegistration
+      .find({ contest: contestId })
+      .sort({ createdAt: -1 })
+      .populate('user', { username: 1, profile: 1 });
+    return registrants;
+  };
+
   contestService.checkBodyForCreateOrEdit = (req, res, next) => {
     updateFields.forEach(field => {
       req.checkBody(field, i18n.__('error.validation.required')).notEmpty();
@@ -281,15 +326,17 @@ export default (DI, eventBus, db) => {
    * Handle challenge update. When a challenge is updated
    * and it is part of an active contest, create an event
    */
-  eventBus.on('challenge.update', async (challenge) => {
-    const contests = await Contest.find({
-      deleted: false,
-      'challenges.id': challenge._id,
-    });
-    for (const contest of contests) {
-      if (contest.getState() === 'ACTIVE') {
+  eventBus.on('challenge.description.update', async (challenge) => {
+    const contestChallenges = await ContestChallenge
+      .find({
+        challenge: challenge._id,
+        visible: true,
+      })
+      .populate('contest');
+    for (const cc of contestChallenges) {
+      if (!cc.contest.deleted && cc.contest.getState() === 'ACTIVE') {
         contestService.addEvent(
-          contest._id,
+          cc.contest._id,
           'event.contest.challenge.updated',
           { name: challenge.name }
         );
@@ -301,12 +348,21 @@ export default (DI, eventBus, db) => {
    * Handle challenge open. When a challenge is open
    * and it is part of an active contest, create an event
    */
-  eventBus.on('contest.openChallenge', async (contest, challenge) => {
-    if (contest.getState() === 'ACTIVE') {
+  eventBus.on('contest.challenge.open', async (contestChallenge) => {
+    contestChallenge = await contestChallenge
+      .populate('contest')
+      .populate('challenge');
+    if (
+      contestChallenge.contest.deleted
+      || contestChallenge.challenge.deleted
+    ) {
+      return;
+    }
+    if (contestChallenge.contest.getState() === 'ACTIVE') {
       contestService.addEvent(
-        contest._id,
+        contestChallenge.contest._id,
         'event.contest.challenge.open',
-        { name: challenge.name }
+        { name: contestChallenge.challenge.name }
       );
     }
   });

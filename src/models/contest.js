@@ -7,14 +7,8 @@ const ContestSchema = new Schema({
   end: Date,
   regBegin: Date,
   regEnd: Date,
-  challenges: [{
-    id: { type: Schema.Types.ObjectId, ref: 'Challenge' },
-    visible: Boolean,
-    score: Number,
-    scoreDecrease: Number,
-    minScore: Number,
-  }],
 }, {
+  timestamps: true,
   toObject: { virtuals: true },
   toJSON: { virtuals: true },
 });
@@ -29,6 +23,17 @@ ContestSchema.virtual('state').get(function () {
     return 'ACTIVE';
   } else {
     return 'DONE';
+  }
+});
+
+ContestSchema.virtual('regState').get(function () {
+  const now = Date.now();
+  if (now < this.regBegin.getTime()) {
+    return 'UPCOMING';
+  } else if (now <= this.regEnd.getTime()) {
+    return 'OPEN';
+  } else {
+    return 'CLOSE';
   }
 });
 

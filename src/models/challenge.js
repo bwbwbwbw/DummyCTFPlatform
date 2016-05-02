@@ -8,6 +8,8 @@ const ChallengeSchema = new Schema({
   category: { type: String, lowercase: true },
   difficulty: Number,
   description: String,
+}, {
+  timestamps: true,
 });
 
 ChallengeSchema.index({ deleted: 1, category: 1, name: 1 });

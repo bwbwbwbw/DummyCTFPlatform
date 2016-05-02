@@ -35,6 +35,13 @@ export default (DI, parentRouter, app) => {
     }
   );
 
+  router.get('/:id/challenges',
+    async (req, res) => {
+      const challenges = await contestService.getChallenges(req.params.id, false);
+      res.json(challenges);
+    }
+  );
+
   router.put('/:id',
     contestService.checkBodyForCreateOrEdit,
     libRequestChecker.raiseValidationErrors,

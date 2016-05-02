@@ -88,10 +88,13 @@ export default (DI, eventBus, db) => {
       throw new Error('Expect parameter "props" to be an object');
     }
     const challenge = await challengeService.getChallengeObjectById(id);
+    const emitEvent = (props.description !== undefined && props.description !== challenge.description);
     const updater = _.pick(props, updateFields);
     _.assign(challenge, updater);
     await challenge.save();
-    eventBus.emit('challenge.update', challenge);
+    if (emitEvent) {
+      eventBus.emit('challenge.description.update', challenge);
+    }
     return challenge;
   };
 

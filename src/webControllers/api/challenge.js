@@ -14,7 +14,8 @@ export default (DI, parentRouter, app) => {
 
   router.get('/',
     async (req, res) => {
-      res.json(await challengeService.getChallenges());
+      const challenges = await challengeService.getChallenges();
+      res.json(challenges);
     }
   );
 

@@ -7,10 +7,13 @@ const UserSchema = new Schema({
   hash: String,
   roles: [String],
   disabled: { type: Boolean, default: false },
+  disableReason: String,
   validated: { type: Boolean, default: false },
   profile: {
     name: String,
     stdid: String,
+    department: String,
+    grade: String,
     phone: String,
     email: String,
   },

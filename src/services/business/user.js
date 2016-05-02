@@ -95,7 +95,7 @@ export default (DI, eventBus, db) => {
       }
     }
     if (user.disabled && !allowDisabled) {
-      throw new UserError(i18n.__('error.user.disabled'));
+      throw new UserError(i18n.__('error.user.disabled', { reason: user.disableReason }));
     }
     return user;
   };
@@ -126,9 +126,10 @@ export default (DI, eventBus, db) => {
    * Deactivate a user and prevent him from login
    * @return {User} The new user object
    */
-  userService.deactivateUser = async (username) => {
+  userService.deactivateUser = async (username, reason) => {
     const user = await userService.getUserObjectByUsername(username);
     user.disabled = true;
+    user.disableReason = reason;
     await user.save();
     return user;
   };
