@@ -1,4 +1,3 @@
-import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import csrf from 'csurf';
 
@@ -9,12 +8,12 @@ export default (DI, app, config) => {
       defaultSrc: ["'self'"],
       scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
       styleSrc: ["'self'", "'unsafe-inline'"],
-      imgSrc: ["'self'", 'data:'],
+      imgSrc: ["'self'", "data:"],
       reportUri: `${config.cspReportUrl}`,
     },
   }));
   app.use(helmet.xssFilter());
-  app.use(helmet.noSniff())
+  app.use(helmet.noSniff());
   app.use(helmet.frameguard());
   app.use(helmet.hidePoweredBy());
 
@@ -29,4 +28,4 @@ export default (DI, app, config) => {
     next();
   });
 
-}
+};

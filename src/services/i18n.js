@@ -12,4 +12,4 @@ export default (DI) => {
 
   return i18n;
 
-}
+};

@@ -27,4 +27,4 @@ export default (DI, app, config) => {
 
   return njenv;
 
-}
+};

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const checkForHexRegExp = new RegExp("^[0-9a-fA-F]{24}$");
+const checkForHexRegExp = new RegExp('^[0-9a-fA-F]{24}$');
 
 const libObjectId = {
 

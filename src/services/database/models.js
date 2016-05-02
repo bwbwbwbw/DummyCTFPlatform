@@ -8,4 +8,4 @@ export default (DI, db) => {
 
   db.connection.modelNames().forEach(name => db[name] = mongoose.model(name));
 
-}
+};

@@ -1,4 +1,3 @@
-import glob from 'glob';
 import Router from 'express-promise-router';
 
 export default (DI, parentRouter, app) => {

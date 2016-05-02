@@ -17,4 +17,4 @@ export default (DI, app, config, db) => {
 
   return sessionMiddleware;
 
-}
+};

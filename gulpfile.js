@@ -3,6 +3,7 @@ var gulp = require('gulp'),
   nodemon = require('gulp-nodemon'),
   plumber = require('gulp-plumber'),
   babel = require('gulp-babel'),
+  eslint = require('gulp-eslint'),
   Cache = require('gulp-file-cache');
 
 var cache = new Cache();
@@ -12,6 +13,8 @@ gulp.task('js', function () {
     .pipe(plumber())
     .pipe(sourcemaps.init())
     .pipe(cache.filter())
+    .pipe(eslint())
+    .pipe(eslint.format())
     .pipe(babel({
       presets: ['stage-0', 'es2015'],
       plugins: ['transform-runtime']

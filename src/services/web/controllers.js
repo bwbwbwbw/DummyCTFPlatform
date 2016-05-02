@@ -21,7 +21,7 @@ export default (DI, app, logger) => {
   // Handle BADCSRFTOKEN
   app.use((err, req, res, next) => {
     if (err.code !== 'EBADCSRFTOKEN') {
-      return next(err)
+      return next(err);
     }
     err = new UserError(i18n.__('error.generic.csrf'));
     err.status = 403;
@@ -59,4 +59,4 @@ export default (DI, app, logger) => {
     }
   });
 
-}
+};

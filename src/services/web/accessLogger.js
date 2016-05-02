@@ -7,4 +7,4 @@ export default (DI, app) => {
     stream: fs.createWriteStream(`${__projectRoot}/logs/access.log`, { flags: 'a' }),
   }));
 
-}
+};

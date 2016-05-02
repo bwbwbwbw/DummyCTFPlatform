@@ -5,6 +5,7 @@ env:
   browser: true
   es6: true
   commonjs: true
+  node: true
 extends: eslint:recommended
 parserOptions:
   sourceType: module
@@ -14,6 +15,11 @@ parserOptions:
 globals:
   __webpack_public_path__: true
   __webpack_require__: true
+  __projectRoot: true
+  __codeRoot: true
+  PrivilegeError: true
+  ValidationError: true
+  UserError: true
 rules:
   babel/object-shorthand: 1
   indent:
@@ -29,4 +35,4 @@ rules:
     - 2
     - always-multiline
   no-unused-vars: 1
-  no-console: 1
+  no-console: 0

@@ -19,7 +19,7 @@ export default (DI, eventBus, db) => {
   challengeService.getChallenges = async () => {
     return await Challenge.find({ deleted: false }, {
       flag: 0,
-      description: 0
+      description: 0,
     }).sort({ category: 1, name: 1 });
   };
 
@@ -128,4 +128,4 @@ export default (DI, eventBus, db) => {
 
   return challengeService;
 
-}
+};

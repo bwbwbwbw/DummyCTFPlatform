@@ -1,4 +1,3 @@
-import glob from 'glob';
 import mongoose from 'mongoose';
 
 export default async (DI, config, logger) => {
@@ -11,11 +10,11 @@ export default async (DI, config, logger) => {
       reject(new Error(`unable to connect to database at ${config.db}`));
     });
     db.once('open', () => {
-      logger.info(`MongoDB: Connected`);
+      logger.info('MongoDB: Connected');
       resolve(db);
     });
   });
 
   return { connection: db };
 
-}
+};

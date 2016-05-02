@@ -19,15 +19,15 @@ export default (DI, eventBus, db) => {
    * @return {ContestEvent}
    */
   contestService.addEvent = async (contestId, content, args = {}) => {
-    if (!libObjectId.isValid(id)) {
+    if (!libObjectId.isValid(contestId)) {
       throw new UserError(i18n.__('error.contest.notfound'));
     }
     const event = new ContestEvent({
       published: false,
       processed: false,
       contest: contestId,
-      content: content,
-      args: args,
+      content,
+      args,
     });
     await event.save();
     return event;
@@ -70,7 +70,7 @@ export default (DI, eventBus, db) => {
       $group: {
         _id: 'contest',
         count: {$sum: 1},
-      }
+      },
     }]).exec();
   };
 
@@ -136,7 +136,7 @@ export default (DI, eventBus, db) => {
     if (contest.regEnd.getTime() >= contest.end.getTime()) {
       throw new Error('error.contest.regEnd.greaterThanEnd');
     }
-  }
+  };
 
   /**
    * Create a contest with an empty challenge list
@@ -148,7 +148,7 @@ export default (DI, eventBus, db) => {
     }
     const obj = {
       deleted: false,
-      ..._.pick(props, updateFields)
+      ..._.pick(props, updateFields),
     };
     const contest = new Contest(obj);
     contestService.validateContestDate(contest);
@@ -369,4 +369,4 @@ export default (DI, eventBus, db) => {
 
   return contestService;
 
-}
+};

@@ -31,4 +31,4 @@ export default (DI) => {
     return this.getTime();
   };
 
-}
+};

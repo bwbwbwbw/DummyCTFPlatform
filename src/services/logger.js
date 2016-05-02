@@ -1,6 +1,5 @@
 import winston from 'winston';
 import moment from 'moment';
-import chalk from 'chalk';
 
 const timeFormatter = () => moment().format('YYYY-MM-DD HH:mm:ss Z');
 
@@ -41,4 +40,4 @@ export default (DI) => {
   logger.level = 'debug';
   return logger;
 
-}
+};

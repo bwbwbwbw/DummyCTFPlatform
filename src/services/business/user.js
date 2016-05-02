@@ -172,4 +172,4 @@ export default (DI, eventBus, db) => {
 
   return userService;
 
-}
+};

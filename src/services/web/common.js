@@ -16,4 +16,4 @@ export default (DI, app) => {
 
   app.use(compress());
 
-}
+};
