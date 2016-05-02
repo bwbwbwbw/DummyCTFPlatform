@@ -3,13 +3,16 @@ import assign from 'lodash/assign';
 import ServiceInjector from 'utils/ServiceInjector';
 
 export default class Service extends ServiceInjector {
-  constructor(...args) {
-    super(...args);
-    assign(this, this.$resource(
-      '/api/challenges/:id',
-      { id: '@_id' },
-      { update: { method: 'PUT'} }
-    ));
+  query() {
+    return this.$http.get('/api/challenges');
+  }
+
+  get(id) {
+    return this.$http.get(`/api/challenges/${id}`);
+  }
+
+  update(id, challenge) {
+    return this.$http.put(`/api/challenges/${id}`, challenge);
   }
 
   setFlag(id, flag) {
@@ -17,7 +20,7 @@ export default class Service extends ServiceInjector {
   }
 }
 
-Service.$inject = ['$resource', '$http'];
+Service.$inject = ['$http'];
 
 angular
   .module('dummyctf.services')

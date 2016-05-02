@@ -3,7 +3,6 @@ import 'textangular/dist/textAngular.css';
 import 'balloon-css/balloon.min.css';
 
 import angular from 'angular';
-import angularResource from 'angular-resource';
 import angularTranslate from 'angular-translate';
 import angularSanitize from 'angular-sanitize';
 import angularAnimate from 'angular-animate';
@@ -23,7 +22,6 @@ import configTextAngular from 'config/textAngular';
 
 const app = angular
   .module('dummyctf.shared', [
-    angularResource,
     angularTranslate,
     angularSanitize,
     angularAnimate,

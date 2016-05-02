@@ -5,10 +5,10 @@ export default class Controller extends ServiceInjector {
   constructor(...args) {
     super(...args);
     this.basicFormDisabled = false;
-    this.contest = new this.Contest({
+    this.contest = {
       name: 'Unnamed Contest',
       regBegin: new Date(),
-    });
+    };
   }
 
   doCreate() {

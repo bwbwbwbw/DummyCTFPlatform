@@ -4,8 +4,11 @@ import ServiceInjector from 'utils/ServiceInjector';
 export default class Controller extends ServiceInjector {
   constructor(...args) {
     super(...args);
-    this.challenges = this.Challenge.query();
-    this.challenges.$promise
+    this.Challenge
+      .query()
+      .then(resp => {
+        this.challenges = resp.data;
+      })
       .catch(resp => {
         this.dialogs.error(
           this.$translate.instant('ui.page.manage.challenge.list.failMsg'),

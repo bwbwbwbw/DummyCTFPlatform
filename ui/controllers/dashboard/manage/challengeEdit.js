@@ -9,8 +9,11 @@ export default class Controller extends ServiceInjector {
   }
 
   load() {
-    this.challenge = this.Challenge.get({ id: this.$stateParams.id });
-    this.challenge.$promise
+    this.Challenge
+      .get(this.$stateParams.id)
+      .then(resp => {
+        this.challenge = resp.data;
+      })
       .catch(resp => {
         this.dialogs.error(
           this.$translate.instant('ui.page.manage.challenge.edit.load.failMsg'),
@@ -39,8 +42,8 @@ export default class Controller extends ServiceInjector {
 
   doUpdate() {
     this.basicFormDisabled = true;
-    this.challenge
-      .$update()
+    this.Challenge
+      .update(this.$stateParams.id, this.challenge)
       .then(resp => {
         this.toastr.success(this.$translate.instant('ui.page.manage.challenge.edit.basic.successMsg'));
         this.$state.go('manage_challenge');

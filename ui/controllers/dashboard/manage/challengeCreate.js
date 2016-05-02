@@ -5,11 +5,11 @@ export default class Controller extends ServiceInjector {
   constructor(...args) {
     super(...args);
     this.basicFormDisabled = false;
-    this.challenge = new this.Challenge({
+    this.challenge = {
       name: 'Unnamed Challenge',
       category: 'misc',
       difficulty: 0,
-    });
+    };
   }
 
   doCreate() {
