@@ -1,0 +1,36 @@
+<section class="content-header">
+  <h1>
+    Add Challenge To Contest
+  </h1>
+  <ol class="breadcrumb">
+    <li><a ui-sref="manage"><i class="fa fa-wrench"></i> Manage</a></li>
+    <li><a ui-sref="manage_contest">Contests</a></li>
+    <li><a ui-sref="manage_contest_info({id: ctrl.contest._id })">{{ ctrl.contest.name }}</a></li>
+    <li class="active">Add Challenge</li>
+  </ol>
+</section>
+
+<section class="content">
+  <div class="box box-info">
+    <form ng-submit="ctrl.doCreate()">
+      <div class="box-header with-border">
+        <h3 class="box-title">{{ 'ui.page.manage.contest.challenge.add.title' | translate }}</h3>
+      </div>
+      <div class="box-body">
+        <div class="form-group">
+          <label class="control-label">{{ 'ui.page.manage.contest.challenge.add.challenge' | translate }}</label>
+          <div>
+            <select ng-model="ctrl.contestChallenge.challenge" class="form-control" ng-disabled="ctrl.challengeFormDisabled">
+              <option ng-repeat="c in ctrl.availableChallenges" value="{{ c._id }}">{{ c.name }} ({{ c.category }}), difficulty: {{ c.difficulty }}</option>
+            </select>
+          </div>
+        </div>
+        <div ng-include="'/static/angular-views/manage/contest_challenge_form.html'"></div>
+      </div>
+      <div class="box-footer">
+        <button type="submit" class="btn btn-primary" ng-disabled="ctrl.basicFormDisabled">{{ 'ui.page.manage.contest.challenge.add.submit' | translate }}</button>
+        <a class="btn btn-default pull-right" ui-sref="manage_challenge">{{ 'ui.page.manage.contest.challenge.add.cancel' | translate }}</a>
+      </div>
+    </form>
+  </div>
+</section>

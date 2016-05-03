@@ -38,6 +38,9 @@ export default (DI, eventBus, db) => {
    * @return {ContestEvent}
    */
   contestService.setEventPublishState = async (eventId, published = true) => {
+    if (!libObjectId.isValid(eventId)) {
+      throw new UserError(i18n.__('error.contestEvent.notfound'));
+    }
     const event = await ContestEvent.findOne({ _id: eventId });
     if (event === null) {
       throw new UserError(i18n.__('error.contestEvent.notfound'));
@@ -53,6 +56,9 @@ export default (DI, eventBus, db) => {
    * @return {[ContestEvent]}
    */
   contestService.getEvents = async (contestId, filterNotPublished = true) => {
+    if (!libObjectId.isValid(contestId)) {
+      throw new UserError(i18n.__('error.contest.notfound'));
+    }
     const findExp = { contest: contestId };
     if (filterNotPublished) {
       findExp.published = true;
@@ -238,6 +244,9 @@ export default (DI, eventBus, db) => {
    * @return {[ContestChallenge]}
    */
   contestService.getChallenges = async (contestId, filterNotVisible = true) => {
+    if (!libObjectId.isValid(contestId)) {
+      throw new UserError(i18n.__('error.contest.notfound'));
+    }
     const findExp = { contest: contestId };
     if (filterNotVisible) {
       findExp.visible = true;
@@ -308,6 +317,9 @@ export default (DI, eventBus, db) => {
    * @return {[User]}
    */
   contestService.getRegistrants = async (contestId) => {
+    if (!libObjectId.isValid(contestId)) {
+      throw new UserError(i18n.__('error.contest.notfound'));
+    }
     const registrants = await ContestRegistration
       .find({ contest: contestId })
       .sort({ createdAt: -1 })

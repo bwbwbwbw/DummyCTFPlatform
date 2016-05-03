@@ -1,0 +1,100 @@
+<section class="content-header">
+  <h1>
+    {{ ctrl.contest.name }}
+    <small>State: {{ ctrl.contest.state }}, Registration: {{ ctrl.contest.regState }}</small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a ui-sref="manage"><i class="fa fa-wrench"></i> Manage</a></li>
+    <li><a ui-sref="manage_contest">Contests</a></li>
+    <li class="active">{{ ctrl.contest.name }}</li>
+  </ol>
+</section>
+
+<section class="content">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="alert alert-danger" ng-show="{{ ctrl.contest.state === 'ACTIVE' }}">
+        <h4><i class="icon fa fa-ban"></i> Active Contest</h4>
+        Caution! This contest is active and your operation cannot be recovered.
+      </div>
+      <div class="alert alert-warning">
+        <h4><i class="icon fa fa-warning"></i> Pending Operation</h4>
+        There are 4 pending events to process.
+      </div>
+      <div class="box box-default">
+        <div class="box-header with-border">
+          <h3 class="box-title">Challenges</h3>
+          <div class="box-tools pull-right">
+            <a ui-sref="manage_contest_challenge_add({id: ctrl.contest.id})" class="btn btn-box-tool"><i class="fa fa-plus"></i> Add</a>
+          </div>
+        </div>
+        <div class="box-footer" ng-show="ctrl.challenges.length == 0">
+          No challenges
+        </div>
+        <div class="box-body no-padding" ng-show="ctrl.challenges.length > 0">
+          <div class="table-responsive">
+            <table class="table table-hover table-striped">
+              <tbody>
+              <tr>
+                <th>Name</th>
+                <th style="width: 100px">Flag</th>
+                <th style="width: 100px">Category</th>
+                <th style="width: 70px">Difficulty</th>
+              </tr>
+              <tr ng-repeat="challenge in ctrl.challenges">
+                <td>{{ challenge.name }}</td>
+                <td>{{ challenge.flagThumb }}</td>
+                <td>{{ challenge.category }}</td>
+                <td>{{ challenge.difficulty }}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="box box-default">
+        <div class="box-header with-border">
+          <h3 class="box-title">Events</h3>
+          <div class="box-tools pull-right">
+            <a class="btn btn-box-tool"><i class="fa fa-plus"></i> Publish</a>
+          </div>
+        </div>
+        <div class="box-body">
+          The body of the box
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="box box-success">
+        <div class="box-header with-border">
+          <h3 class="box-title">Operations</h3>
+        </div>
+        <div class="box-body no-padding">
+          <ul class="nav nav-pills nav-stacked">
+            <li><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i> Edit contest properties</a></li>
+            <li><a ui-sref="manage_contest_challenge_add({id: ctrl.contest.id})"><i class="fa fa-flag" aria-hidden="true"></i> Add a challenge</a></li>
+            <li><a href="#"><i class="fa fa-bell" aria-hidden="true"></i> Publish a notice</a></li>
+            <li><a href="#"><i class="fa fa-users" aria-hidden="true"></i> View registrants</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="box box-default">
+        <div class="box-header with-border">
+          <h3 class="box-title">Contest Properties</h3>
+          <div class="box-tools pull-right">
+            <a class="btn btn-box-tool"><i class="fa fa-pencil"></i> Edit</a>
+          </div>
+        </div>
+        <div class="box-body">
+            <p>Name: {{ ctrl.contest.name }}</p>
+            <p>State: {{ ctrl.contest.state }}</p>
+            <p>Contest begin at: {{ ctrl.contest.begin | date: 'yyyy-MM-dd (EEE) HH:mm Z' }}</p>
+            <p>Contest end at: {{ ctrl.contest.end | date: 'yyyy-MM-dd (EEE) HH:mm Z' }}</p>
+            <p>Registration: {{ ctrl.contest.regState }}</p>
+            <p>Registration begin at: {{ ctrl.contest.regBegin | date: 'yyyy-MM-dd (EEE) HH:mm Z' }}</p>
+            <p>Registration end at: {{ ctrl.contest.regEnd | date: 'yyyy-MM-dd (EEE) HH:mm Z' }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

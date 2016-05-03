@@ -42,11 +42,17 @@
               <tbody>
               <tr>
                 <th>Name</th>
-                <th>State</th>
+                <th style="width:100px">State</th>
+                <th style="width:100px">Register</th>
+                <th style="width:150px">Start At</th>
+                <th style="width:150px">End At</th>
               </tr>
               <tr ng-repeat="contest in ctrl.contests">
-                <td><a ui-sref="manage_contest_edit({id: contest._id})">{{ contest.name }}</a></td>
+                <td><a ui-sref="manage_contest_info({id: contest._id})">{{ contest.name }}</a></td>
                 <td>{{ contest.state }}</td>
+                <td>{{ contest.regState }}</td>
+                <td><span data-balloon="{{ contest.begin | date: 'yyyy-MM-dd (EEE) HH:mm:ss Z' }}">{{ contest.begin | amCalendar }}</span></td>
+                <td><span data-balloon="{{ contest.end | date: 'yyyy-MM-dd (EEE) HH:mm:ss Z' }}">{{ contest.end | amCalendar }}</span></td>
               </tr>
               </tbody>
             </table>

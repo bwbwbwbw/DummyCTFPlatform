@@ -1,0 +1,24 @@
+<div class="form-group">
+  <label class="control-label">{{ 'ui.page.manage.contest.challenge.edit.score' | translate }}</label>
+  <div>
+    <input type="number" class="form-control" ng-model="ctrl.contestChallenge.score" ng-disabled="ctrl.challengeFormDisabled">
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <label class="control-label">{{ 'ui.page.manage.contest.challenge.edit.scoreDecrease' | translate }}</label>
+      <div>
+        <input type="number" class="form-control" ng-model="ctrl.contestChallenge.scoreDecrease" ng-disabled="ctrl.challengeFormDisabled">
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <label class="control-label">{{ 'ui.page.manage.contest.challenge.edit.minScore' | translate }}</label>
+      <div>
+        <input type="number" class="form-control" ng-model="ctrl.contestChallenge.minScore" ng-disabled="ctrl.challengeFormDisabled">
+      </div>
+    </div>
+  </div>
+</div>

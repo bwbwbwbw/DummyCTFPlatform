@@ -30,7 +30,17 @@ export default function router ($stateProvider) {
       templateUrl: '/static/angular-views/manage/contest_create.html',
       controller: 'manageContestCreateController as ctrl',
     })
+    .state('manage_contest_info', {
+      url: '/manage/contests/:id',
+      templateUrl: '/static/angular-views/manage/contest_info.html',
+      controller: 'manageContestInfoController as ctrl',
+    })
+    .state('manage_contest_challenge_add', {
+      url: '/manage/contests/:id/challenge/add',
+      templateUrl: '/static/angular-views/manage/contest_challenge_add.html',
+      controller: 'manageContestChallengeAddController as ctrl',
+    })
   ;
-};
+}
 
 router.$inject = ['$stateProvider'];

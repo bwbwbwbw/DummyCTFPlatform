@@ -14,7 +14,7 @@
 			}
 		},
 		"user": {
-			"disabled": "用户已被禁用"
+			"disabled": "用户已被禁用，原因：{{ reason }}"
 		},
 		"challenge": {
 			"notfound": "任务未找到"
@@ -35,6 +35,10 @@
 				"notReady": "该比赛还没到报名时间",
 				"passed": "该比赛报名已结束",
 				"registered": "您已经报名参加该比赛"
+			},
+			"challenge": {
+				"exist": "该任务已在比赛任务列表中",
+				"notfound": "未找到该比赛任务，可能已被删除"
 			}
 		},
 		"contestEvent": {
@@ -55,8 +59,8 @@
 		"contest": {
 			"announcement": "{{ message }}",
 			"challenge": {
-				"open": "已开放新题目「{{ name }}」。",
-				"updated": "题目「{{ name }}」的内容已调整。"
+				"open": "已开放新任务「{{ name }}」。",
+				"updated": "任务「{{ name }}」的内容已调整。"
 			}
 		}
 	},
@@ -161,6 +165,19 @@
 						"successMsg": "创建比赛成功",
 						"submit": "创建比赛",
 						"cancel": "取消"
+					},
+					"challenge": {
+						"add": {
+							"title": "基本信息",
+							"challenge": "任务",
+							"submit": "添加任务",
+							"cancel": "取消"
+						},
+						"edit": {
+							"score": "分值",
+							"scoreDecrease": "递减分值(若不递减则填 0)",
+							"minScore": "分值下限"
+						}
 					}
 				}
 			}

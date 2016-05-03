@@ -118,7 +118,7 @@ var config = {
     children: false,
   },
   eslint: {
-    configFile: root('ui/.eslintrc.yml'),
+    configFile: root('.eslintrc.yml'),
   },
 };
 
