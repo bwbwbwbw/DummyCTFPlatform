@@ -96,6 +96,9 @@ var config = {
       'window.jQuery': 'jquery',
     }),
 
+    // don't include locale files in momentjs
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+
     // extract 3rd-party libraries into a standalone file
     new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js', function (module, count) {
       return module.resource && module.resource.indexOf(root('ui/')) === -1;
