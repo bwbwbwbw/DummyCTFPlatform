@@ -7,6 +7,10 @@ export default class Service extends ServiceInjector {
     return this.$http.get('/api/challenges');
   }
 
+  create(challenge) {
+    return this.$http.post('/api/challenges', challenge);
+  }
+
   get(id) {
     return this.$http.get(`/api/challenges/${id}`);
   }

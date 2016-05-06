@@ -334,6 +334,14 @@ export default (DI, eventBus, db) => {
     next();
   };
 
+  contestService.checkBodyForAddChallenge = (req, res, next) => {
+    req.checkBody('contest', i18n.__('error.validation.required')).notEmpty();
+    updateChallengeFields.forEach(field => {
+      req.checkBody(field, i18n.__('error.validation.required')).notEmpty();
+    });
+    next();
+  };
+
   /**
    * Handle challenge update. When a challenge is updated
    * and it is part of an active contest, create an event

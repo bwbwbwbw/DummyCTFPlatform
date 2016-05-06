@@ -7,6 +7,10 @@ export default class Service extends ServiceInjector {
     return this.$http.get('/api/contests');
   }
 
+  create(contest) {
+    return this.$http.post('/api/contests', contest);
+  }
+
   get(id) {
     return this.$http.get(`/api/contests/${id}`);
   }
@@ -19,9 +23,14 @@ export default class Service extends ServiceInjector {
     return this.$http.get(`/api/contests/${id}/challenges`);
   }
 
+  addChallenge(id, props) {
+    return this.$http.put(`/api/contests/${id}/challenges`, props);
+  }
+
   getAvailableChallenges(id) {
     return this.$http.get(`/api/contests/${id}/availableChallenges`);
   }
+
 }
 
 Service.$inject = ['$http'];

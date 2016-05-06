@@ -13,8 +13,8 @@ export default class Controller extends ServiceInjector {
 
   doCreate() {
     this.basicFormDisabled = true;
-    this.contest
-      .$save()
+    this.Contest
+      .create(this.contest)
       .then(resp => {
         this.toastr.success(this.$translate.instant('ui.page.manage.contest.create.successMsg'));
         this.$state.go('manage_contest');

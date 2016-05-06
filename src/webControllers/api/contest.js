@@ -68,4 +68,16 @@ export default (DI, parentRouter, app) => {
     }
   );
 
+  router.put('/:id/challenges',
+    contestService.checkBodyForAddChallenge,
+    libRequestChecker.raiseValidationErrors,
+    async (req, res) => {
+      const contest = await contestService.addChallenge(
+        req.params.id,
+        req.body.challenge,
+        req.body
+      );
+      res.json(contest);
+    }
+  );
 };

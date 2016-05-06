@@ -14,8 +14,8 @@ export default class Controller extends ServiceInjector {
 
   doCreate() {
     this.basicFormDisabled = true;
-    this.challenge
-      .$save()
+    this.Challenge
+      .create(this.challenge)
       .then(resp => {
         this.toastr.success(this.$translate.instant('ui.page.manage.challenge.create.successMsg'));
         this.$state.go('manage_challenge');

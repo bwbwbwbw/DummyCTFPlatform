@@ -43,7 +43,7 @@ export default class Controller extends ServiceInjector {
   doUpdate() {
     this.basicFormDisabled = true;
     this.Challenge
-      .update(this.$stateParams.id, this.challenge)
+      .update(this.challenge._id, this.challenge)
       .then(resp => {
         this.toastr.success(this.$translate.instant('ui.page.manage.challenge.edit.basic.successMsg'));
         this.$state.go('manage_challenge');
