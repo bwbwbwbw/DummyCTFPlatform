@@ -6,11 +6,7 @@ export default (DI, parentRouter, app) => {
   const challengeService = DI.get('challengeService');
 
   const router = Router();
-  parentRouter.use(
-    '/challenges',
-    libRequestChecker.enforceRole(['ADMIN']),
-    router
-  );
+  parentRouter.use('/challenges', router);
 
   router.get('/',
     async (req, res) => {

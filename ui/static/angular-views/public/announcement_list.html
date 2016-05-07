@@ -1,0 +1,22 @@
+<section class="content-header">
+  <h1>
+    Announcements
+    <small>{{ ctrl.announcements.length }} announcements</small>
+  </h1>
+  <ol class="breadcrumb">
+    <li class="active"><i class="fa fa-rss"></i> Announcements</li>
+  </ol>
+</section>
+
+<section class="content">
+  <div class="box box-primary" ng-repeat="announcement in ctrl.announcements">
+    <div class="box-header with-border">
+      <h1 class="box-title">{{ announcement.title }}</h1>
+    </div>
+    <div class="box-body">
+      <p>Publish at: <span data-balloon="{{ announcement.createdAt | date: 'yyyy-MM-dd (EEE) HH:mm:ss Z' }}">{{ announcement.createdAt | amCalendar }}</span></p>
+      <p>Last update at: <span data-balloon="{{ announcement.updatedAt | date: 'yyyy-MM-dd (EEE) HH:mm:ss Z' }}">{{ announcement.updatedAt | amCalendar }}</span></p>
+      <div ng-bind-html="announcement.content"></div>
+    </div>
+  </div>
+</section>

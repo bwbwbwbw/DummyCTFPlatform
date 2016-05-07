@@ -1,5 +1,12 @@
-export default function router ($stateProvider) {
+export default function router ($urlRouterProvider, $stateProvider) {
+  $urlRouterProvider.otherwise('/public/announcements');
+
   $stateProvider
+    .state('public_announcement', {
+      url: '/public/announcements',
+      templateUrl: '/static/angular-views/public/announcement_list.html',
+      controller: 'publicAnnouncementListController as ctrl',
+    })
     .state('manage', {
       url: '/manage',
       templateUrl: '/static/angular-views/manage/index.html',
@@ -58,4 +65,4 @@ export default function router ($stateProvider) {
   ;
 }
 
-router.$inject = ['$stateProvider'];
+router.$inject = ['$urlRouterProvider', '$stateProvider'];

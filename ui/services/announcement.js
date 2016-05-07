@@ -6,6 +6,10 @@ export default class Service extends ServiceInjector {
     return this.$http.get('/api/announcements');
   }
 
+  queryPublic() {
+    return this.$http.get('/public/announcements');
+  }
+
   create(announcement) {
     return this.$http.post('/api/announcements', announcement);
   }

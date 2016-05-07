@@ -7,21 +7,21 @@ export default class Service extends ServiceInjector {
   }
 
   register(username, password) {
-    return this.$http.post('/api/user/register', {
+    return this.$http.post('/public/user/register', {
       username,
       password,
     });
   }
 
   signIn(username, password) {
-    return this.$http.post('/api/user/signin', {
+    return this.$http.post('/public/user/signin', {
       username,
       password,
     });
   }
 
   logout() {
-    return this.$http.post('/api/user/logout');
+    return this.$http.post('/public/user/logout');
   }
 }
 

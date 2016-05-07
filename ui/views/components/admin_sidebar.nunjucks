@@ -1,7 +1,7 @@
 <aside class="main-sidebar">
   <section class="sidebar">
     <ul class="sidebar-menu">
-      <li><a href="/announcements"><i class="fa fa-rss"></i> <span>{{ __('ui.sidebar.announcements') }}</span></a></li>
+      <li><a ui-sref="public_announcement"><i class="fa fa-rss"></i> <span>{{ __('ui.sidebar.announcements') }}</span></a></li>
       <li><a href="/contests"><i class="fa fa-flag"></i> <span>{{ __('ui.sidebar.contests') }}</span></a></li>
       {% if req.session.user and req.session.user|isContester %}
       <li class="header">TONGJI CTF 2016</li>

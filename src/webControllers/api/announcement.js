@@ -6,11 +6,7 @@ export default (DI, parentRouter, app) => {
   const announcementService = DI.get('announcementService');
 
   const router = Router();
-  parentRouter.use(
-    '/announcements',
-    libRequestChecker.enforceRole(['ADMIN']),
-    router
-  );
+  parentRouter.use('/announcements', router);
 
   router.get('/',
     async (req, res) => {
