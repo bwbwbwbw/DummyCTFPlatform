@@ -5,6 +5,21 @@ export default function router ($stateProvider) {
       templateUrl: '/static/angular-views/manage/index.html',
       controller: 'manageController as ctrl',
     })
+    .state('manage_announcement', {
+      url: '/manage/announcements',
+      templateUrl: '/static/angular-views/manage/announcement_list.html',
+      controller: 'manageAnnouncementListController as ctrl',
+    })
+    .state('manage_announcement_create', {
+      url: '/manage/announcements/create',
+      templateUrl: '/static/angular-views/manage/announcement_create.html',
+      controller: 'manageAnnouncementCreateController as ctrl',
+    })
+    .state('manage_announcement_edit', {
+      url: '/manage/announcements/:id/edit',
+      templateUrl: '/static/angular-views/manage/announcement_edit.html',
+      controller: 'manageAnnouncementEditController as ctrl',
+    })
     .state('manage_challenge', {
       url: '/manage/challenges',
       templateUrl: '/static/angular-views/manage/challenge_list.html',

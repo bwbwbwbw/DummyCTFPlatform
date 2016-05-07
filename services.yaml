@@ -56,6 +56,10 @@ userService:
   path: business/user
   inject: ['eventBus', 'db']
 
+announcementService:
+  path: business/announcement
+  inject: ['eventBus', 'db']
+
 challengeService:
   path: business/challenge
   inject: ['eventBus', 'db']

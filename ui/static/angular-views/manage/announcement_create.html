@@ -1,0 +1,22 @@
+<section class="content-header">
+  <h1>
+    Create Announcement
+  </h1>
+  <ol class="breadcrumb">
+    <li><a ui-sref="manage"><i class="fa fa-wrench"></i> Manage</a></li>
+    <li><a ui-sref="manage_announcement">Announcements</a></li>
+    <li class="active">Create</li>
+  </ol>
+</section>
+
+<section class="content">
+  <div class="box box-info">
+    <form ng-submit="ctrl.doCreate()">
+      <div class="box-body" ng-include="'/static/angular-views/manage/announcement_form.html'"></div>
+      <div class="box-footer">
+        <button type="submit" class="btn btn-primary">{{ 'ui.page.manage.announcement.create.submit' | translate }}</button>
+        <a class="btn btn-default pull-right" ui-sref="manage_announcement">{{ 'ui.page.manage.announcement.create.cancel' | translate }}</a>
+      </div>
+    </form>
+  </div>
+</section>

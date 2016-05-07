@@ -1,5 +1,4 @@
 import angular from 'angular';
-import assign from 'lodash/assign';
 import ServiceInjector from 'utils/ServiceInjector';
 
 export default class Service extends ServiceInjector {

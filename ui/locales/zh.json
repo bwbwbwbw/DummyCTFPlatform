@@ -115,6 +115,20 @@
 				"signin": "已有账户：登录"
 			},
 			"manage": {
+				"announcement": {
+					"create": {
+						"successMsg": "创建公告成功",
+						"submit": "创建公告",
+						"cancel": "取消"
+					},
+					"edit": {
+						"successMsg": "修改公告成功",
+						"submit": "更新公告",
+						"cancel": "取消",
+						"title": "标题",
+						"content": "内容"
+					}
+				},
 				"challenge": {
 					"create": {
 						"successMsg": "创新任务成功",
