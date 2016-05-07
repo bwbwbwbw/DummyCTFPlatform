@@ -1,5 +1,5 @@
 {% extends "layout/base.nunjucks" %}
-{% set bodyClass = 'admin-page hold-transition skin-red-light fixed sidebar-mini' %}
+{% set bodyClass = 'admin-page hold-transition skin-purple-light fixed sidebar-mini' %}
 {% block body %}
 <div class="wrapper" ng-app="dummyctf.dashboard">
   {% include "components/admin_header.nunjucks" %}

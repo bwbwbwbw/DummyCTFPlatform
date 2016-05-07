@@ -9,14 +9,17 @@
 </section>
 
 <section class="content">
-  <div class="box box-primary" ng-repeat="announcement in ctrl.announcements">
-    <div class="box-header with-border">
-      <h3 class="box-title">{{ announcement.title }}</h3>
-    </div>
-    <div class="box-body">
-      <p>Publish at: <span data-balloon="{{ announcement.createdAt | date: 'yyyy-MM-dd (EEE) HH:mm:ss Z' }}">{{ announcement.createdAt | amCalendar }}</span></p>
-      <p>Last update at: <span data-balloon="{{ announcement.updatedAt | date: 'yyyy-MM-dd (EEE) HH:mm:ss Z' }}">{{ announcement.updatedAt | amCalendar }}</span></p>
-      <div ng-bind-html="announcement.content"></div>
-    </div>
-  </div>
+  <ul class="timeline">
+    <li ng-repeat="announcement in ctrl.announcements">
+      <i class="fa fa-comment bg-blue"></i>
+      <div class="timeline-item">
+        <span class="time"><i class="fa fa-clock-o"></i> {{ 'ui.page.announcement.col.publish' | translate }}: <span data-balloon="{{ announcement.createdAt | date: 'yyyy-MM-dd (EEE) HH:mm:ss Z' }}">{{ announcement.createdAt | amTimeAgo }}</span></span>
+        <h3 class="timeline-header">{{ announcement.title }}</h3>
+        <div class="timeline-body" ng-bind-html="announcement.content"></div>
+      </div>
+    </li>
+    <li>
+      <i class="fa fa-clock-o bg-gray"></i>
+    </li>
+  </ul>
 </section>

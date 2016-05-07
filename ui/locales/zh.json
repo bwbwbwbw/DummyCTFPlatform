@@ -145,6 +145,12 @@
 					}
 				}
 			},
+			"announcement": {
+				"col": {
+					"publish": "发布时间",
+					"update": "最后修改时间"
+				}
+			},
 			"manage": {
 				"announcement": {
 					"create": {

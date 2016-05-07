@@ -28,8 +28,8 @@
           <tbody>
           <tr>
             <th>Title</th>
-            <th style="width:150px">Publish At</th>
-            <th style="width:150px">Last Modify At</th>
+            <th style="width:150px">{{ 'ui.page.announcement.col.publish' | translate }}</th>
+            <th style="width:150px">{{ 'ui.page.announcement.col.update' | translate }}</th>
           </tr>
           <tr ng-repeat="announcement in ctrl.announcements">
             <td><a ui-sref="manage_announcement_edit({id: announcement._id})">{{ announcement.title }}</a></td>
