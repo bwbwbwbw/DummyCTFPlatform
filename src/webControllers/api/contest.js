@@ -1,6 +1,6 @@
 import libRequestChecker from 'libs/requestChecker';
 import Router from 'express-promise-router';
-import _ from 'lodash';
+import _ from 'lodash-joins';
 
 export default (DI, parentRouter, app) => {
 
@@ -17,7 +17,13 @@ export default (DI, parentRouter, app) => {
   router.get('/',
     async (req, res) => {
       const contests = await contestService.getContests();
-      res.json(contests);
+      const contestChallengeCount = await contestService.groupContestChallengeCount();
+      const contestRegistrantCount = await contestService.groupContestRegistrantCount();
+      const accessor = (d) => String(d._id);
+      let result = contests.map(v => v.toObject());
+      result = _.hashLeftOuterJoin(result, accessor, contestChallengeCount, accessor);
+      result = _.hashLeftOuterJoin(result, accessor, contestRegistrantCount, accessor);
+      res.json(result);
     }
   );
 

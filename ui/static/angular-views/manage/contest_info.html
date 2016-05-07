@@ -43,7 +43,7 @@
                 <th style="width: 90px">Difficulty</th>
               </tr>
               <tr ng-repeat="contestChallenge in ctrl.contestChallenges">
-                <td>{{ contestChallenge.challenge.name }} <span ng-show="contestChallenge.visible">(OPEN)</span></td>
+                <td><a href="#">{{ contestChallenge.challenge.name }}</a> <span ng-show="!contestChallenge.visible" style="color:#F00">(NOT OPEN)</span></td>
                 <td>{{ contestChallenge.score }} (-{{ contestChallenge.scoreDecrease }})</td>
                 <td>{{ contestChallenge.challenge.flagThumb }}</td>
                 <td>{{ contestChallenge.challenge.category }}</td>

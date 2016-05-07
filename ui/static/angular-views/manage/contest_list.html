@@ -10,54 +10,42 @@
 </section>
 
 <section class="content">
-  <div class="row">
-    <div class="col-md-2">
-      <a ui-sref="manage_contest_create" class="btn btn-primary btn-block margin-bottom">Create</a>
-      <div class="box box-solid">
-        <div class="box-header with-border">
-          <h3 class="box-title">Statistics</h3>
-          <div class="box-tools">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-            </button>
-          </div>
-        </div>
-        <div class="box-body no-padding">
-          <ul class="nav nav-pills nav-stacked">
-            <li><a href="#">[Unavailable]</a></li>
-          </ul>
-        </div>
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">All Contests</h3>
+      <div class="box-tools pull-right">
+        <a class="btn btn-box-tool" ui-sref="manage_contest_create">
+          <i class="fa fa-plus"></i> Create
+        </a>
       </div>
     </div>
-    <div class="col-md-10">
-      <div class="box box-primary">
-        <div class="box-header with-border">
-          <h3 class="box-title">All Contests</h3>
-        </div>
-        <div class="box-footer" ng-show="ctrl.contests.length == 0">
-          No contests
-        </div>
-        <div class="box-body no-padding" ng-show="ctrl.contests.length > 0">
-          <div class="table-responsive">
-            <table class="table table-hover table-striped">
-              <tbody>
-              <tr>
-                <th>Name</th>
-                <th style="width:100px">State</th>
-                <th style="width:100px">Register</th>
-                <th style="width:150px">Start At</th>
-                <th style="width:150px">End At</th>
-              </tr>
-              <tr ng-repeat="contest in ctrl.contests">
-                <td><a ui-sref="manage_contest_info({id: contest._id})">{{ contest.name }}</a></td>
-                <td>{{ contest.state }}</td>
-                <td>{{ contest.regState }}</td>
-                <td><span data-balloon="{{ contest.begin | date: 'yyyy-MM-dd (EEE) HH:mm:ss Z' }}">{{ contest.begin | amCalendar }}</span></td>
-                <td><span data-balloon="{{ contest.end | date: 'yyyy-MM-dd (EEE) HH:mm:ss Z' }}">{{ contest.end | amCalendar }}</span></td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+    <div class="box-footer" ng-show="ctrl.contests.length == 0">
+      No contests
+    </div>
+    <div class="box-body no-padding" ng-show="ctrl.contests.length > 0">
+      <div class="table-responsive">
+        <table class="table table-hover table-striped">
+          <tbody>
+          <tr>
+            <th>Name</th>
+            <th style="width:100px">Challenges</th>
+            <th style="width:100px">Registrants</th>
+            <th style="width:120px">State</th>
+            <th style="width:120px">Register</th>
+            <th style="width:150px">Start At</th>
+            <th style="width:150px">End At</th>
+          </tr>
+          <tr ng-repeat="contest in ctrl.contests">
+            <td><a ui-sref="manage_contest_info({id: contest._id})">{{ contest.name }}</a></td>
+            <td>{{ contest.challengeCount||0 }}</td>
+            <td>{{ contest.registrantCount||0 }}</td>
+            <td>{{ contest.state }}</td>
+            <td>{{ contest.regState }}</td>
+            <td><span data-balloon="{{ contest.begin | date: 'yyyy-MM-dd (EEE) HH:mm:ss Z' }}">{{ contest.begin | amCalendar }}</span></td>
+            <td><span data-balloon="{{ contest.end | date: 'yyyy-MM-dd (EEE) HH:mm:ss Z' }}">{{ contest.end | amCalendar }}</span></td>
+          </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

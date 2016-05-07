@@ -85,7 +85,7 @@ var config = {
       {
         // project stylus stylesheets
         test: /\.styl$/,
-        loader: extractProjectCSS.extract(['css', 'postcss', 'stylus']),
+        loader: extractProjectCSS.extract(['css', 'postcss', 'stylus?resolve url']),
       },
     ]
   },

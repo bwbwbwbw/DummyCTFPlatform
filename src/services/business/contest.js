@@ -71,11 +71,22 @@ export default (DI, eventBus, db) => {
    * Retrive the count of challenges group by each contest
    */
   contestService.groupContestChallengeCount = async () => {
-    // TODO
     return await ContestChallenge.aggregate([{
       $group: {
-        _id: 'contest',
-        count: {$sum: 1},
+        _id: '$contest',
+        challengeCount: {$sum: 1},
+      },
+    }]).exec();
+  };
+
+  /**
+   * Retrive the count of registrants group by each contest
+   */
+  contestService.groupContestRegistrantCount = async () => {
+    return await ContestRegistration.aggregate([{
+      $group: {
+        _id: '$contest',
+        registrantCount: {$sum: 1},
       },
     }]).exec();
   };
