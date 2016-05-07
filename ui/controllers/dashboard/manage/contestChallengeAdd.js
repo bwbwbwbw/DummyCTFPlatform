@@ -24,6 +24,15 @@ export default class Controller extends ServiceInjector {
         this.availableChallenges = resp.data;
       });
   }
+
+  doAddContest() {
+    this.Contest
+      .addChallenge(this.$stateParams.id, this.contestChallenge)
+      .then(resp => {
+        this.toastr.success(this.$translate.instant('ui.page.manage.contest.challenge.add.successMsg'));
+        this.$state.go('manage_contest_info', {id: this.$stateParams.id});
+      });
+  }
 }
 
 Controller.$inject = ['dialogs', 'toastr', '$translate', '$state', '$stateParams', 'Contest'];

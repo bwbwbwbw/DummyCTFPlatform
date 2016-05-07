@@ -14,9 +14,9 @@ export default class Controller extends ServiceInjector {
         this.contest = resp.data;
       });
     this.Contest
-      .getChallenges(this.$stateParams.id)
+      .getAllChallenges(this.$stateParams.id)
       .then(resp => {
-        this.challenges = resp.data;
+        this.contestChallenges = resp.data;
       });
   }
 }

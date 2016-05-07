@@ -28,24 +28,26 @@
             <a ui-sref="manage_contest_challenge_add({id: ctrl.contest.id})" class="btn btn-box-tool"><i class="fa fa-plus"></i> Add</a>
           </div>
         </div>
-        <div class="box-footer" ng-show="ctrl.challenges.length == 0">
+        <div class="box-footer" ng-show="ctrl.contestChallenges.length == 0">
           No challenges
         </div>
-        <div class="box-body no-padding" ng-show="ctrl.challenges.length > 0">
+        <div class="box-body no-padding" ng-show="ctrl.contestChallenges.length > 0">
           <div class="table-responsive">
             <table class="table table-hover table-striped">
               <tbody>
               <tr>
                 <th>Name</th>
+                <th style="width: 90px">Score</th>
                 <th style="width: 100px">Flag</th>
                 <th style="width: 100px">Category</th>
-                <th style="width: 70px">Difficulty</th>
+                <th style="width: 90px">Difficulty</th>
               </tr>
-              <tr ng-repeat="challenge in ctrl.challenges">
-                <td>{{ challenge.name }}</td>
-                <td>{{ challenge.flagThumb }}</td>
-                <td>{{ challenge.category }}</td>
-                <td>{{ challenge.difficulty }}</td>
+              <tr ng-repeat="contestChallenge in ctrl.contestChallenges">
+                <td>{{ contestChallenge.challenge.name }} <span ng-show="contestChallenge.visible">(OPEN)</span></td>
+                <td>{{ contestChallenge.score }} (-{{ contestChallenge.scoreDecrease }})</td>
+                <td>{{ contestChallenge.challenge.flagThumb }}</td>
+                <td>{{ contestChallenge.challenge.category }}</td>
+                <td>{{ contestChallenge.challenge.difficulty }}</td>
               </tr>
               </tbody>
             </table>

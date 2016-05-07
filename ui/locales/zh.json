@@ -162,7 +162,8 @@
 							"title": "基本信息",
 							"challenge": "任务",
 							"submit": "添加任务",
-							"cancel": "取消"
+							"cancel": "取消",
+							"successMsg": "添加任务成功"
 						},
 						"edit": {
 							"score": "分值",

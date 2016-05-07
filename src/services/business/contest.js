@@ -187,9 +187,8 @@ export default (DI, eventBus, db) => {
       throw new Error('Expect parameter "props" to be an object');
     }
     // check existance and deletion
-    const contest = contestService.getContestObjectById(contestId);
-    const challenge = DI.get('challengeService').getChallengeObjectById(challengeId);
-
+    const contest = await contestService.getContestObjectById(contestId);
+    const challenge = await DI.get('challengeService').getChallengeObjectById(challengeId);
     const contestChallenge = new ContestChallenge({
       contest: contest._id,
       challenge: challenge._id,
@@ -240,19 +239,30 @@ export default (DI, eventBus, db) => {
   };
 
   /**
-   * Get all challenges of a contest
+   * Get all challenges of a contest, includes challenge flagThumb
    * @return {[ContestChallenge]}
    */
-  contestService.getChallenges = async (contestId, filterNotVisible = true) => {
+  contestService.getAllChallenges = async (contestId) => {
     if (!libObjectId.isValid(contestId)) {
       throw new UserError(i18n.__('error.contest.notfound'));
     }
-    const findExp = { contest: contestId };
-    if (filterNotVisible) {
-      findExp.visible = true;
+    const contestChallenges = await ContestChallenge
+      .find({ contest: contestId })
+      .sort({ updatedAt: -1 })
+      .populate('challenge', { name: 1, category: 1, difficulty: 1, flagThumb: 1 });
+    return contestChallenges;
+  };
+
+  /**
+   * Get visible challenges of a contest
+   * @return {[ContestChallenge]}
+   */
+  contestService.getVisibleChallenges = async (contestId) => {
+    if (!libObjectId.isValid(contestId)) {
+      throw new UserError(i18n.__('error.contest.notfound'));
     }
     const contestChallenges = await ContestChallenge
-      .find(findExp)
+      .find({ contest: contestId, visible: true })
       .sort({ updatedAt: -1 })
       .populate('challenge', { name: 1, category: 1, difficulty: 1 });
     return contestChallenges;
@@ -287,7 +297,7 @@ export default (DI, eventBus, db) => {
     if (!libObjectId.isValid(userId)) {
       throw new UserError(i18n.__('error.user.notfound'));
     }
-    const contest = contestService.getContestObjectById(contestId);
+    const contest = await contestService.getContestObjectById(contestId);
     const now = Date.now();
     if (now < contest.regBegin.getTime()) {
       throw new UserError(i18n.__('error.contest.registration.notReady'));
@@ -335,7 +345,7 @@ export default (DI, eventBus, db) => {
   };
 
   contestService.checkBodyForAddChallenge = (req, res, next) => {
-    req.checkBody('contest', i18n.__('error.validation.required')).notEmpty();
+    req.checkBody('challenge', i18n.__('error.validation.required')).notEmpty();
     updateChallengeFields.forEach(field => {
       req.checkBody(field, i18n.__('error.validation.required')).notEmpty();
     });

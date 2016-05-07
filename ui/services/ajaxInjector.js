@@ -53,11 +53,11 @@ export default class Service extends ServiceInjector {
     if (resp.config.method !== 'GET') {
       this.addN(-1);
     }
-    return resp;
+    return this.$q.reject(resp);
   }
 }
 
-Service.$inject = ['$injector'];
+Service.$inject = ['$q', '$injector'];
 
 angular
   .module('dummyctf.services')

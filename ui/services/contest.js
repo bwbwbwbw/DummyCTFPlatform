@@ -19,8 +19,8 @@ export default class Service extends ServiceInjector {
     return this.$http.put(`/api/contests/${id}`, contest);
   }
 
-  getChallenges(id) {
-    return this.$http.get(`/api/contests/${id}/challenges`);
+  getAllChallenges(id) {
+    return this.$http.get(`/api/contests/${id}/allChallenges`);
   }
 
   addChallenge(id, props) {

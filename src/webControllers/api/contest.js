@@ -37,9 +37,9 @@ export default (DI, parentRouter, app) => {
     }
   );
 
-  router.get('/:id/challenges',
+  router.get('/:id/allChallenges',
     async (req, res) => {
-      const challenges = await contestService.getChallenges(req.params.id, false);
+      const challenges = await contestService.getAllChallenges(req.params.id);
       res.json(challenges);
     }
   );
@@ -48,7 +48,7 @@ export default (DI, parentRouter, app) => {
   router.get('/:id/availableChallenges',
     async (req, res) => {
       const existChallenge = _.keyBy(
-        await contestService.getChallenges(req.params.id, false),
+        await contestService.getAllChallenges(req.params.id),
         (cc) => cc.challenge.id
       );
       const challenges = _.filter(
