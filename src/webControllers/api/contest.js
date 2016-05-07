@@ -4,11 +4,34 @@ import _ from 'lodash-joins';
 
 export default (DI, parentRouter, app) => {
 
+  const systemPropertyService = DI.get('systemPropertyService');
   const contestService = DI.get('contestService');
   const challengeService = DI.get('challengeService');
 
   const router = Router();
   parentRouter.use('/contests', router);
+
+  // Get current contest
+  router.get('/current',
+    async (req, res) => {
+      res.json(await systemPropertyService.get('current_contest', ''));
+    }
+  );
+
+  // Set current contest
+  router.put('/current',
+    async (req, res) => {
+      let contestId = req.body.id;
+      if (contestId === '') {
+        contestId = null;
+      }
+      if (contestId !== null) {
+        contestId = String(contestId);
+      }
+      await systemPropertyService.set('current_contest', contestId);
+      res.json({});
+    }
+  );
 
   router.get('/',
     async (req, res) => {

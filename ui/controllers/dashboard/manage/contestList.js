@@ -13,6 +13,19 @@ export default class Controller extends ServiceInjector {
       .then(resp => {
         this.contests = resp.data;
       });
+    this.Contest
+      .getCurrentContest()
+      .then(resp => {
+        this.currentContestId = resp.data;
+      });
+  }
+
+  doSetCurrentContest() {
+    this.Contest
+      .setCurrentContest(this.currentContestId)
+      .then(() => {
+        window.location.reload();
+      });
   }
 }
 

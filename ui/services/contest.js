@@ -2,6 +2,14 @@ import angular from 'angular';
 import ServiceInjector from 'utils/ServiceInjector';
 
 export default class Service extends ServiceInjector {
+  getCurrentContest() {
+    return this.$http.get('/api/contests/current');
+  }
+
+  setCurrentContest(id) {
+    return this.$http.put('/api/contests/current', { id });
+  }
+
   query() {
     return this.$http.get('/api/contests');
   }

@@ -13,6 +13,16 @@
   <div class="box box-primary">
     <div class="box-header with-border">
       <h3 class="box-title">All Contests</h3>
+      <span style="margin-left: 20px">
+        Current contest:
+        <select ng-model="ctrl.currentContestId">
+          <option value="">None</option>
+          <option ng-repeat="contest in ctrl.contests" value="{{ contest._id }}">{{ contest.name }}</option>
+        </select>
+        <button class="btn btn-box-tool" ng-click="ctrl.doSetCurrentContest()">
+          Update
+        </button>
+      </span>
       <div class="box-tools pull-right">
         <a class="btn btn-box-tool" ui-sref="manage_contest_create">
           <i class="fa fa-plus"></i> Create

@@ -52,6 +52,10 @@ web.templateEngine:
 # ========================
 # Business Services
 
+systemPropertyService:
+  path: business/systemProperty
+  inject: ['eventBus', 'db']
+
 userService:
   path: business/user
   inject: ['eventBus', 'db']
