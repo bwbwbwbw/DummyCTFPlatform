@@ -37,20 +37,20 @@
         <table class="table table-hover table-striped">
           <tbody>
           <tr>
-            <th>Name</th>
-            <th style="width:100px">Challenges</th>
-            <th style="width:100px">Registrants</th>
-            <th style="width:120px">State</th>
-            <th style="width:120px">Register</th>
-            <th style="width:150px">Start At</th>
-            <th style="width:150px">End At</th>
+            <th>{{ 'ui.page.contest.list.col.name' | translate }}</th>
+            <th style="width:100px">{{ 'ui.page.contest.list.col.challenges' | translate }}</th>
+            <th style="width:100px">{{ 'ui.page.contest.list.col.registrants' | translate }}</th>
+            <th style="width:120px">{{ 'ui.page.contest.list.col.state' | translate }}</th>
+            <th style="width:120px">{{ 'ui.page.contest.list.col.regState' | translate }}</th>
+            <th style="width:150px">{{ 'ui.page.contest.list.col.begin' | translate }}</th>
+            <th style="width:150px">{{ 'ui.page.contest.list.col.end' | translate }}</th>
           </tr>
           <tr ng-repeat="contest in ctrl.contests">
             <td><a ui-sref="manage_contest_info({id: contest._id})">{{ contest.name }}</a></td>
             <td>{{ contest.challengeCount||0 }}</td>
             <td>{{ contest.registrantCount||0 }}</td>
-            <td>{{ contest.state }}</td>
-            <td>{{ contest.regState }}</td>
+            <td>{{ ('contest.state.' + contest.state) | translate }}</td>
+            <td>{{ ('contest.regState.' + contest.regState) | translate }}</td>
             <td><span data-balloon="{{ contest.begin | date: 'yyyy-MM-dd (EEE) HH:mm:ss Z' }}">{{ contest.begin | amCalendar }}</span></td>
             <td><span data-balloon="{{ contest.end | date: 'yyyy-MM-dd (EEE) HH:mm:ss Z' }}">{{ contest.end | amCalendar }}</span></td>
           </tr>

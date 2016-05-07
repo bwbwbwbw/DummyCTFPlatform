@@ -14,6 +14,10 @@ export default class Service extends ServiceInjector {
     return this.$http.get('/api/contests');
   }
 
+  queryPublic() {
+    return this.$http.get('/public/contests');
+  }
+
   create(contest) {
     return this.$http.post('/api/contests', contest);
   }

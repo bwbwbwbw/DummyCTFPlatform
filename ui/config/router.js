@@ -7,6 +7,11 @@ export default function router ($urlRouterProvider, $stateProvider) {
       templateUrl: '/static/angular-views/public/announcement_list.html',
       controller: 'publicAnnouncementListController as ctrl',
     })
+    .state('public_contest', {
+      url: '/public/contests',
+      templateUrl: '/static/angular-views/public/contest_list.html',
+      controller: 'publicContestListController as ctrl',
+    })
     .state('manage', {
       url: '/manage',
       templateUrl: '/static/angular-views/manage/index.html',

@@ -280,6 +280,17 @@ export default (DI, eventBus, db) => {
   };
 
   /**
+   * Get a list of contest that a user has registered
+   * @return {[ContestRegistration]}
+   */
+  contestService.getRegisteredContests = async (userId) => {
+    if (!libObjectId.isValid(userId)) {
+      return false;
+    }
+    return await ContestRegistration.find({ user: userId });
+  }
+
+  /**
    * Whether a user has registered a contest
    * @return {Boolean}
    */

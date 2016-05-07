@@ -64,6 +64,19 @@
 			}
 		}
 	},
+	"contest": {
+		"state": {
+			"UPCOMING": "即将到来",
+			"READY": "即将开始",
+			"ACTIVE": "正在进行",
+			"DONE": "已结束"
+		},
+		"regState": {
+			"UPCOMING": "注册未开放",
+			"OPEN": "可注册",
+			"CLOSE": "注册已关闭"
+		}
+	},
 	"ui": {
 		"nav": {
 			"togglenav": "切换导航",
@@ -113,6 +126,24 @@
 				"retypePassword": "再次输入密码",
 				"register": "注册",
 				"signin": "已有账户：登录"
+			},
+			"contest": {
+				"list": {
+					"col": {
+						"name": "名称",
+						"challenges": "题目数量",
+						"registrants": "注册人数",
+						"state": "比赛状态",
+						"regState": "注册状态",
+						"regBegin": "开放注册时间",
+						"begin": "比赛开始时间",
+						"end": "比赛结束时间"
+					},
+					"box": {
+						"activeContests": "最近的比赛",
+						"allContests": "所有比赛"
+					}
+				}
 			},
 			"manage": {
 				"announcement": {

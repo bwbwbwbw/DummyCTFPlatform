@@ -34,6 +34,9 @@ const app = angular
     textAngular,
     'dummyctf.services',
   ])
+  .run(function (amMoment) {
+    amMoment.changeLocale('zh-cn');
+  })
   .config(configToastr)
   .config(configAjax)
   .config(configCsrf)
