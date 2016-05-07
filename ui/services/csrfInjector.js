@@ -16,4 +16,4 @@ export default class Service {
 
 angular
   .module('dummyctf.services')
-  .service('CSRFInjector', Service);
+  .service('CsrfInjector', Service);

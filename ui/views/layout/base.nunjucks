@@ -10,6 +10,7 @@
 <script>window.csrfToken = {{ csrfToken|json|safe }};</script>
 </head>
 <body class="{{ bodyClass }}">
+<div class="ajax-layer" tabindex="0" style="display: none"></div>
 {% block body %}{% endblock %}
 <script src="/vendors.js"></script>
 <script src="/dummyctf.js"></script>

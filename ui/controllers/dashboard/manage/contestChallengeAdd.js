@@ -4,7 +4,6 @@ import ServiceInjector from 'utils/ServiceInjector';
 export default class Controller extends ServiceInjector {
   constructor(...args) {
     super(...args);
-    this.challengeFormDisabled = false;
     this.contestChallenge = {
       score: 100,
       scoreDecrease: 0,
@@ -18,12 +17,6 @@ export default class Controller extends ServiceInjector {
       .get(this.$stateParams.id)
       .then(resp => {
         this.contest = resp.data;
-      })
-      .catch(resp => {
-        this.dialogs.error(
-          this.$translate.instant('ui.page.manage.contest.info.load.failMsg'),
-          resp.data.msgHtml
-        );
       });
     this.Contest
       .getAvailableChallenges(this.$stateParams.id)

@@ -19,7 +19,7 @@
           </div>
           <div class="box-body" ng-include="'/static/angular-views/manage/challenge_form.html'"></div>
           <div class="box-footer">
-            <button type="submit" class="btn btn-info" ng-disabled="ctrl.basicFormDisabled">{{ 'ui.page.manage.challenge.edit.basic.submit' | translate }}</button>
+            <button type="submit" class="btn btn-info">{{ 'ui.page.manage.challenge.edit.basic.submit' | translate }}</button>
             <a class="btn btn-default pull-right" ui-sref="manage_challenge">{{ 'ui.page.manage.challenge.edit.basic.cancel' | translate }}</a>
           </div>
         </form>
@@ -35,12 +35,12 @@
             <div class="form-group">
               <label class="control-label">{{ 'ui.page.manage.challenge.edit.flag.flag' | translate }}</label>
               <div>
-                <input type="text" class="form-control" placeholder="{{ 'ui.page.manage.challenge.edit.flag.placeholder' | translate:{flag: ctrl.challenge.flagThumb} }}" ng-model="ctrl.challenge.flag" ng-disabled="ctrl.setFlagFormDisabled">
+                <input type="text" class="form-control" placeholder="{{ 'ui.page.manage.challenge.edit.flag.placeholder' | translate:{flag: ctrl.challenge.flagThumb} }}" ng-model="ctrl.challenge.flag">
               </div>
             </div>
           </div>
           <div class="box-footer">
-            <button type="submit" class="btn btn-warning" ng-disabled="ctrl.setFlagFormDisabled">{{ 'ui.page.manage.challenge.edit.flag.submit' | translate }}</button>
+            <button type="submit" class="btn btn-warning">{{ 'ui.page.manage.challenge.edit.flag.submit' | translate }}</button>
           </div>
         </form>
       </div>

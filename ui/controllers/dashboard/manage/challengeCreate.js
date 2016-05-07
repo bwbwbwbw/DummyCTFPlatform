@@ -4,7 +4,6 @@ import ServiceInjector from 'utils/ServiceInjector';
 export default class Controller extends ServiceInjector {
   constructor(...args) {
     super(...args);
-    this.basicFormDisabled = false;
     this.challenge = {
       name: 'Unnamed Challenge',
       category: 'misc',
@@ -13,20 +12,12 @@ export default class Controller extends ServiceInjector {
   }
 
   doCreate() {
-    this.basicFormDisabled = true;
     this.Challenge
       .create(this.challenge)
       .then(resp => {
         this.toastr.success(this.$translate.instant('ui.page.manage.challenge.create.successMsg'));
         this.$state.go('manage_challenge');
-      })
-      .catch(resp => {
-        this.dialogs.error(
-          this.$translate.instant('ui.page.manage.challenge.create.failMsg'),
-          resp.data.msgHtml
-        );
-      })
-      .then(() => this.basicFormDisabled = false);
+      });
   }
 }
 

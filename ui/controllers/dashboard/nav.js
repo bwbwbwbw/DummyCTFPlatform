@@ -7,9 +7,6 @@ export default class Controller extends ServiceInjector {
       .logout()
       .then(resp => {
         window.location.reload();
-      })
-      .catch(resp => {
-        this.toastr.error(this.$translate.instant('ui.page.signout.successMsg', resp.data));
       });
   }
 }

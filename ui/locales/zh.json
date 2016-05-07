@@ -86,11 +86,13 @@
 			}
 		},
 		"page": {
-			"signout": {
-				"failMsg": "登出失败: {{ msg }}"
+			"ajax": {
+				"postFailMsg": "操作失败",
+				"getFailMsg": "获取数据失败",
+				"putFailMsg": "更新失败",
+				"deleteFailMsg": "删除失败"
 			},
 			"signin": {
-				"failMsg": "登录失败",
 				"msg": "登录后才能参加比赛",
 				"username": "用户名",
 				"password": "密码",
@@ -105,7 +107,6 @@
 			},
 			"register": {
 				"retypeNotMatchMsg": "您两次输入的密码不一致",
-				"failMsg": "注册失败",
 				"msg": "创建新账户",
 				"username": "用户名",
 				"password": "密码",
@@ -115,19 +116,12 @@
 			},
 			"manage": {
 				"challenge": {
-					"list": {
-						"failMsg": "查询任务列表失败"
-					},
 					"create": {
-						"failMsg": "创建任务失败",
 						"successMsg": "创新任务成功",
 						"submit": "创建任务",
 						"cancel": "取消"
 					},
 					"edit": {
-						"load": {
-							"failMsg": "加载任务信息失败"
-						},
 						"basic": {
 							"title": "基本信息",
 							"name": "名称",
@@ -136,15 +130,13 @@
 							"description": "描述",
 							"submit": "更新信息",
 							"cancel": "取消",
-							"successMsg": "任务更新成功",
-							"failMsg": "任务更新失败"
+							"successMsg": "任务更新成功"
 						},
 						"flag": {
 							"title": "Flag",
 							"flag": "Flag",
 							"placeholder": "当前 Flag: {{ flag }}",
 							"successMsg": "Flag 更新成功",
-							"failMsg": "Flag 更新失败",
 							"submit": "更新 Flag"
 						}
 					}
@@ -161,7 +153,6 @@
 						}
 					},
 					"create": {
-						"failMsg": "创建比赛失败",
 						"successMsg": "创建比赛成功",
 						"submit": "创建比赛",
 						"cancel": "取消"

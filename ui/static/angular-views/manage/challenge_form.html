@@ -1,7 +1,7 @@
 <div class="form-group">
   <label class="control-label">{{ 'ui.page.manage.challenge.edit.basic.name' | translate }}</label>
   <div>
-    <input type="text" class="form-control" ng-model="ctrl.challenge.name" ng-disabled="ctrl.basicFormDisabled">
+    <input type="text" class="form-control" ng-model="ctrl.challenge.name">
   </div>
 </div>
 <div class="row">
@@ -9,7 +9,7 @@
     <div class="form-group">
       <label class="control-label">{{ 'ui.page.manage.challenge.edit.basic.category' | translate }}</label>
       <div>
-        <input type="text" class="form-control" ng-model="ctrl.challenge.category" ng-disabled="ctrl.basicFormDisabled">
+        <input type="text" class="form-control" ng-model="ctrl.challenge.category">
       </div>
     </div>
   </div>
@@ -17,12 +17,12 @@
     <div class="form-group">
       <label class="control-label">{{ 'ui.page.manage.challenge.edit.basic.difficulty' | translate }}</label>
       <div>
-        <input type="number" class="form-control" ng-model="ctrl.challenge.difficulty" ng-disabled="ctrl.basicFormDisabled">
+        <input type="number" class="form-control" ng-model="ctrl.challenge.difficulty">
       </div>
     </div>
   </div>
 </div>
 <div class="form-group">
   <label class="control-label">{{ 'ui.page.manage.challenge.edit.basic.description' | translate }}</label>
-  <text-angular ng-model="ctrl.challenge.description" ng-disabled="ctrl.basicFormDisabled"></text-angular>
+  <text-angular ng-model="ctrl.challenge.description"></text-angular>
 </div>

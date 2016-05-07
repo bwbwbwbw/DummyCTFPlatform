@@ -12,12 +12,6 @@ export default class Controller extends ServiceInjector {
       .query()
       .then(resp => {
         this.contests = resp.data;
-      })
-      .catch(resp => {
-        this.dialogs.error(
-          this.$translate.instant('ui.page.manage.contest.list.failMsg'),
-          resp.data.msgHtml
-        );
       });
   }
 }

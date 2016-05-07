@@ -131,16 +131,16 @@ export default (DI, eventBus, db) => {
    */
   contestService.validateContestDate = (contest) => {
     if (contest.regBegin.getTime() >= contest.regEnd.getTime()) {
-      throw new Error('error.contest.regBegin.greaterThanEnd');
+      throw new UserError('error.contest.regBegin.greaterThanEnd');
     }
     if (contest.begin.getTime() >= contest.end.getTime()) {
-      throw new Error('error.contest.begin.greaterThanEnd');
+      throw new UserError('error.contest.begin.greaterThanEnd');
     }
     if (contest.begin.getTime() <= Date.now()) {
-      throw new Error('error.contest.begin.lessThanNow');
+      throw new UserError('error.contest.begin.lessThanNow');
     }
     if (contest.regEnd.getTime() >= contest.end.getTime()) {
-      throw new Error('error.contest.regEnd.greaterThanEnd');
+      throw new UserError('error.contest.regEnd.greaterThanEnd');
     }
   };
 

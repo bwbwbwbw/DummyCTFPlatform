@@ -8,12 +8,6 @@ export default class Controller extends ServiceInjector {
       .query()
       .then(resp => {
         this.challenges = resp.data;
-      })
-      .catch(resp => {
-        this.dialogs.error(
-          this.$translate.instant('ui.page.manage.challenge.list.failMsg'),
-          resp.data.msgHtml
-        );
       });
   }
 }

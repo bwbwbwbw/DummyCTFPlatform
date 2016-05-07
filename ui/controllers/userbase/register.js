@@ -4,7 +4,6 @@ import ServiceInjector from 'utils/ServiceInjector';
 export default class Controller extends ServiceInjector {
   constructor(...args) {
     super(...args);
-    this.formDisabled = false;
     this.username = '';
     this.password = '';
     this.password2 = '';
@@ -18,18 +17,10 @@ export default class Controller extends ServiceInjector {
       );
       return;
     }
-    this.formDisabled = true;
     this.User
       .register(this.username, this.password)
       .then(resp => {
         window.location = '/';
-      })
-      .catch(resp => {
-        this.dialogs.error(
-          this.$translate.instant('ui.page.register.failMsg'),
-          resp.data.msgHtml
-        );
-        this.formDisabled = false;
       });
   }
 }

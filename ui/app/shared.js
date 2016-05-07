@@ -15,8 +15,8 @@ import 'angular-moment';
 import textAngular from 'textangular';
 
 import configToastr from 'config/toastr';
-import configXHR from 'config/xhr';
-import configCSRF from 'config/csrf';
+import configAjax from 'config/ajax';
+import configCsrf from 'config/csrf';
 import configTranslation from 'config/translation';
 import configTextAngular from 'config/textAngular';
 
@@ -35,10 +35,13 @@ const app = angular
     'dummyctf.services',
   ])
   .config(configToastr)
-  .config(configXHR)
-  .config(configCSRF)
+  .config(configAjax)
+  .config(configCsrf)
   .config(configTranslation)
   .config(configTextAngular)
   ;
+
+const sharedCtrlCtx = require.context('controllers/shared/', true, /\.js$/);
+sharedCtrlCtx.keys().map(sharedCtrlCtx);
 
 export default app;
