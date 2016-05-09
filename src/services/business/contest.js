@@ -11,7 +11,7 @@ export default (DI, eventBus, db) => {
 
   const contestService = {};
 
-  const updateFields = ['name', 'begin', 'end', 'regBegin', 'regEnd'];
+  const updateFields = ['name', 'begin', 'end', 'regBegin', 'regEnd', 'validator'];
   const updateChallengeFields = ['score', 'scoreDecrease', 'minScore'];
 
   /**

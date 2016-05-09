@@ -7,6 +7,7 @@ export default (DI, parentRouter, app) => {
   const systemPropertyService = DI.get('systemPropertyService');
   const contestService = DI.get('contestService');
   const challengeService = DI.get('challengeService');
+  const validator = DI.get('validator');
 
   const router = Router();
   parentRouter.use('/contests', router);
@@ -30,6 +31,18 @@ export default (DI, parentRouter, app) => {
       }
       await systemPropertyService.set('current_contest', contestId);
       res.json({});
+    }
+  );
+
+  router.get('/availableValidators',
+    async (req, res) => {
+      const validators = validator.getValidators().map(id => {
+        return {
+          id,
+          name: validator.get(id).name,
+        };
+      });
+      res.json(validators);
     }
   );
 

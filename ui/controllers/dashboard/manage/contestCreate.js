@@ -7,7 +7,17 @@ export default class Controller extends ServiceInjector {
     this.contest = {
       name: 'Unnamed Contest',
       regBegin: new Date(),
+      validator: 'none',
     };
+    this.loadValidators();
+  }
+
+  loadValidators() {
+    this.Contest
+      .getAvailableValidators()
+      .then(resp => {
+        this.availableValidators = resp.data;
+      });
   }
 
   doCreate() {

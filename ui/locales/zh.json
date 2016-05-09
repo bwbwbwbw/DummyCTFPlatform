@@ -196,6 +196,7 @@
 					"edit": {
 						"basic": {
 							"title": "基本信息",
+							"validator": "注册验证方式",
 							"name": "名称",
 							"begin": "开始时间",
 							"end": "结束时间",

@@ -13,6 +13,9 @@ i18n:
 eventBus:
   path: eventbus
 
+validator:
+  path: validator
+
 db:
   path: database/mongodb
   inject: ['config', 'logger']

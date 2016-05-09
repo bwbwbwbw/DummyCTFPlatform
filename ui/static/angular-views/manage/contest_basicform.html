@@ -1,7 +1,21 @@
-<div class="form-group">
-  <label class="control-label">{{ 'ui.page.manage.contest.edit.basic.name' | translate }}</label>
-  <div>
-    <input type="text" class="form-control" ng-model="ctrl.contest.name">
+<div class="row">
+  <div class="col-md-8">
+    <div class="form-group">
+      <label class="control-label">{{ 'ui.page.manage.contest.edit.basic.name' | translate }}</label>
+      <div>
+        <input type="text" class="form-control" ng-model="ctrl.contest.name">
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label class="control-label">{{ 'ui.page.manage.contest.edit.basic.validator' | translate }}</label>
+      <div>
+        <select ng-model="ctrl.contest.validator" class="form-control">
+          <option value="{{ v.id }}" ng-repeat="v in ctrl.availableValidators">{{ v.name }}</option>
+        </select>
+      </div>
+    </div>
   </div>
 </div>
 <div class="row">

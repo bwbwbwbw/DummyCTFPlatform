@@ -7,6 +7,7 @@ const ContestSchema = new Schema({
   end: Date,
   regBegin: Date,
   regEnd: Date,
+  validator: String,
 }, {
   timestamps: true,
   toObject: { virtuals: true },

@@ -42,6 +42,10 @@ export default class Service extends ServiceInjector {
     return this.$http.get(`/api/contests/${id}/availableChallenges`);
   }
 
+  getAvailableValidators() {
+    return this.$http.get(`/api/contests/availableValidators`);
+  }
+
 }
 
 Service.$inject = ['$http'];
