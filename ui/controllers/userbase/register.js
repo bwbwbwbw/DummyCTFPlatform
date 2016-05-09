@@ -9,7 +9,7 @@ export default class Controller extends ServiceInjector {
     this.password2 = '';
   }
 
-  doRegister() {
+  async doRegister() {
     if (this.password !== this.password2) {
       this.dialogs.error(
         this.$translate.instant('ui.page.register.failMsg'),
@@ -17,15 +17,12 @@ export default class Controller extends ServiceInjector {
       );
       return;
     }
-    this.User
-      .register(this.username, this.password)
-      .then(resp => {
-        window.location = '/';
-      });
+    await this.User.register(this.username, this.password);
+    window.location = '/';
   }
 }
 
-Controller.$inject = ['dialogs', 'toastr', 'User', '$translate'];
+Controller.$inject = ['dialogs', 'User', '$translate'];
 
 angular
   .module('dummyctf.userbase')

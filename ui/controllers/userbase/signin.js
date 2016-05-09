@@ -8,16 +8,13 @@ export default class Controller extends ServiceInjector {
     this.password = '';
   }
 
-  doSignIn() {
-    this.User
-      .signIn(this.username, this.password)
-      .then(resp => {
-        window.location = '/';
-      });
+  async doSignIn() {
+    await this.User.signIn(this.username, this.password);
+    window.location = '/';
   }
 }
 
-Controller.$inject = ['dialogs', 'toastr', 'User', '$translate'];
+Controller.$inject = ['User'];
 
 angular
   .module('dummyctf.userbase')

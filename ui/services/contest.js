@@ -47,7 +47,7 @@ export default class Service extends ServiceInjector {
   }
 
   getAvailableValidators() {
-    return this.$http.get(`/api/contests/availableValidators`);
+    return this.$http.get('/api/contests/availableValidators');
   }
 
 }

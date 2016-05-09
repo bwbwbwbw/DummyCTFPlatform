@@ -20,7 +20,7 @@ export default class Controller extends ServiceInjector {
   }
 }
 
-Controller.$inject = ['dialogs', 'toastr', '$translate', '$uibModalInstance', 'Contest', 'data'];
+Controller.$inject = ['$uibModalInstance', 'Contest', 'data'];
 
 angular
   .module('dummyctf.dashboard')

@@ -11,17 +11,14 @@ export default class Controller extends ServiceInjector {
     };
   }
 
-  doCreate() {
-    this.Challenge
-      .create(this.challenge)
-      .then(resp => {
-        this.toastr.success(this.$translate.instant('ui.page.manage.challenge.create.successMsg'));
-        this.$state.go('manage_challenge');
-      });
+  async doCreate() {
+    await this.Challenge.create(this.challenge);
+    this.toastr.success(this.$translate.instant('ui.page.manage.challenge.create.successMsg'));
+    this.$state.go('manage_challenge');
   }
 }
 
-Controller.$inject = ['dialogs', 'toastr', '$translate', '$state', 'Challenge'];
+Controller.$inject = ['toastr', '$translate', '$state', 'Challenge'];
 
 angular
   .module('dummyctf.dashboard')

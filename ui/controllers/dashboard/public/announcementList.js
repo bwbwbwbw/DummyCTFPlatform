@@ -4,15 +4,16 @@ import ServiceInjector from 'utils/ServiceInjector';
 export default class Controller extends ServiceInjector {
   constructor(...args) {
     super(...args);
-    this.Announcement
-      .queryPublic()
-      .then(resp => {
-        this.announcements = resp.data;
-      });
+    this.load();
+  }
+
+  async load() {
+    this.announcements = (await this.Announcement.queryPublic()).data;
+    this.$rootScope.$apply();
   }
 }
 
-Controller.$inject = ['Announcement'];
+Controller.$inject = ['$rootScope', 'Announcement'];
 
 angular
   .module('dummyctf.dashboard')

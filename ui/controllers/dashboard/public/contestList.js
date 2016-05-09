@@ -14,10 +14,9 @@ export default class Controller extends ServiceInjector {
     this.loadContests();
   }
 
-  loadContests() {
-    this.Contest
-      .queryPublic()
-      .then(resp => this.contests = resp.data);
+  async loadContests() {
+    this.contests = (await this.Contest.queryPublic()).data;
+    this.$rootScope.$apply();
   }
 
   filterActiveContest(contest) {
@@ -28,36 +27,32 @@ export default class Controller extends ServiceInjector {
     return `${contestOrder[contest.state]}_${contest.begin}`;
   }
 
-  doRegister(id, data = {}) {
-    this.Contest
-      .register(id, data)
-      .then(resp => {
-        if (resp.data.success === false) {
-          this.dialogs.create(
-            '/static/angular-views/public/contest_register.html',
-            'publicContestRegisterController',
-            { payload: resp.data.payload },
-            { copy: true },
-            'ctrl'
-          ).result.then(dialogForm => {
-            this.doRegister(id, {
-              fromForm: true,
-              ...dialogForm,
-            });
-          });
-        } else {
-          this.dialogs.notify(
-            this.$translate.instant('ui.page.contest.register.successMsg'),
-            this.$translate.instant('ui.page.contest.register.successBody') + (resp.data.extraInfo || '')
-          );
-          this.loadContests();
-        }
+  async doRegister(id, data = {}) {
+    const resp = await this.Contest.register(id, data);
+    if (resp.data.success === false) {
+      const dialogForm = (await this.dialogs.create(
+        '/static/angular-views/public/contest_register.html',
+        'publicContestRegisterController',
+        { payload: resp.data.payload },
+        { copy: true },
+        'ctrl'
+      )).result;
+      this.doRegister(id, {
+        fromForm: true,
+        ...dialogForm,
       });
+    } else {
+      this.dialogs.notify(
+        this.$translate.instant('ui.page.contest.register.successMsg'),
+        this.$translate.instant('ui.page.contest.register.successBody') + (resp.data.extraInfo || '')
+      );
+      this.loadContests();
+    }
   }
 
 }
 
-Controller.$inject = ['dialogs', 'toastr', '$translate', 'Contest'];
+Controller.$inject = ['dialogs', '$translate', 'Contest', '$rootScope'];
 
 angular
   .module('dummyctf.dashboard')

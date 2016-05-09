@@ -12,25 +12,19 @@ export default class Controller extends ServiceInjector {
     this.loadValidators();
   }
 
-  loadValidators() {
-    this.Contest
-      .getAvailableValidators()
-      .then(resp => {
-        this.availableValidators = resp.data;
-      });
+  async loadValidators() {
+    this.availableValidators = (await this.Contest.getAvailableValidators()).data;
+    this.$rootScope.$apply();
   }
 
-  doCreate() {
-    this.Contest
-      .create(this.contest)
-      .then(resp => {
-        this.toastr.success(this.$translate.instant('ui.page.manage.contest.create.successMsg'));
-        this.$state.go('manage_contest');
-      });
+  async doCreate() {
+    await this.Contest.create(this.contest);
+    this.toastr.success(this.$translate.instant('ui.page.manage.contest.create.successMsg'));
+    this.$state.go('manage_contest');
   }
 }
 
-Controller.$inject = ['dialogs', 'toastr', '$translate', '$state', 'Contest'];
+Controller.$inject = ['toastr', '$translate', '$state', '$rootScope', 'Contest'];
 
 angular
   .module('dummyctf.dashboard')

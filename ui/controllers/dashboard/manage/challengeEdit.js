@@ -7,36 +7,27 @@ export default class Controller extends ServiceInjector {
     this.load();
   }
 
-  load() {
-    this.Challenge
-      .get(this.$stateParams.id)
-      .then(resp => {
-        this.challenge = resp.data;
-      });
+  async load() {
+    this.challenge = (await this.Challenge.get(this.$stateParams.id)).data;
+    this.$rootScope.$apply();
   }
 
-  doSetFlag() {
-    this.Challenge
-      .setFlag(this.challenge._id, this.challenge.flag)
-      .then(resp => {
-        this.toastr.success(this.$translate.instant('ui.page.manage.challenge.edit.flag.successMsg'));
-        this.challenge.flag = '';
-        this.challenge.flagThumb = resp.data.flagThumb;
-      });
+  async doSetFlag() {
+    const resp = await this.Challenge.setFlag(this.challenge._id, this.challenge.flag);
+    this.toastr.success(this.$translate.instant('ui.page.manage.challenge.edit.flag.successMsg'));
+    this.challenge.flag = '';
+    this.challenge.flagThumb = resp.data.flagThumb;
   }
 
-  doUpdate() {
-    this.Challenge
-      .update(this.challenge._id, this.challenge)
-      .then(resp => {
-        this.toastr.success(this.$translate.instant('ui.page.manage.challenge.edit.basic.successMsg'));
-        this.$state.go('manage_challenge');
-      });
+  async doUpdate() {
+    await this.Challenge.update(this.challenge._id, this.challenge);
+    this.toastr.success(this.$translate.instant('ui.page.manage.challenge.edit.basic.successMsg'));
+    this.$state.go('manage_challenge');
   }
 
 }
 
-Controller.$inject = ['dialogs', 'toastr', '$translate', '$state', '$stateParams', 'Challenge'];
+Controller.$inject = ['toastr', '$translate', '$state', '$stateParams', '$rootScope', 'Challenge'];
 
 angular
   .module('dummyctf.dashboard')

@@ -8,34 +8,24 @@ export default class Controller extends ServiceInjector {
     this.loadContest();
   }
 
-  loadContest() {
-    this.Contest
-      .get(this.$stateParams.id)
-      .then(resp => {
-        this.contest = resp.data;
-      });
+  async loadValidators() {
+    this.availableValidators = (await this.Contest.getAvailableValidators()).data;
   }
 
-  loadValidators() {
-    this.Contest
-      .getAvailableValidators()
-      .then(resp => {
-        this.availableValidators = resp.data;
-      });
+  async loadContest() {
+    this.contest = (await this.Contest.get(this.$stateParams.id)).data;
+    this.$rootScope.$apply();
   }
 
-  doUpdate() {
-    this.Contest
-      .update(this.contest._id, this.contest)
-      .then(resp => {
-        this.toastr.success(this.$translate.instant('ui.page.manage.contest.edit.basic.successMsg'));
-        this.$state.go('manage_contest_info', {id: this.contest._id });
-      });
+  async doUpdate() {
+    await this.Contest.update(this.contest._id, this.contest);
+    this.toastr.success(this.$translate.instant('ui.page.manage.contest.edit.basic.successMsg'));
+    this.$state.go('manage_contest_info', {id: this.contest._id });
   }
 
 }
 
-Controller.$inject = ['dialogs', 'toastr', '$translate', '$state', '$stateParams', 'Contest'];
+Controller.$inject = ['toastr', '$translate', '$state', '$stateParams', '$rootScope', 'Contest'];
 
 angular
   .module('dummyctf.dashboard')

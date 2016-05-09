@@ -10,17 +10,14 @@ export default class Controller extends ServiceInjector {
     };
   }
 
-  doCreate() {
-    this.Announcement
-      .create(this.announcement)
-      .then(resp => {
-        this.toastr.success(this.$translate.instant('ui.page.manage.announcement.create.successMsg'));
-        this.$state.go('manage_announcement');
-      });
+  async doCreate() {
+    await this.Announcement.create(this.announcement);
+    this.toastr.success(this.$translate.instant('ui.page.manage.announcement.create.successMsg'));
+    this.$state.go('manage_announcement');
   }
 }
 
-Controller.$inject = ['dialogs', 'toastr', '$translate', '$state', 'Announcement'];
+Controller.$inject = ['toastr', '$translate', '$state', 'Announcement'];
 
 angular
   .module('dummyctf.dashboard')
