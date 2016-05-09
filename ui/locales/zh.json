@@ -51,7 +51,7 @@
 			"404": "该页未找到",
 			"500": "服务器内部错误: {{ message }}",
 			"csrf": "表单验证失败",
-			"privilege": "没有权限执行此操作"
+			"privilege": "您没有权限执行此操作，请登录后重试"
 		}
 	},
 	"event": {
@@ -142,6 +142,16 @@
 						"activeContests": "最近的比赛",
 						"allContests": "所有比赛"
 					}
+				},
+				"register": {
+					"dialog": {
+						"title": "身份验证",
+						"submit": "递交并注册",
+						"skip": "忽略并注册",
+						"cancel": "取消"
+					},
+					"successMsg": "注册比赛成功",
+					"successBody": "您已成功注册该比赛！比赛开始后，您可以前往「任务」页面查看题目。"
 				}
 			},
 			"announcement": {

@@ -18,7 +18,6 @@
         <tbody>
         <tr>
           <th>{{ 'ui.page.contest.list.col.name' | translate }}</th>
-          <th style="width:100px">{{ 'ui.page.contest.list.col.registrants' | translate }}</th>
           <th style="width:120px">{{ 'ui.page.contest.list.col.state' | translate }}</th>
           <th style="width:120px">{{ 'ui.page.contest.list.col.regState' | translate }}</th>
           <th style="width:150px">{{ 'ui.page.contest.list.col.regBegin' | translate }}</th>
@@ -26,8 +25,7 @@
           <th style="width:150px">{{ 'ui.page.contest.list.col.end' | translate }}</th>
         </tr>
         <tr ng-repeat="contest in ctrl.contests | filter: ctrl.filterActiveContest">
-          <td>{{ contest.name }}</td>
-          <td>{{ contest.registrantCount }}</td>
+          <td>{{ contest.name }} <span ng-show="contest.registered">(已注册)</span><a ng-click="ctrl.doRegister(contest._id)" ng-show="(!contest.registered) && contest.regState === 'OPEN'" href="javascript:;">注册参加</a></td>
           <td>{{ ('contest.state.' + contest.state) | translate }}</td>
           <td>{{ ('contest.regState.' + contest.regState) | translate }}</td>
           <td><span data-balloon="{{ contest.regBegin | date: 'yyyy-MM-dd (EEE) HH:mm:ss Z' }}">{{ contest.regBegin | amTimeAgo }}</span></td>
@@ -47,7 +45,6 @@
         <tbody>
         <tr>
           <th>{{ 'ui.page.contest.list.col.name' | translate }}</th>
-          <th style="width:100px">{{ 'ui.page.contest.list.col.registrants' | translate }}</th>
           <th style="width:120px">{{ 'ui.page.contest.list.col.state' | translate }}</th>
           <th style="width:120px">{{ 'ui.page.contest.list.col.regState' | translate }}</th>
           <th style="width:150px">{{ 'ui.page.contest.list.col.regBegin' | translate }}</th>
@@ -55,8 +52,7 @@
           <th style="width:150px">{{ 'ui.page.contest.list.col.end' | translate }}</th>
         </tr>
         <tr ng-repeat="contest in ctrl.contests | orderBy: ctrl.orderContest:true">
-          <td>{{ contest.name }}</td>
-          <td>{{ contest.registrantCount }}</td>
+          <td>{{ contest.name }} <span ng-show="contest.registered">(已注册)</span></td>
           <td>{{ ('contest.state.' + contest.state) | translate }}</td>
           <td>{{ ('contest.regState.' + contest.regState) | translate }}</td>
           <td><span data-balloon="{{ contest.regBegin | date: 'yyyy-MM-dd (EEE) HH:mm:ss Z' }}">{{ contest.regBegin | amCalendar }}</span></td>

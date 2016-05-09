@@ -1,6 +1,10 @@
 import angular from 'angular';
 import ServiceInjector from 'utils/ServiceInjector';
 
+function shouldProcess(url) {
+  return url.indexOf('/api/') === 0 || url.indexOf('/public/') === 0;
+}
+
 export default class Service extends ServiceInjector {
 
   constructor(...args) {
@@ -22,7 +26,7 @@ export default class Service extends ServiceInjector {
   }
 
   request = (config) => {
-    if (config.url.indexOf('/api/') !== 0) {
+    if (!shouldProcess(config.url)) {
       return config;
     }
     config.headers['x-requested-with'] = 'XMLHttpRequest';
@@ -33,7 +37,7 @@ export default class Service extends ServiceInjector {
   }
 
   response = (resp) => {
-    if (resp.config.url.indexOf('/api/') !== 0) {
+    if (!shouldProcess(resp.config.url)) {
       return resp;
     }
     if (resp.config.method !== 'GET') {
@@ -43,7 +47,7 @@ export default class Service extends ServiceInjector {
   }
 
   responseError = (resp) => {
-    if (resp.config.url.indexOf('/api/') !== 0) {
+    if (!shouldProcess(resp.config.url)) {
       return resp;
     }
     this.$injector.get('dialogs').error(

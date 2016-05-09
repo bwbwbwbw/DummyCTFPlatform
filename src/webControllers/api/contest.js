@@ -36,10 +36,10 @@ export default (DI, parentRouter, app) => {
 
   router.get('/availableValidators',
     async (req, res) => {
-      const validators = validator.getValidators().map(id => {
+      const validators = validator.getValidators().map(v => {
         return {
-          id,
-          name: validator.get(id).name,
+          id: v.id,
+          name: v.name,
         };
       });
       res.json(validators);
@@ -118,4 +118,5 @@ export default (DI, parentRouter, app) => {
       res.json(contest);
     }
   );
+
 };

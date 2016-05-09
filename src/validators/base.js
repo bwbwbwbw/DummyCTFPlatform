@@ -3,4 +3,12 @@ export default class BaseValidator {
     this.name = 'None';
     this.id = 'none';
   }
+  doRegister() {
+    return {
+      type: 'pass',
+      payload: {
+        validated: true,
+      },
+    };
+  }
 }

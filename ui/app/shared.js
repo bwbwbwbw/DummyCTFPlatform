@@ -11,6 +11,8 @@ import angularUiBootstrap from 'angular-ui-bootstrap';
 import angularDialog from 'angular-dialog-service';
 import angularToastr from 'angular-toastr';
 import angularDatePicker from 'angular-datepicker/index.js';
+import angularFormly from 'angular-formly';
+import angularFormlyBootstrap from 'angular-formly-templates-bootstrap';
 import 'angular-moment';
 import textAngular from 'textangular';
 
@@ -30,6 +32,8 @@ const app = angular
     angularDialog,
     angularToastr,
     angularDatePicker,
+    angularFormly,
+    angularFormlyBootstrap,
     'angularMoment',
     textAngular,
     'dummyctf.services',

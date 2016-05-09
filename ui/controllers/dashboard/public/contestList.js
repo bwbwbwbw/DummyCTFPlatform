@@ -11,15 +11,13 @@ const contestOrder = {
 export default class Controller extends ServiceInjector {
   constructor(...args) {
     super(...args);
-    this.load();
+    this.loadContests();
   }
 
-  load() {
+  loadContests() {
     this.Contest
       .queryPublic()
-      .then(resp => {
-        this.contests = resp.data;
-      });
+      .then(resp => this.contests = resp.data);
   }
 
   filterActiveContest(contest) {
@@ -28,6 +26,33 @@ export default class Controller extends ServiceInjector {
 
   orderContest(contest) {
     return `${contestOrder[contest.state]}_${contest.begin}`;
+  }
+
+  doRegister(id, data = {}) {
+    this.Contest
+      .register(id, data)
+      .then(resp => {
+        if (resp.data.success === false) {
+          this.dialogs.create(
+            '/static/angular-views/public/contest_register.html',
+            'publicContestRegisterController',
+            { payload: resp.data.payload },
+            { copy: true },
+            'ctrl'
+          ).result.then(dialogForm => {
+            this.doRegister(id, {
+              fromForm: true,
+              ...dialogForm,
+            });
+          });
+        } else {
+          this.dialogs.notify(
+            this.$translate.instant('ui.page.contest.register.successMsg'),
+            this.$translate.instant('ui.page.contest.register.successBody') + (resp.data.extraInfo || '')
+          );
+          this.loadContests();
+        }
+      });
   }
 
 }

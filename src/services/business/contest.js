@@ -309,7 +309,7 @@ export default (DI, eventBus, db) => {
    * Register a contest
    * @return {ContestRegistration}
    */
-  contestService.registerContest = async (contestId, userId) => {
+  contestService.registerContest = async (contestId, userId, metaData) => {
     if (!libObjectId.isValid(contestId)) {
       throw new UserError(i18n.__('error.contest.notfound'));
     }
@@ -327,6 +327,7 @@ export default (DI, eventBus, db) => {
     const reg = new ContestRegistration({
       contest: contestId,
       user: userId,
+      meta: metaData,
     });
     try {
       await reg.save();

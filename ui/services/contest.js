@@ -30,6 +30,10 @@ export default class Service extends ServiceInjector {
     return this.$http.put(`/api/contests/${id}`, contest);
   }
 
+  register(id, form) {
+    return this.$http.post(`/public/contests/${id}/register`, form);
+  }
+
   getAllChallenges(id) {
     return this.$http.get(`/api/contests/${id}/allChallenges`);
   }

@@ -52,6 +52,10 @@ web.templateEngine:
   path: web/templateEngine
   inject: ['web.server', 'config']
 
+web.validatorApi:
+  path: web/validatorApi
+  inject: ['web.server', 'validator']
+
 # ========================
 # Business Services
 

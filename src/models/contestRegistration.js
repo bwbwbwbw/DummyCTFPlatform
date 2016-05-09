@@ -3,6 +3,7 @@ import mongoose, { Schema } from 'mongoose';
 const ContestRegistrationSchema = new Schema({
   contest: { type: Schema.Types.ObjectId, ref: 'Contest' },
   user: { type: Schema.Types.ObjectId, ref: 'User' },
+  meta: Schema.Types.Mixed,
 }, {
   timestamps: true,
 });

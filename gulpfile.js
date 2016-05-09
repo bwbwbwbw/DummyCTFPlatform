@@ -16,7 +16,7 @@ gulp.task('js', function () {
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(babel({
-      presets: ['stage-0', 'es2015'],
+      presets: ['es2015', 'stage-0'],
       plugins: ['transform-runtime']
     }))
     .pipe(cache.cache())

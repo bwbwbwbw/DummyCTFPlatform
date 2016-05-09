@@ -14,10 +14,14 @@ export default (DI) => {
 
   return {
     getValidators: () => {
-      return _.keys(validators);
+      return _.values(validators);
     },
     get: (id) => {
-      return validators[id];
+      const v = validators[id];
+      if (v !== undefined) {
+        return v;
+      }
+      return validators['none'];
     }
   };
 
