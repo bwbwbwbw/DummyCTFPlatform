@@ -73,7 +73,7 @@
         </div>
         <div class="box-body no-padding">
           <ul class="nav nav-pills nav-stacked">
-            <li><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i> Edit contest properties</a></li>
+            <li><a ui-sref="manage_contest_edit({id: ctrl.contest.id})"><i class="fa fa-pencil" aria-hidden="true"></i> Edit contest properties</a></li>
             <li><a ui-sref="manage_contest_challenge_add({id: ctrl.contest.id})"><i class="fa fa-flag" aria-hidden="true"></i> Add a challenge</a></li>
             <li><a href="#"><i class="fa fa-bell" aria-hidden="true"></i> Publish a notice</a></li>
             <li><a href="#"><i class="fa fa-users" aria-hidden="true"></i> View registrants</a></li>
@@ -84,7 +84,7 @@
         <div class="box-header with-border">
           <h3 class="box-title">Contest Properties</h3>
           <div class="box-tools pull-right">
-            <a class="btn btn-box-tool"><i class="fa fa-pencil"></i> Edit</a>
+            <a ui-sref="manage_contest_edit({id: ctrl.contest.id})" class="btn btn-box-tool"><i class="fa fa-pencil"></i> Edit</a>
           </div>
         </div>
         <div class="box-body">

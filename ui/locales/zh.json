@@ -28,8 +28,7 @@
 				"greaterThanEnd": "报名结束时间必须小于比赛结束时间"
 			},
 			"begin": {
-				"greaterThanEnd": "比赛开始时间必须小于比赛结束时间",
-				"lessThanNow": "比赛开始时间必须大于当前时间"
+				"greaterThanEnd": "比赛开始时间必须小于比赛结束时间"
 			},
 			"registration": {
 				"notReady": "该比赛还没到报名时间",
@@ -201,7 +200,10 @@
 							"begin": "开始时间",
 							"end": "结束时间",
 							"regBegin": "报名开始时间",
-							"regEnd": "报名结束时间"
+							"regEnd": "报名结束时间",
+							"submit": "修改",
+							"cancel": "取消",
+							"successMsg": "比赛信息修改成功"
 						}
 					},
 					"create": {

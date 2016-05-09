@@ -62,6 +62,11 @@ export default function router ($urlRouterProvider, $stateProvider) {
       templateUrl: '/static/angular-views/manage/contest_info.html',
       controller: 'manageContestInfoController as ctrl',
     })
+    .state('manage_contest_edit', {
+      url: '/manage/contests/:id/edit',
+      templateUrl: '/static/angular-views/manage/contest_edit.html',
+      controller: 'manageContestEditController as ctrl',
+    })
     .state('manage_contest_challenge_add', {
       url: '/manage/contests/:id/challenge/add',
       templateUrl: '/static/angular-views/manage/contest_challenge_add.html',
