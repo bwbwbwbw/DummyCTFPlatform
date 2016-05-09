@@ -9,13 +9,6 @@ export default class Controller extends ServiceInjector {
       scoreDecrease: 0,
       minScore: 100,
     };
-    this.load();
-  }
-
-  async load() {
-    this.contest = (await this.Contest.get(this.$stateParams.id)).data;
-    this.availableChallenges = (await this.Contest.getAvailableChallenges(this.$stateParams.id)).data;
-    this.$rootScope.$apply();
   }
 
   async doAddContest() {
@@ -25,7 +18,7 @@ export default class Controller extends ServiceInjector {
   }
 }
 
-Controller.$inject = ['toastr', '$translate', '$state', '$stateParams', '$rootScope', 'Contest'];
+Controller.$inject = ['contest', 'availableChallenges', 'toastr', '$translate', '$state', '$stateParams', 'Contest'];
 
 angular
   .module('dummyctf.dashboard')

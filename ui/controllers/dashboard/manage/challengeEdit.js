@@ -2,15 +2,6 @@ import angular from 'angular';
 import ServiceInjector from 'utils/ServiceInjector';
 
 export default class Controller extends ServiceInjector {
-  constructor(...args) {
-    super(...args);
-    this.load();
-  }
-
-  async load() {
-    this.challenge = (await this.Challenge.get(this.$stateParams.id)).data;
-    this.$rootScope.$apply();
-  }
 
   async doSetFlag() {
     const resp = await this.Challenge.setFlag(this.challenge._id, this.challenge.flag);
@@ -27,7 +18,7 @@ export default class Controller extends ServiceInjector {
 
 }
 
-Controller.$inject = ['toastr', '$translate', '$state', '$stateParams', '$rootScope', 'Challenge'];
+Controller.$inject = ['challenge', 'toastr', '$translate', '$state', 'Challenge'];
 
 angular
   .module('dummyctf.dashboard')

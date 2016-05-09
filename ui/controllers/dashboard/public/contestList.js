@@ -9,16 +9,6 @@ const contestOrder = {
 };
 
 export default class Controller extends ServiceInjector {
-  constructor(...args) {
-    super(...args);
-    this.loadContests();
-  }
-
-  async loadContests() {
-    this.contests = (await this.Contest.queryPublic()).data;
-    this.$rootScope.$apply();
-  }
-
   filterActiveContest(contest) {
     return (contest.state === 'READY' || contest.state === 'ACTIVE');
   }
@@ -36,7 +26,7 @@ export default class Controller extends ServiceInjector {
         { payload: resp.data.payload },
         { copy: true },
         'ctrl'
-      )).result;
+      ).result);
       this.doRegister(id, {
         fromForm: true,
         ...dialogForm,
@@ -52,7 +42,7 @@ export default class Controller extends ServiceInjector {
 
 }
 
-Controller.$inject = ['dialogs', '$translate', 'Contest', '$rootScope'];
+Controller.$inject = ['contests', 'dialogs', '$translate', 'Contest'];
 
 angular
   .module('dummyctf.dashboard')

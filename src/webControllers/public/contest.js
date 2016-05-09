@@ -22,18 +22,13 @@ export default (DI, parentRouter, app) => {
       if (req.session.user && req.session.user._id) {
         registeredContests = (await contestService.getRegisteredContests(req.session.user._id))
           .map(reg => {
-            return { _id: reg.contest, registered: true };
+            return { _id: reg.contest, register: reg };
           });
       }
       const accessor = (d) => String(d._id);
       result = contests.map(v => v.toObject());
       result = _.hashLeftOuterJoin(result, accessor, registeredContests, accessor);
-      res.json(result.map(row => {
-        if (row.registered === undefined) {
-          row.registered = false;
-        }
-        return row;
-      }));
+      res.json(result);
     }
   );
 

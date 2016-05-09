@@ -2,10 +2,6 @@ import angular from 'angular';
 import ServiceInjector from 'utils/ServiceInjector';
 
 export default class Service extends ServiceInjector {
-  constructor(...args) {
-    super(...args);
-  }
-
   register(username, password) {
     return this.$http.post('/public/user/register', {
       username,

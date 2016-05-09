@@ -9,12 +9,6 @@ export default class Controller extends ServiceInjector {
       regBegin: new Date(),
       validator: 'none',
     };
-    this.loadValidators();
-  }
-
-  async loadValidators() {
-    this.availableValidators = (await this.Contest.getAvailableValidators()).data;
-    this.$rootScope.$apply();
   }
 
   async doCreate() {
@@ -24,7 +18,7 @@ export default class Controller extends ServiceInjector {
   }
 }
 
-Controller.$inject = ['toastr', '$translate', '$state', '$rootScope', 'Contest'];
+Controller.$inject = ['availableValidators', 'toastr', '$translate', '$state', 'Contest'];
 
 angular
   .module('dummyctf.dashboard')
