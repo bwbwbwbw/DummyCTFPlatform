@@ -10,7 +10,7 @@
       {% endif %}
       <li><a href="/contests/scoreboard"><i class="fa fa-trophy"></i> <span>{{ 'ui.sidebar.scoreboard' | translate }}</span></a></li>
       {% endif %}
-      {% if req.session.user and req.session.user|isContester %}
+      {% if req.session.user and req.session.user|isAdmin %}
       <li class="header">{{ 'ui.sidebar.manage.header' | translate }}</li>
       <li><a ui-sref="manage"><i class="fa fa-tachometer"></i> <span>{{ 'ui.sidebar.manage.dashboard' | translate }}</span></a></li>
       <li><a ui-sref="manage_announcement"><i class="fa fa-wrench"></i> <span>{{ 'ui.sidebar.manage.announcements' | translate }}</span></a></li>
