@@ -31,9 +31,11 @@
 				"greaterThanEnd": "比赛开始时间必须小于比赛结束时间"
 			},
 			"registration": {
-				"notReady": "该比赛还没到报名时间",
-				"passed": "该比赛报名已结束",
-				"registered": "您已经报名参加该比赛"
+				"notfound": "比赛注册记录未找到",
+				"notReady": "该比赛还没到注册时间",
+				"passed": "该比赛注册期已结束",
+				"registered": "您已经注册参加该比赛",
+				"validated": "您已经通过了身份验证"
 			},
 			"challenge": {
 				"exist": "该任务已在比赛任务列表中",
@@ -51,7 +53,8 @@
 			"404": "该页未找到",
 			"500": "服务器内部错误: {{ message }}",
 			"csrf": "表单验证失败",
-			"privilege": "您没有权限执行此操作，请登录后重试"
+			"privilege": "您没有权限执行此操作，请登录后重试",
+			"returnHome": "点击此处返回首页"
 		}
 	},
 	"event": {
@@ -147,6 +150,7 @@
 					"dialog": {
 						"title": "身份验证",
 						"submit": "递交并注册",
+						"verify": "验证",
 						"skip": "忽略并注册",
 						"cancel": "取消"
 					},

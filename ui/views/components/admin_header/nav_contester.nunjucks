@@ -10,10 +10,10 @@
     </li>
     <li class="user-footer">
       <div class="pull-left">
-        <a href="/user/profile" class="btn btn-default btn-flat">{{ __('ui.nav.profile') }}</a>
+        <a href="/user/profile" class="btn btn-default btn-flat">{{ 'ui.nav.profile' | translate }}</a>
       </div>
       <div class="pull-right">
-        <a ng-click="ctrl.doLogout()" class="btn btn-default btn-flat">{{ __('ui.nav.signout') }}</a>
+        <a ng-click="ctrl.doLogout()" class="btn btn-default btn-flat">{{ 'ui.nav.signout' | translate }}</a>
       </div>
     </li>
   </ul>

@@ -1,14 +1,20 @@
+/*global DI */
 export default class BaseValidator {
+
   constructor() {
     this.name = 'None';
     this.id = 'none';
   }
-  doRegister() {
-    return {
-      type: 'pass',
-      payload: {
-        validated: true,
-      },
-    };
+
+  async beforeRegister() {
   }
+
+  async afterRegister(reqBody, contestRegistrationId) {
+    const contestService = DI.get('contestService');
+    await contestService.updateRegistrationMeta(
+      contestRegistrationId,
+      { validated: true }
+    );
+  }
+
 }

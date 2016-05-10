@@ -39,7 +39,7 @@ global.__projectRoot = path.join(__dirname, '..');
     loadModule: (path) => require(`${__codeRoot}/services/${path}`).default,
   });
 
-  global.DI = () => app.DI;
+  global.DI = app.DI;
 
   app.start().catch(e => console.log(e.stack));
 

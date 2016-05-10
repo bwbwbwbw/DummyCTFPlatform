@@ -1,0 +1,13 @@
+{% extends "layout/minimal.nunjucks" %}
+{% set bodyClass = 'error-page' %}
+{% block minimal_content %}
+<section class="content">
+  <div class="error-page">
+    <h2 class="headline text-green" style="margin:0;line-height:1;text-align:right;width:150px"><i class="fa fa-check-circle" aria-hidden="true"></i></h2>
+    <div class="error-content">
+      <h3>{{ title }}</h3>
+      <p>{{ description }}</p>
+    </div>
+  </div>
+</section>
+{% endblock %}

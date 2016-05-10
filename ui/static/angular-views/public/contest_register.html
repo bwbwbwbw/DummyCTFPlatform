@@ -6,8 +6,9 @@
   <formly-form model="ctrl.form" fields="ctrl.data.payload.form"/>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-primary" ng-click="ctrl.doSubmit()">{{ 'ui.page.contest.register.dialog.submit' | translate }}</button>
-  <button type="button" class="btn btn-default" ng-click="ctrl.doSkip()">{{ 'ui.page.contest.register.dialog.skip' | translate }}</button>
+  <button type="button" class="btn btn-primary" ng-click="ctrl.doSubmit()" ng-hide="ctrl.data.payload.validateOnly">{{ 'ui.page.contest.register.dialog.submit' | translate }}</button>
+  <button type="button" class="btn btn-primary" ng-click="ctrl.doSubmit()" ng-show="ctrl.data.payload.validateOnly">{{ 'ui.page.contest.register.dialog.verify' | translate }}</button>
+  <button type="button" class="btn btn-default" ng-click="ctrl.doSkip()" ng-hide="ctrl.data.payload.validateOnly">{{ 'ui.page.contest.register.dialog.skip' | translate }}</button>
   <button type="button" class="btn btn-default pull-right" ng-click="ctrl.doCancel()">{{ 'ui.page.contest.register.dialog.cancel' | translate }}</button>
 </div>
 

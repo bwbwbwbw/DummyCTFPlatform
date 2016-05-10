@@ -6,3 +6,11 @@ base:
   secret: your_secret
   cspReportUrl: /csp_violation
   port: 80
+  canonical: http://ctf.localhost
+  validators:
+    tongji:
+      secret: another_secret
+      mail:
+        apiKey: key-XXXXXXXXXXXXXXXXXXXXXXX
+        domain: mydomain.mailgun.org
+        sender: Excited User <me@samples.mailgun.org>

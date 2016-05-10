@@ -6,28 +6,28 @@
     <a href="/">{{ config.title }}</a>
   </div>
   <div class="register-box-body">
-    <p class="login-box-msg">{{ __('ui.page.register.msg') }}</p>
+    <p class="login-box-msg">{{ 'ui.page.register.msg' | translate }}</p>
     <form ng-submit="ctrl.doRegister()">
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="{{ __('ui.page.register.username') }}" ng-model="ctrl.username" required>
+        <input type="text" class="form-control" placeholder="{{ 'ui.page.register.username' | translate }}" ng-model="ctrl.username" required>
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="{{ __('ui.page.register.password') }}" ng-model="ctrl.password" required>
+        <input type="password" class="form-control" placeholder="{{ 'ui.page.register.password' | translate }}" ng-model="ctrl.password" required>
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="{{ __('ui.page.register.retypePassword') }}" ng-model="ctrl.password2" required>
+        <input type="password" class="form-control" placeholder="{{ 'ui.page.register.retypePassword' | translate }}" ng-model="ctrl.password2" required>
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
         <div class="col-xs-4">
-          <button type="submit" class="btn bg-olive btn-block btn-flat">{{ __('ui.page.register.register') }}</button>
+          <button type="submit" class="btn bg-olive btn-block btn-flat">{{ 'ui.page.register.register' | translate }}</button>
         </div>
       </div>
     </form>
     <br>
-    <p><a href="/user/signin">{{ __('ui.page.register.signin') }}</a></p>
+    <p><a href="/user/signin">{{ 'ui.page.register.signin' | translate }}</a></p>
   </div>
 </div></div>
 {% endblock %}

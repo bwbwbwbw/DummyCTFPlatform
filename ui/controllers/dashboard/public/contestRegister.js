@@ -4,7 +4,7 @@ import ServiceInjector from 'utils/ServiceInjector';
 export default class Controller extends ServiceInjector {
   constructor(...args) {
     super(...args);
-    this.form = {};
+    this.form = this.data.payload.value || {};
   }
 
   doSubmit() {

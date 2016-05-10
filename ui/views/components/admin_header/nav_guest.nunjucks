@@ -1,6 +1,6 @@
 <li>
-  <a href="/user/signin"><i class="fa fa-sign-in" aria-hidden="true"></i> {{ __('ui.nav.signin') }}</a>
+  <a href="/user/signin"><i class="fa fa-sign-in" aria-hidden="true"></i> {{ 'ui.nav.signin' | translate }}</a>
 </li>
 <li>
-  <a href="/user/register">{{ __('ui.nav.register') }}</a>
+  <a href="/user/register">{{ 'ui.nav.register' | translate }}</a>
 </li>

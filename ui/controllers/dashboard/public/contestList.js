@@ -36,13 +36,13 @@ export default class Controller extends ServiceInjector {
         this.$translate.instant('ui.page.contest.register.successMsg'),
         this.$translate.instant('ui.page.contest.register.successBody') + (resp.data.extraInfo || '')
       );
-      this.loadContests();
+      this.$state.reload();
     }
   }
 
 }
 
-Controller.$inject = ['contests', 'dialogs', '$translate', 'Contest'];
+Controller.$inject = ['contests', 'dialogs', '$translate', '$state', 'Contest'];
 
 angular
   .module('dummyctf.dashboard')

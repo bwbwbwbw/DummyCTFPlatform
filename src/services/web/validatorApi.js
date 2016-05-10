@@ -1,9 +1,16 @@
+import Router from 'express-promise-router';
+
 export default (DI, app, validator) => {
 
-  validator.getValidators(v => {
+  const router = Router();
+  app.use('/validator', router);
+
+  validator.getValidators().forEach(v => {
     if (v.registerController) {
-      v.registerController(app);
+      v.registerController(router);
     }
   });
+
+  return router;
 
 };

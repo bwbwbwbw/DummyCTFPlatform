@@ -35,51 +35,36 @@ export default (DI, parentRouter, app) => {
   router.post('/:id/register',
     libRequestChecker.enforceRole(['CONTESTER']),
     async (req, res) => {
-      // TODO: fix race condition here
-      const isRegistered = await contestService.isContestRegistered(
+      const prevReg = await contestService.getContestRegistration(
         req.params.id,
         req.session.user._id
       );
-      if (isRegistered) {
-        throw new UserError(i18n.__('error.contest.registration.registered'));
-      }
 
       const contest = await contestService.getContestObjectById(req.params.id);
-      let regMeta = {
-        validated: true,
-      };
-      let extraInfo = null;
-      if (contest.validator) {
-        const v = validator.get(contest.validator);
-        if (v) {
-          const r = v.doRegister(req.body);
-          if (r) {
-            if (r.type === 'form') {
-              // request to show a form for user
-              res.json({
-                success: false,
-                payload: r.payload,
-              });
-              return;
-            } else if (r.type === 'pass') {
-              // continue registeration
-              regMeta = r.payload;
-              extraInfo = r.extraInfo;
-            } else {
-              // invalid values
-              throw new Error(`Unknown validator return type: ${r.type}`);
-            }
-          }
-        }
+      const v = validator.get(contest.validator);
+      const resultBeforeReg = await v.beforeRegister(req.body, prevReg);
+      if (resultBeforeReg !== undefined && resultBeforeReg !== null) {
+        res.json({
+          success: false,
+          payload: resultBeforeReg,
+        });
+        return;
       }
-      const reg = await contestService.registerContest(
-        req.params.id,
-        req.session.user._id,
-        regMeta
-      );
+
+      let reg;
+      if (prevReg) {
+        reg = prevReg;
+      } else {
+        reg = await contestService.registerContest(
+          req.params.id,
+          req.session.user._id
+        );
+      }
+
+      const resultAfterReg = await v.afterRegister(req.body, String(reg._id), prevReg);
       res.json({
         success: true,
-        extraInfo,
+        extraInfo: resultAfterReg,
         ...reg.toObject(),
       });
     }

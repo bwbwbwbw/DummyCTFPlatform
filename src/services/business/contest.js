@@ -138,6 +138,25 @@ export default (DI, eventBus, db) => {
   };
 
   /**
+   * Get a contest registration by its id
+   * @return {ContestRegistration}
+   */
+  contestService.getContestRegistrationObjectById = async (contestRegistrationId, throwWhenNotFound = true) => {
+    if (!libObjectId.isValid(contestRegistrationId)) {
+      if (throwWhenNotFound) {
+        throw new UserError(i18n.__('error.contest.registration.notfound'));
+      } else {
+        return null;
+      }
+    }
+    const cr = await ContestRegistration.findOne({ _id: contestRegistrationId });
+    if (cr === null && throwWhenNotFound) {
+      throw new UserError(i18n.__('error.contest.registration.notfound'));
+    }
+    return cr;
+  };
+
+  /**
    * Validate the regBegin, regEnd, begin, end property of a contest
    */
   contestService.validateContestDate = (contest) => {
@@ -289,30 +308,26 @@ export default (DI, eventBus, db) => {
 
   /**
    * Whether a user has registered a contest
-   * @return {Boolean}
+   * @return {ContestRegistration|null}
    */
-  contestService.isContestRegistered = async (contestId, userId) => {
+  contestService.getContestRegistration = async (contestId, userId) => {
     if (!libObjectId.isValid(contestId)) {
-      return false;
+      return null;
     }
     if (!libObjectId.isValid(userId)) {
-      return false;
+      return null;
     }
-    const rec = await ContestRegistration.findOne({
+    return await ContestRegistration.findOne({
       user: userId,
       contest: contestId,
     });
-    return (rec !== null);
   };
 
   /**
    * Register a contest
    * @return {ContestRegistration}
    */
-  contestService.registerContest = async (contestId, userId, metaData) => {
-    if (!libObjectId.isValid(contestId)) {
-      throw new UserError(i18n.__('error.contest.notfound'));
-    }
+  contestService.registerContest = async (contestId, userId) => {
     if (!libObjectId.isValid(userId)) {
       throw new UserError(i18n.__('error.user.notfound'));
     }
@@ -327,7 +342,6 @@ export default (DI, eventBus, db) => {
     const reg = new ContestRegistration({
       contest: contestId,
       user: userId,
-      meta: metaData,
     });
     try {
       await reg.save();
@@ -339,6 +353,17 @@ export default (DI, eventBus, db) => {
         throw e;
       }
     }
+    return reg;
+  };
+
+  /**
+   * Update the meta data of a contest registration
+   */
+  contestService.updateRegistrationMeta = async (regId, metaData) => {
+    const reg = await contestService.getContestRegistrationObjectById(regId);
+    reg.meta = metaData;
+    reg.markModified('meta');
+    await reg.save();
     return reg;
   };
 

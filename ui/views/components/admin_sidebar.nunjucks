@@ -1,21 +1,21 @@
 <aside class="main-sidebar">
   <section class="sidebar">
     <ul class="sidebar-menu">
-      <li><a ui-sref="public_announcement"><i class="fa fa-rss"></i> <span>{{ __('ui.sidebar.announcements') }}</span></a></li>
-      <li><a ui-sref="public_contest"><i class="fa fa-flag"></i> <span>{{ __('ui.sidebar.contests') }}</span></a></li>
+      <li><a ui-sref="public_announcement"><i class="fa fa-rss"></i> <span>{{ 'ui.sidebar.announcements' | translate }}</span></a></li>
+      <li><a ui-sref="public_contest"><i class="fa fa-flag"></i> <span>{{ 'ui.sidebar.contests' | translate }}</span></a></li>
       {% if currentContest != null %}
       <li class="header">{{ currentContest.name.toUpperCase() }}</li>
       {% if req.session.user and req.session.user|isContester %}
-      <li><a href="/contests/tasks"><i class="fa fa-list-ul"></i> <span>{{ __('ui.sidebar.tasks') }}</span></a></li>
+      <li><a href="/contests/tasks"><i class="fa fa-list-ul"></i> <span>{{ 'ui.sidebar.tasks' | translate }}</span></a></li>
       {% endif %}
-      <li><a href="/contests/scoreboard"><i class="fa fa-trophy"></i> <span>{{ __('ui.sidebar.scoreboard') }}</span></a></li>
+      <li><a href="/contests/scoreboard"><i class="fa fa-trophy"></i> <span>{{ 'ui.sidebar.scoreboard' | translate }}</span></a></li>
       {% endif %}
       {% if req.session.user and req.session.user|isContester %}
-      <li class="header">{{ __('ui.sidebar.manage.header') }}</li>
-      <li><a ui-sref="manage"><i class="fa fa-tachometer"></i> <span>{{ __('ui.sidebar.manage.dashboard') }}</span></a></li>
-      <li><a ui-sref="manage_announcement"><i class="fa fa-wrench"></i> <span>{{ __('ui.sidebar.manage.announcements') }}</span></a></li>
-      <li><a ui-sref="manage_challenge"><i class="fa fa-wrench"></i> <span>{{ __('ui.sidebar.manage.tasks') }}</span></a></li>
-      <li><a ui-sref="manage_contest"><i class="fa fa-wrench"></i> <span>{{ __('ui.sidebar.manage.contests') }}</span></a></li>
+      <li class="header">{{ 'ui.sidebar.manage.header' | translate }}</li>
+      <li><a ui-sref="manage"><i class="fa fa-tachometer"></i> <span>{{ 'ui.sidebar.manage.dashboard' | translate }}</span></a></li>
+      <li><a ui-sref="manage_announcement"><i class="fa fa-wrench"></i> <span>{{ 'ui.sidebar.manage.announcements' | translate }}</span></a></li>
+      <li><a ui-sref="manage_challenge"><i class="fa fa-wrench"></i> <span>{{ 'ui.sidebar.manage.tasks' | translate }}</span></a></li>
+      <li><a ui-sref="manage_contest"><i class="fa fa-wrench"></i> <span>{{ 'ui.sidebar.manage.contests' | translate }}</span></a></li>
       {% endif %}
     </ul>
   </section>

@@ -1,3 +1,4 @@
+import i18n from 'i18n';
 import nunjucks from 'nunjucks';
 
 export default (DI, app, config) => {
@@ -10,6 +11,8 @@ export default (DI, app, config) => {
     express: app,
     watch: true,
   });
+
+  njenv.addFilter('translate', (...args) => i18n.__(...args));
 
   // Notice that this would not escape chars like < and >
   njenv.addFilter('json', str => JSON.stringify(str));

@@ -4,7 +4,7 @@
   </a>
   <nav class="navbar navbar-static-top" role="navigation">
     <a href="javascript:;" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-      <span class="sr-only">{{ __('ui.nav.togglenav') }}</span>
+      <span class="sr-only">{{ 'ui.nav.togglenav' | translate }}</span>
     </a>
     <div class="navbar-custom-menu">
       <ul class="nav navbar-nav">
