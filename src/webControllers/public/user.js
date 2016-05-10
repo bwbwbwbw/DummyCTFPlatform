@@ -22,7 +22,7 @@ export default (DI, parentRouter, app) => {
     userService.checkBodyForCredential,
     libRequestChecker.raiseValidationErrors,
     async (req, res) => {
-      const user = await userService.createUser(req.body.username, req.body.password, ['CONTESTER']);
+      const user = await userService.createUser(req.body.username, req.body.password, ['USER', 'CONTESTER']);
       req.session.user = user;
       res.json({});
     }
@@ -31,6 +31,38 @@ export default (DI, parentRouter, app) => {
   router.post('/logout',
     (req, res) => {
       req.session.destroy();
+      res.json({});
+    }
+  );
+
+  router.get('/profile',
+    libRequestChecker.enforceRole(['USER']),
+    async (req, res) => {
+      const user = await userService.getUserObjectById(req.session.user._id);
+      res.json({
+        profile: user.profile,
+        validated: user.validated,
+      });
+    }
+  );
+
+  router.get('/isValidated',
+    (req, res) => {
+      if (req.session && req.session.user) {
+        res.json({ validated: req.session.user.validated, auth: true });
+      } else {
+        res.json({ validated: false, auth: false });
+      }
+    }
+  );
+
+  router.post('/profile',
+    libRequestChecker.enforceRole(['USER']),
+    userService.checkBodyForUpdateProfile,
+    libRequestChecker.raiseValidationErrors,
+    async (req, res) => {
+      const user = await userService.updateProfile(req.session.user._id, req.body);
+      req.session.user = user;
       res.json({});
     }
   );

@@ -23,7 +23,6 @@
       </div>
     </form>
     <br>
-    <p><a href="/user/reset">{{ 'ui.page.signin.resetpass' | translate }}</a></p>
     <p><a href="/user/register">{{ 'ui.page.signin.register' | translate }}</a></p>
   </div>
 </div></div>

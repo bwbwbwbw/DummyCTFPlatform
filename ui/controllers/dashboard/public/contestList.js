@@ -42,7 +42,7 @@ export default class Controller extends ServiceInjector {
 
 }
 
-Controller.$inject = ['contests', 'dialogs', '$translate', '$state', 'Contest'];
+Controller.$inject = ['validateStatus', 'contests', 'dialogs', '$translate', '$state', 'Contest'];
 
 angular
   .module('dummyctf.dashboard')

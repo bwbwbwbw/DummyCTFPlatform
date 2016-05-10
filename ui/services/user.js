@@ -19,6 +19,19 @@ export default class Service extends ServiceInjector {
   logout() {
     return this.$http.post('/public/user/logout');
   }
+
+  getProfile() {
+    return this.$http.get('/public/user/profile');
+  }
+
+  updateProfile(profile) {
+    return this.$http.post('/public/user/profile', profile);
+  }
+
+  getValidationStatus() {
+    return this.$http.get('/public/user/isValidated');
+  }
+
 }
 
 Service.$inject = ['$http'];

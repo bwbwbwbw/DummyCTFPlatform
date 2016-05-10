@@ -102,18 +102,42 @@
 			}
 		},
 		"page": {
+			"user": {
+				"profile": {
+					"title": "个人资料",
+					"submit": "更新",
+					"cancel": "取消",
+					"nickname": "* 昵称 (公开显示)",
+					"name": "* 真实姓名",
+					"stdid": "* 学号",
+					"department": "* 学院和专业",
+					"grade": "* 年级 (如 2013）",
+					"phone": "* 联系电话",
+					"email": "* 电子邮件",
+					"info": {
+						"title": "完善个人信息",
+						"content": "请完善个人信息，以便获得名次后我们能够联系您，并验证您的身份"
+					},
+					"required": {
+						"title": "请完善个人信息",
+						"content": "您目前还没有完善个人信息，如果您获得了名次我们将无法联系到您。",
+						"link": "点击此处修改个人信息"
+					},
+					"successMsg": "更新个人信息成功！"
+				}
+			},
 			"ajax": {
 				"postFailMsg": "操作失败",
 				"getFailMsg": "获取数据失败",
 				"putFailMsg": "更新失败",
-				"deleteFailMsg": "删除失败"
+				"deleteFailMsg": "删除失败",
+				"networkError": "网络连接失败"
 			},
 			"signin": {
 				"msg": "登录后才能参加比赛",
 				"username": "用户名",
 				"password": "密码",
 				"signin": "登录",
-				"resetpass": "忘记密码：重设账户密码",
 				"register": "没有账户：注册新账户"
 			},
 			"error": {

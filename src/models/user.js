@@ -10,6 +10,7 @@ const UserSchema = new Schema({
   disableReason: String,
   validated: { type: Boolean, default: false },
   profile: {
+    nickname: String,
     name: String,
     stdid: String,
     department: String,

@@ -1,3 +1,9 @@
+const resolveUserIsValidated = ['User', async (User) => {
+  return (await User.getValidationStatus()).data;
+}];
+const resolveUserGetProfile = ['User', async (User) => {
+  return (await User.getProfile()).data;
+}];
 const resolveAnnouncementQuery = ['Announcement', async (Announcement) => {
   return (await Announcement.query()).data;
 }];
@@ -39,12 +45,21 @@ export default function router ($urlRouterProvider, $stateProvider) {
   $urlRouterProvider.otherwise('/public/announcements');
 
   $stateProvider
+    .state('user_profile', {
+      url: '/user/profile',
+      templateUrl: '/static/angular-views/user/profile.html',
+      controller: 'userProfileController as ctrl',
+      resolve: {
+        user: resolveUserGetProfile,
+      },
+    })
     .state('public_announcement', {
       url: '/public/announcements',
       templateUrl: '/static/angular-views/public/announcement_list.html',
       controller: 'publicAnnouncementListController as ctrl',
       resolve: {
         announcements: resolveAnnouncementQueryPublic,
+        validateStatus: resolveUserIsValidated,
       },
     })
     .state('public_contest', {
@@ -53,6 +68,7 @@ export default function router ($urlRouterProvider, $stateProvider) {
       controller: 'publicContestListController as ctrl',
       resolve: {
         contests: resolveContestQueryPublic,
+        validateStatus: resolveUserIsValidated,
       },
     })
     .state('manage', {

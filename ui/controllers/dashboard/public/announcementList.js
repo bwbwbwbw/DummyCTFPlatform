@@ -4,7 +4,7 @@ import ServiceInjector from 'utils/ServiceInjector';
 export default class Controller extends ServiceInjector {
 }
 
-Controller.$inject = ['announcements'];
+Controller.$inject = ['validateStatus', 'announcements'];
 
 angular
   .module('dummyctf.dashboard')

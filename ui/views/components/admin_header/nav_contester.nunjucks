@@ -6,11 +6,11 @@
   <ul class="dropdown-menu">
     <li class="user-header">
       <img src="/static/img/dummy-avatar.png" class="img-circle" alt="User Image">
-      <p>{{ req.session.user.username }}</p>
+      <p>{{ req.session.user.profile.nickname }}</p>
     </li>
     <li class="user-footer">
       <div class="pull-left">
-        <a href="/user/profile" class="btn btn-default btn-flat">{{ 'ui.nav.profile' | translate }}</a>
+        <a ui-sref="user_profile" class="btn btn-default btn-flat">{{ 'ui.nav.profile' | translate }}</a>
       </div>
       <div class="pull-right">
         <a ng-click="ctrl.doLogout()" class="btn btn-default btn-flat">{{ 'ui.nav.signout' | translate }}</a>

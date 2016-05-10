@@ -8,6 +8,8 @@ export default (DI, eventBus, db) => {
 
   const userService = {};
 
+  const updateProfileFields = ['nickname', 'name', 'stdid', 'department', 'grade', 'phone', 'email'];
+
   /**
    * Normalize the username
    * @return {String} normalized username
@@ -64,7 +66,9 @@ export default (DI, eventBus, db) => {
       disabled: false,
       validated: false,
       deleted: false,
-      profile: {},
+      profile: {
+        nickname: username,
+      },
     });
     try {
       await newUser.save();
@@ -138,12 +142,17 @@ export default (DI, eventBus, db) => {
    * Update the profile of a user
    * @return {User} The new user object
    */
-  userService.updateProfile = async (username, profile) => {
+  userService.updateProfile = async (userId, profile) => {
     if (profile !== Object(profile)) {
       throw new Error('Expect parameter "profile" to be an object');
     }
-    const user = await userService.getUserObjectByUsername(username);
+    const user = await userService.getUserObjectById(userId);
     user.profile = profile;
+    if (user.profile.nickname) {
+      user.profile.nickname = user.profile.nickname.substr(0, 15);
+    }
+    user.markModified('profile');
+    user.validated = true;
     await user.save();
     return user;
   };
@@ -166,6 +175,13 @@ export default (DI, eventBus, db) => {
           errorMessage: i18n.__('error.password.validation.length', { min: 5 }),
         },
       },
+    });
+    next();
+  };
+
+  userService.checkBodyForUpdateProfile = (req, res, next) => {
+    updateProfileFields.forEach(field => {
+      req.checkBody(field, i18n.__('error.validation.required')).notEmpty();
     });
     next();
   };

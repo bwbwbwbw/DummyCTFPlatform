@@ -9,6 +9,11 @@
 </section>
 
 <section class="content">
+  <div class="alert alert-warning alert-dismissible" ng-show="!ctrl.validateStatus.validated && ctrl.validateStatus.auth">
+    <h4><i class="icon fa fa-warning"></i> {{ 'ui.page.user.profile.required.title' | translate }}</h4>
+    {{ 'ui.page.user.profile.required.content' | translate }}
+    <a ui-sref="user_profile">{{ 'ui.page.user.profile.required.link' | translate }}</a>
+  </div>
   <ul class="timeline">
     <li ng-repeat="announcement in ctrl.announcements">
       <i class="fa fa-comment bg-blue"></i>

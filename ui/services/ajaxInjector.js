@@ -50,9 +50,15 @@ export default class Service extends ServiceInjector {
     if (!shouldProcess(resp.config.url)) {
       return resp;
     }
+    let errBody;
+    if (resp.data) {
+      errBody = resp.data.msgHtml;
+    } else {
+      errBody = this.$injector.get('$translate').instant(`ui.page.ajax.networkError`);
+    }
     this.$injector.get('dialogs').error(
       this.$injector.get('$translate').instant(`ui.page.ajax.${resp.config.method.toLowerCase()}FailMsg`),
-      resp.data.msgHtml
+      errBody
     );
     if (resp.config.method !== 'GET') {
       this.addN(-1);
