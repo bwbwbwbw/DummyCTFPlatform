@@ -5,6 +5,9 @@ import nodemailer from 'nodemailer';
 import mg from 'nodemailer-mailgun-transport';
 import querystring from 'querystring';
 import crypto from 'crypto';
+import RateLimiter from 'rolling-rate-limiter';
+import i18n from 'i18n';
+import promisify from 'promisify-node';
 
 const defaultInfo = '该比赛仅面向同济大学在校学生，请填写您的学号，我们将发送验证邮件。<br>您也可以跳过验证继续参加这次比赛，但您将没有获奖资格。';
 
@@ -29,6 +32,18 @@ export default class TongjiValidator extends BaseValidator {
         api_key: this.config.validators.tongji.mail.apiKey,
         domain: this.config.validators.tongji.mail.domain,
       },
+    }));
+    this.emailLimiter = promisify(RateLimiter({
+      redis: DI.get('redis'),
+      namespace: 'limiter-tongji-email',
+      interval: 60 * 1000,
+      maxInInterval: 1,
+    }));
+    this.ipLimiter = promisify(RateLimiter({
+      redis: DI.get('redis'),
+      namespace: 'limiter-tongji-ip',
+      interval: 10 * 60 * 1000,
+      maxInInterval: 30,
     }));
   }
 
@@ -103,8 +118,23 @@ export default class TongjiValidator extends BaseValidator {
     this.nodemailerMailgun.sendMail(data);
   }
 
-  async beforeRegister(reqBody, prevReg) {
-    if (reqBody.fromForm !== 'true') {  // first time submit
+  async limitRate(req, email) {
+    let timeLeft = 0;
+    if (!timeLeft) {
+      timeLeft = await this.emailLimiter(email);
+    }
+    if (!timeLeft) {
+      timeLeft = await this.ipLimiter(req.connection.remoteAddress);
+    }
+    if (timeLeft) {
+      throw new UserError(i18n.__('error.generic.limitExceeded', {
+        minutes: (timeLeft / 1000 / 60).toFixed(1),
+      }));
+    }
+  }
+
+  async beforeRegister(req, prevReg) {
+    if (req.body.fromForm !== 'true') {  // first time submit
       if (prevReg && prevReg.meta) {    // previously registered, re-validate
         if (prevReg.meta.validated) {   // break if already validated
           throw new Error('error.contest.registration.validated');
@@ -134,28 +164,29 @@ export default class TongjiValidator extends BaseValidator {
       }
     } else {
       // second time submit (user submits form)
-      if (!reqBody.isSkip) {
-        if (!reqBody.cardid || !reqBody.cardid.match(/^\d+$/)) {
+      if (!req.body.isSkip) {
+        if (!req.body.cardid || !req.body.cardid.match(/^\d+$/)) {
           throw new UserError('学号只允许输入纯数字');
         }
       }
     }
   }
 
-  async afterRegister(reqBody, contestRegistrationId, prevReg) {
+  async afterRegister(req, contestRegistrationId, prevReg) {
     const prevMeta = (prevReg && prevReg.meta) ? prevReg.meta : {};
     const contestService = DI.get('contestService');
     await contestService.updateRegistrationMeta(contestRegistrationId, {
       ...prevMeta,
       tongji: {
-        isSkip: reqBody.isSkip,
-        cardid: reqBody.cardid,
+        isSkip: req.body.isSkip,
+        cardid: req.body.cardid,
       },
       validated: false,
     });
-    if (!reqBody.isSkip) {
-      const email = `${reqBody.cardid}@tongji.edu.cn`;
-      this.sendVerification(contestRegistrationId, email, reqBody.cardid);
+    if (!req.body.isSkip) {
+      const email = `${req.body.cardid}@tongji.edu.cn`;
+      await this.limitRate(req, email);
+      this.sendVerification(contestRegistrationId, email, req.body.cardid);
       return `验证邮件已发送至 ${email}，请点击邮件中的链接完成身份验证。由于同济邮箱缺陷，您可能最长需要等待 10 分钟才能收到验证邮件。`;
     }
   }

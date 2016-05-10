@@ -3,6 +3,7 @@
 base:
   title: Dummy CTF
   db: mongodb://localhost/ctf
+  redis: redis://localhost/1
   secret: your_secret
   cspReportUrl: /csp_violation
   port: 80

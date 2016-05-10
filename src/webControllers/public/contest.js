@@ -42,7 +42,7 @@ export default (DI, parentRouter, app) => {
 
       const contest = await contestService.getContestObjectById(req.params.id);
       const v = validator.get(contest.validator);
-      const resultBeforeReg = await v.beforeRegister(req.body, prevReg);
+      const resultBeforeReg = await v.beforeRegister(req, prevReg);
       if (resultBeforeReg !== undefined && resultBeforeReg !== null) {
         res.json({
           success: false,
@@ -61,7 +61,7 @@ export default (DI, parentRouter, app) => {
         );
       }
 
-      const resultAfterReg = await v.afterRegister(req.body, String(reg._id), prevReg);
+      const resultAfterReg = await v.afterRegister(req, String(reg._id), prevReg);
       res.json({
         success: true,
         extraInfo: resultAfterReg,

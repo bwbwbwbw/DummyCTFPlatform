@@ -9,7 +9,7 @@ export default class BaseValidator {
   async beforeRegister() {
   }
 
-  async afterRegister(reqBody, contestRegistrationId) {
+  async afterRegister(req, contestRegistrationId) {
     const contestService = DI.get('contestService');
     await contestService.updateRegistrationMeta(
       contestRegistrationId,
