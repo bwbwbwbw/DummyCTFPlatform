@@ -103,11 +103,15 @@
 			}
 		},
 		"page": {
+			"genericOp": {
+				"update": "更新",
+				"cancel": "取消",
+				"create": "创建"
+			},
 			"user": {
 				"profile": {
 					"title": "个人资料",
 					"submit": "更新",
-					"cancel": "取消",
 					"nickname": "* 昵称 (公开显示)",
 					"name": "* 真实姓名",
 					"stdid": "* 学号",
@@ -130,7 +134,6 @@
 						"new": "新密码",
 						"newRepeat": "再次输入",
 						"submit": "修改密码",
-						"cancel": "取消",
 						"successMsg": "修改密码成功！"
 					},
 					"successMsg": "更新个人信息成功！"
@@ -186,8 +189,7 @@
 						"title": "身份验证",
 						"submit": "递交并注册",
 						"verify": "验证",
-						"skip": "忽略并注册",
-						"cancel": "取消"
+						"skip": "忽略并注册"
 					},
 					"successMsg": "注册比赛成功",
 					"successBody": "您已成功注册该比赛！比赛开始后，您可以前往「任务」页面查看题目。"
@@ -208,13 +210,11 @@
 				"announcement": {
 					"create": {
 						"successMsg": "创建公告成功",
-						"submit": "创建公告",
-						"cancel": "取消"
+						"submit": "创建公告"
 					},
 					"edit": {
 						"successMsg": "修改公告成功",
 						"submit": "更新公告",
-						"cancel": "取消",
 						"title": "标题",
 						"content": "内容"
 					}
@@ -222,8 +222,7 @@
 				"challenge": {
 					"create": {
 						"successMsg": "创新任务成功",
-						"submit": "创建任务",
-						"cancel": "取消"
+						"submit": "创建任务"
 					},
 					"edit": {
 						"basic": {
@@ -233,7 +232,6 @@
 							"difficulty": "难度",
 							"description": "描述",
 							"submit": "更新信息",
-							"cancel": "取消",
 							"successMsg": "任务更新成功"
 						},
 						"flag": {
@@ -256,21 +254,18 @@
 							"regBegin": "报名开始时间",
 							"regEnd": "报名结束时间",
 							"submit": "修改",
-							"cancel": "取消",
 							"successMsg": "比赛信息修改成功"
 						}
 					},
 					"create": {
 						"successMsg": "创建比赛成功",
-						"submit": "创建比赛",
-						"cancel": "取消"
+						"submit": "创建比赛"
 					},
 					"challenge": {
 						"add": {
 							"title": "基本信息",
 							"challenge": "任务",
 							"submit": "添加任务",
-							"cancel": "取消",
 							"successMsg": "添加任务成功"
 						},
 						"edit": {
