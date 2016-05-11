@@ -106,12 +106,12 @@
 			"genericOp": {
 				"update": "更新",
 				"cancel": "取消",
-				"create": "创建"
+				"create": "创建",
+				"add": "添加"
 			},
 			"user": {
 				"profile": {
 					"title": "个人资料",
-					"submit": "更新",
 					"nickname": "* 昵称 (公开显示)",
 					"name": "* 真实姓名",
 					"stdid": "* 学号",
@@ -133,7 +133,6 @@
 						"original": "原密码",
 						"new": "新密码",
 						"newRepeat": "再次输入",
-						"submit": "修改密码",
 						"successMsg": "修改密码成功！"
 					},
 					"successMsg": "更新个人信息成功！"
@@ -209,20 +208,17 @@
 				},
 				"announcement": {
 					"create": {
-						"successMsg": "创建公告成功",
-						"submit": "创建公告"
+						"successMsg": "创建公告成功"
 					},
 					"edit": {
 						"successMsg": "修改公告成功",
-						"submit": "更新公告",
 						"title": "标题",
 						"content": "内容"
 					}
 				},
 				"challenge": {
 					"create": {
-						"successMsg": "创新任务成功",
-						"submit": "创建任务"
+						"successMsg": "创新任务成功"
 					},
 					"edit": {
 						"basic": {
@@ -231,15 +227,13 @@
 							"category": "分类名称",
 							"difficulty": "难度",
 							"description": "描述",
-							"submit": "更新信息",
 							"successMsg": "任务更新成功"
 						},
 						"flag": {
 							"title": "Flag",
 							"flag": "Flag",
 							"placeholder": "当前 Flag: {{ flag }}",
-							"successMsg": "Flag 更新成功",
-							"submit": "更新 Flag"
+							"successMsg": "Flag 更新成功"
 						}
 					}
 				},
@@ -253,19 +247,16 @@
 							"end": "结束时间",
 							"regBegin": "报名开始时间",
 							"regEnd": "报名结束时间",
-							"submit": "修改",
 							"successMsg": "比赛信息修改成功"
 						}
 					},
 					"create": {
-						"successMsg": "创建比赛成功",
-						"submit": "创建比赛"
+						"successMsg": "创建比赛成功"
 					},
 					"challenge": {
 						"add": {
 							"title": "基本信息",
 							"challenge": "任务",
-							"submit": "添加任务",
 							"successMsg": "添加任务成功"
 						},
 						"edit": {
