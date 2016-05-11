@@ -265,6 +265,11 @@
 							"scoreDecrease": "递减分值(若不递减则填 0)",
 							"minScore": "分值下限",
 							"successMsg": "修改任务属性成功"
+						},
+						"changeVisibility": {
+							"dialogTitle": "确认操作",
+							"dialogContent": "当前比赛正在进行，您确认要执行该操作吗？",
+							"successMsg": "修改题目可见度成功！"
 						}
 					}
 				}

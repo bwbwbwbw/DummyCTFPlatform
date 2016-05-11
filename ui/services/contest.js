@@ -50,6 +50,10 @@ export default class Service extends ServiceInjector {
     return this.$http.put(`/api/contests/contestChallenge/${ccId}`, form);
   }
 
+  setChallengeVisibility(ccId, visible) {
+    return this.$http.post(`/api/contests/contestChallenge/${ccId}/visibility`, { visibility: visible });
+  }
+
   getAvailableChallenges(id) {
     return this.$http.get(`/api/contests/${id}/availableChallenges`);
   }

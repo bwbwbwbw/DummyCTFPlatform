@@ -78,8 +78,20 @@ export default (DI, parentRouter, app) => {
 
   // Update properties of a contest challenge
   router.put('/contestChallenge/:id',
+    contestService.checkBodyForEditChallenge,
+    libRequestChecker.raiseValidationErrors,
     async (req, res) => {
       const cc = await contestService.setChallengeProps(req.params.id, req.body);
+      res.json(cc);
+    }
+  );
+
+  // Set visibility of a contest challenge
+  router.post('/contestChallenge/:id/visibility',
+    contestService.checkBodyForSetVisibility,
+    libRequestChecker.raiseValidationErrors,
+    async (req, res) => {
+      const cc = await contestService.setChallengeVisibility(req.params.id, req.body.visibility === 'true');
       res.json(cc);
     }
   );
