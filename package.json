@@ -7,10 +7,11 @@
   "license": "MIT",
   "homepage": "https://github.com/SummerWish/DummyCTFPlatform#readme",
   "scripts": {
-    "start": "gulp",
-    "build": "webpack --progress --colors --display-error-details",
-    "build:production": "npm run build -- --optimize-minimize",
-    "watch": "npm run build -- --watch"
+    "start": "node .dist/app.js",
+    "build:production": "gulp js && npm run build:ui -- --optimize-minimize",
+    "build:ui": "webpack --progress --colors --display-error-details",
+    "watch:server": "gulp",
+    "watch:ui": "npm run build:ui -- --watch"
   },
   "dependencies": {
     "admin-lte": "^2.3.3",

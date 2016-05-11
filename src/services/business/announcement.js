@@ -52,7 +52,7 @@ export default (DI, eventBus, db) => {
     const announcement = new Announcement(obj);
     await announcement.save();
     return announcement;
-  }
+  };
 
   /**
    * Update an announcement

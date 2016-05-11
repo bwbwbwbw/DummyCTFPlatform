@@ -304,7 +304,7 @@ export default (DI, eventBus, db) => {
       return false;
     }
     return await ContestRegistration.find({ user: userId });
-  }
+  };
 
   /**
    * Whether a user has registered a contest
