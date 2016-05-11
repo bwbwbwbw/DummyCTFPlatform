@@ -1,0 +1,61 @@
+<section class="content-header">
+  <h1>
+    {{ ctrl.cc.challenge.name }}
+  </h1>
+  <ol class="breadcrumb">
+    <li><a ui-sref="manage"><i class="fa fa-wrench"></i> Manage</a></li>
+    <li><a ui-sref="manage_contest">Contests</a></li>
+    <li><a ui-sref="manage_contest_info({id: ctrl.cc.contest._id })">{{ ctrl.cc.contest.name }}</a></li>
+    <li class="active">{{ ctrl.cc.challenge.name }}</li>
+  </ol>
+</section>
+
+<section class="content">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="box box-info">
+        <div class="box-header with-border">
+          <h3 class="box-title">Submissions</h3>
+          <p>TODO</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="box box-default">
+        <div class="box-header with-border">
+          <h3 class="box-title">Operations</h3>
+        </div>
+        <div class="box-body no-padding">
+          <ul class="nav nav-pills nav-stacked">
+            <li><a ui-sref="manage_contest_info({id: ctrl.cc.contest._id })"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back to Contest</a></li>
+            <li><a ui-sref="manage_contest_challenge_edit({id: ctrl.cc.contest.id, cid: ctrl.cc._id})"><i class="fa fa-pencil"></i> Edit Properties</a></li>
+            <li><a ui-sref="manage_challenge_edit({id: ctrl.cc.challenge._id})"><i class="fa fa-pencil"></i> Edit Challenge</a></li>
+            <li ng-hide="ctrl.cc.visible"><a href="javascript:;" ng-click="ctrl.doOpenChallenge()"><i class="fa fa-eye" aria-hidden="true"></i> Open to Public</a></li>
+            <li ng-show="ctrl.cc.visible"><a href="javascript:;" ng-click="ctrl.doCloseChallenge()"><i class="fa fa-eye-slash" aria-hidden="true"></i> Hide Challenge</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="box box-default">
+        <div class="box-header with-border">
+          <h3 class="box-title">Properties</h3>
+        </div>
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-6">
+              <p>Visible: {{ ctrl.cc.visible }}</p>
+              <p>Score: {{ ctrl.cc.score }}</p>
+              <p>Score decrease: {{ ctrl.cc.scoreDecrease }}</p>
+              <p>Min score: {{ ctrl.cc.minScore }}</p>
+            </div>
+            <div class="col-md-6">
+              <p>Name: {{ ctrl.cc.challenge.name }}</p>
+              <p>Category: {{ ctrl.cc.challenge.category }}</p>
+              <p>Difficulty: {{ ctrl.cc.challenge.difficulty }}</p>
+              <p>Flag: {{ ctrl.cc.challenge.flagThumb }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -31,6 +31,9 @@ const resolveContestQueryPublic = ['Contest', async (Contest) => {
 const resolveContestGet = ['Contest', '$stateParams', async (Contest, $stateParams) => {
   return (await Contest.get($stateParams.id)).data;
 }];
+const resolveContestGetChallenge = ['Contest', '$stateParams', async (Contest, $stateParams) => {
+  return (await Contest.getChallenge($stateParams.cid)).data;
+}];
 const resolveContestAvailableValidators = ['Contest', async (Contest) => {
   return (await Contest.getAvailableValidators()).data;
 }];
@@ -171,6 +174,22 @@ export default function router ($urlRouterProvider, $stateProvider) {
       resolve: {
         contest: resolveContestGet,
         availableChallenges: resolveContestAvailableChallenges,
+      },
+    })
+    .state('manage_contest_challenge_view', {
+      url: '/manage/contests/:id/challenge/:cid',
+      templateUrl: '/static/angular-views/manage/contest_challenge_view.html',
+      controller: 'manageContestChallengeViewController as ctrl',
+      resolve: {
+        cc: resolveContestGetChallenge,
+      },
+    })
+    .state('manage_contest_challenge_edit', {
+      url: '/manage/contests/:id/challenge/:cid/edit',
+      templateUrl: '/static/angular-views/manage/contest_challenge_edit.html',
+      controller: 'manageContestChallengeEditController as ctrl',
+      resolve: {
+        cc: resolveContestGetChallenge,
       },
     })
   ;

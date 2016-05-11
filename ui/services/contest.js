@@ -42,6 +42,14 @@ export default class Service extends ServiceInjector {
     return this.$http.put(`/api/contests/${id}/challenges`, props);
   }
 
+  getChallenge(ccId) {
+    return this.$http.get(`/api/contests/contestChallenge/${ccId}`);
+  }
+
+  updateChallenge(ccId, form) {
+    return this.$http.put(`/api/contests/contestChallenge/${ccId}`, form);
+  }
+
   getAvailableChallenges(id) {
     return this.$http.get(`/api/contests/${id}/availableChallenges`);
   }

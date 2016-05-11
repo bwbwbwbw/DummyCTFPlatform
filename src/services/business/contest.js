@@ -122,7 +122,7 @@ export default (DI, eventBus, db) => {
    * Get a contest challenge by its id
    * @return {ContestChallenge}
    */
-  contestService.getContestChallengeObjectById = async (contestChallengeId, throwWhenNotFound = true) => {
+  contestService.getContestChallengeObjectById = async (contestChallengeId, throwWhenNotFound = true, populate = false) => {
     if (!libObjectId.isValid(contestChallengeId)) {
       if (throwWhenNotFound) {
         throw new UserError(i18n.__('error.contest.challenge.notfound'));
@@ -130,7 +130,11 @@ export default (DI, eventBus, db) => {
         return null;
       }
     }
-    const cc = await ContestChallenge.findOne({ _id: contestChallengeId });
+    let p = ContestChallenge.findOne({ _id: contestChallengeId });
+    if (populate) {
+      p = p.populate('contest').populate('challenge', { flag: 0 });
+    }
+    const cc = await p;
     if (cc === null && throwWhenNotFound) {
       throw new UserError(i18n.__('error.contest.challenge.notfound'));
     }

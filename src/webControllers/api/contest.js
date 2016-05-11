@@ -68,6 +68,22 @@ export default (DI, parentRouter, app) => {
     }
   );
 
+  // Get properties and details of a contest challenge
+  router.get('/contestChallenge/:id',
+    async (req, res) => {
+      const cc = await contestService.getContestChallengeObjectById(req.params.id, true, true);
+      res.json(cc);
+    }
+  );
+
+  // Update properties of a contest challenge
+  router.put('/contestChallenge/:id',
+    async (req, res) => {
+      const cc = await contestService.setChallengeProps(req.params.id, req.body);
+      res.json(cc);
+    }
+  );
+
   router.get('/:id',
     async (req, res) => {
       const contest = await contestService.getContestObjectById(req.params.id);

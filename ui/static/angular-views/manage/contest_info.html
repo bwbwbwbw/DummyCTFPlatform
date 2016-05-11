@@ -43,7 +43,7 @@
                 <th style="width: 90px">Difficulty</th>
               </tr>
               <tr ng-repeat="contestChallenge in ctrl.contestChallenges">
-                <td><a href="#">{{ contestChallenge.challenge.name }}</a> <span ng-show="!contestChallenge.visible" style="color:#F00">(NOT OPEN)</span></td>
+                <td><a ui-sref="manage_contest_challenge_view({id: ctrl.contest.id, cid: contestChallenge._id})">{{ contestChallenge.challenge.name }}</a> <span ng-show="!contestChallenge.visible" style="color:#F00">(NOT OPEN)</span></td>
                 <td>{{ contestChallenge.score }} (-{{ contestChallenge.scoreDecrease }})</td>
                 <td>{{ contestChallenge.challenge.flagThumb }}</td>
                 <td>{{ contestChallenge.challenge.category }}</td>
@@ -88,14 +88,14 @@
           </div>
         </div>
         <div class="box-body">
-            <p>Name: {{ ctrl.contest.name }}</p>
-            <p>State: {{ ctrl.contest.state }}</p>
-            <p>Contest begin at: {{ ctrl.contest.begin | date: 'yyyy-MM-dd (EEE) HH:mm Z' }}</p>
-            <p>Contest end at: {{ ctrl.contest.end | date: 'yyyy-MM-dd (EEE) HH:mm Z' }}</p>
-            <p>Registration: {{ ctrl.contest.regState }}</p>
-            <p>Validator: {{ ctrl.contest.validator }}</p>
-            <p>Registration begin at: {{ ctrl.contest.regBegin | date: 'yyyy-MM-dd (EEE) HH:mm Z' }}</p>
-            <p>Registration end at: {{ ctrl.contest.regEnd | date: 'yyyy-MM-dd (EEE) HH:mm Z' }}</p>
+          <p>Name: {{ ctrl.contest.name }}</p>
+          <p>State: {{ ctrl.contest.state }}</p>
+          <p>Contest begin at: {{ ctrl.contest.begin | date: 'yyyy-MM-dd (EEE) HH:mm Z' }}</p>
+          <p>Contest end at: {{ ctrl.contest.end | date: 'yyyy-MM-dd (EEE) HH:mm Z' }}</p>
+          <p>Registration: {{ ctrl.contest.regState }}</p>
+          <p>Validator: {{ ctrl.contest.validator }}</p>
+          <p>Registration begin at: {{ ctrl.contest.regBegin | date: 'yyyy-MM-dd (EEE) HH:mm Z' }}</p>
+          <p>Registration end at: {{ ctrl.contest.regEnd | date: 'yyyy-MM-dd (EEE) HH:mm Z' }}</p>
         </div>
       </div>
     </div>

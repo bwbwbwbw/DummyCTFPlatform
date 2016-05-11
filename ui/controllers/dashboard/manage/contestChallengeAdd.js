@@ -4,15 +4,15 @@ import ServiceInjector from 'utils/ServiceInjector';
 export default class Controller extends ServiceInjector {
   constructor(...args) {
     super(...args);
-    this.contestChallenge = {
+    this.cc = {
       score: 100,
       scoreDecrease: 0,
       minScore: 100,
     };
   }
 
-  async doAddContest() {
-    await this.Contest.addChallenge(this.$stateParams.id, this.contestChallenge);
+  async doAddChallenge() {
+    await this.Contest.addChallenge(this.$stateParams.id, this.cc);
     this.toastr.success(this.$translate.instant('ui.page.manage.contest.challenge.add.successMsg'));
     this.$state.go('manage_contest_info', {id: this.$stateParams.id});
   }
