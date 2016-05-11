@@ -425,7 +425,7 @@ export default (DI, eventBus, db) => {
       })
       .populate('contest');
     for (const cc of contestChallenges) {
-      if (!cc.contest.deleted && cc.contest.getState() === 'ACTIVE') {
+      if (!cc.contest.deleted && cc.contest.state === 'ACTIVE') {
         contestService.addEvent(
           cc.contest._id,
           'event.contest.challenge.updated',
@@ -442,14 +442,15 @@ export default (DI, eventBus, db) => {
   eventBus.on('contest.challenge.open', async (contestChallenge) => {
     contestChallenge = await contestChallenge
       .populate('contest')
-      .populate('challenge');
+      .populate('challenge')
+      .execPopulate();
     if (
       contestChallenge.contest.deleted
       || contestChallenge.challenge.deleted
     ) {
       return;
     }
-    if (contestChallenge.contest.getState() === 'ACTIVE') {
+    if (contestChallenge.contest.state === 'ACTIVE') {
       contestService.addEvent(
         contestChallenge.contest._id,
         'event.contest.challenge.open',
