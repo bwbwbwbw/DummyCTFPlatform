@@ -16,6 +16,7 @@
       <li><a ui-sref="manage_announcement"><i class="fa fa-wrench"></i> <span>{{ 'ui.sidebar.manage.announcements' | translate }}</span></a></li>
       <li><a ui-sref="manage_challenge"><i class="fa fa-wrench"></i> <span>{{ 'ui.sidebar.manage.tasks' | translate }}</span></a></li>
       <li><a ui-sref="manage_contest"><i class="fa fa-wrench"></i> <span>{{ 'ui.sidebar.manage.contests' | translate }}</span></a></li>
+      <li><a ui-sref="manage_user"><i class="fa fa-wrench"></i> <span>{{ 'ui.sidebar.manage.users' | translate }}</span></a></li>
       {% endif %}
     </ul>
   </section>

@@ -1,0 +1,34 @@
+<div class="modal-header">
+  <h4 class="modal-title">Reset Password</h4>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="control-label">User Id</label>
+        <div>
+          <input type="text" class="form-control" disabled ng-model="ctrl.data.user._id">
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="control-label">Username</label>
+        <div>
+          <input type="text" class="form-control" disabled ng-model="ctrl.data.user.username">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label">New Password</label>
+    <div>
+      <input type="text" class="form-control" required ng-model="ctrl.form.password">
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" ng-click="ctrl.doSubmit()">Reset</button>
+  <button type="button" class="btn btn-default pull-right" ng-click="ctrl.doCancel()">Cancel</button>
+</div>
+

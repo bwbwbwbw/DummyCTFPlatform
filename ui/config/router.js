@@ -13,6 +13,9 @@ const resolveAnnouncementQueryPublic = ['Announcement', async (Announcement) => 
 const resolveAnnouncementGet = ['Announcement', '$stateParams', async (Announcement, $stateParams) => {
   return (await Announcement.get($stateParams.id)).data;
 }];
+const resolveUserQuery = ['User', async (User) => {
+  return (await User.query()).data;
+}];
 const resolveChallengeQuery = ['Challenge', async (Challenge) => {
   return (await Challenge.query()).data;
 }];
@@ -75,6 +78,14 @@ export default function router ($urlRouterProvider, $stateProvider) {
       url: '/manage',
       templateUrl: '/static/angular-views/manage/index.html',
       controller: 'manageController as ctrl',
+    })
+    .state('manage_user', {
+      url: '/manage/users',
+      templateUrl: '/static/angular-views/manage/user_list.html',
+      controller: 'manageUserListController as ctrl',
+      resolve: {
+        users: resolveUserQuery,
+      },
     })
     .state('manage_announcement', {
       url: '/manage/announcements',

@@ -98,7 +98,8 @@
 				"dashboard": "系统状态",
 				"announcements": "公告",
 				"tasks": "任务池",
-				"contests": "比赛"
+				"contests": "比赛",
+				"users": "用户"
 			}
 		},
 		"page": {
@@ -190,6 +191,11 @@
 				}
 			},
 			"manage": {
+				"user": {
+					"resetPassword": {
+						"successMsg": "重设密码成功"
+					}
+				},
 				"announcement": {
 					"create": {
 						"successMsg": "创建公告成功",

@@ -32,6 +32,14 @@ export default class Service extends ServiceInjector {
     return this.$http.get('/public/user/isValidated');
   }
 
+  query() {
+    return this.$http.get('/api/users');
+  }
+
+  resetPassword(id, password) {
+    return this.$http.post(`/api/users/${id}/resetPassword`, { password });
+  }
+
 }
 
 Service.$inject = ['$http'];

@@ -51,6 +51,14 @@ export default (DI, eventBus, db) => {
   };
 
   /**
+   * Get all users
+   * @return {[User]}
+   */
+  userService.getUsers = async () => {
+    return await User.find({ deleted: false }, { hash: 0 }).sort({ _id: -1 });
+  };
+
+  /**
    * Insert a new user into the database
    * @return {User} New user object
    */
@@ -108,8 +116,8 @@ export default (DI, eventBus, db) => {
    * Reset the password of the user
    * @return {User} The new user object
    */
-  userService.resetPassword = async (username, newPassword) => {
-    const user = await userService.getUserObjectByUsername(username);
+  userService.resetPassword = async (userId, newPassword) => {
+    const user = await userService.getUserObjectById(userId);
     user.hash = await bcrypt.hash(newPassword);
     await user.save();
     return user;
@@ -167,6 +175,20 @@ export default (DI, eventBus, db) => {
           errorMessage: i18n.__('error.username.validation.length', { min: 2, max: 15 }),
         },
       },
+      password: {
+        notEmpty: true,
+        errorMessage: i18n.__('error.validation.required'),
+        isLength: {
+          options: [{ min: 5 }],
+          errorMessage: i18n.__('error.password.validation.length', { min: 5 }),
+        },
+      },
+    });
+    next();
+  };
+
+  userService.checkBodyForSetPassword = (req, res, next) => {
+    req.checkBody({
       password: {
         notEmpty: true,
         errorMessage: i18n.__('error.validation.required'),

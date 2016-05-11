@@ -18,6 +18,8 @@ const UserSchema = new Schema({
     phone: String,
     email: String,
   },
+}, {
+  timestamps: true,
 });
 
 UserSchema.methods.isContester = function () {
@@ -29,5 +31,6 @@ UserSchema.methods.isAdmin = function () {
 };
 
 UserSchema.index({ username_std: 1 }, { unique: true });
+UserSchema.index({ deleted: 1, createdAt: -1 });
 
 mongoose.model('User', UserSchema);
