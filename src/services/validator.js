@@ -22,7 +22,7 @@ export default (DI) => {
         return v;
       }
       return validators['none'];
-    }
+    },
   };
 
 };

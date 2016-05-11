@@ -54,7 +54,7 @@ export default class Service extends ServiceInjector {
     if (resp.data) {
       errBody = resp.data.msgHtml;
     } else {
-      errBody = this.$injector.get('$translate').instant(`ui.page.ajax.networkError`);
+      errBody = this.$injector.get('$translate').instant('ui.page.ajax.networkError');
     }
     this.$injector.get('dialogs').error(
       this.$injector.get('$translate').instant(`ui.page.ajax.${resp.config.method.toLowerCase()}FailMsg`),

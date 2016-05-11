@@ -55,7 +55,7 @@ export default class TongjiValidator extends BaseValidator {
   }
 
   registerController(router) {
-    router.get('/tongji/verify', async (req, res, body) => {
+    router.get('/tongji/verify', async (req, res) => {
       const payload = {
         crid: req.query.crid,
         cardid: req.query.cardid,
@@ -150,7 +150,7 @@ export default class TongjiValidator extends BaseValidator {
         }
         return {
           validateOnly: true,
-          info: `您当前身份未验证，将没有获奖资格。请点击验证邮件中的链接完成身份验证。<br>如果您希望更换学号或重新发送验证邮件，请递交下面的表单。`,
+          info: '您当前身份未验证，将没有获奖资格。请点击验证邮件中的链接完成身份验证。<br>如果您希望更换学号或重新发送验证邮件，请递交下面的表单。',
           form: defaultForm,
           value: {
             cardid: prevReg.meta.tongji.cardid,

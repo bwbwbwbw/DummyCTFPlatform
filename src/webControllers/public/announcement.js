@@ -1,4 +1,3 @@
-import libRequestChecker from 'libs/requestChecker';
 import Router from 'express-promise-router';
 
 export default (DI, parentRouter, app) => {
