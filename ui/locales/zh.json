@@ -124,6 +124,15 @@
 						"content": "您目前还没有完善个人信息，如果您获得了名次我们将无法联系到您。",
 						"link": "点击此处修改个人信息"
 					},
+					"updatePass": {
+						"title": "修改登录密码",
+						"original": "原密码",
+						"new": "新密码",
+						"newRepeat": "再次输入",
+						"submit": "修改密码",
+						"cancel": "取消",
+						"successMsg": "修改密码成功！"
+					},
 					"successMsg": "更新个人信息成功！"
 				}
 			},

@@ -67,4 +67,15 @@ export default (DI, parentRouter, app) => {
     }
   );
 
+  router.post('/password',
+    libRequestChecker.enforceRole(['USER']),
+    userService.checkBodyForSetPassword,
+    libRequestChecker.raiseValidationErrors,
+    async (req, res) => {
+      let original = String(req.body.originalPassword);
+      const user = await userService.resetPassword(req.session.user._id, req.body.password, original);
+      res.json({});
+    }
+  );
+
 };

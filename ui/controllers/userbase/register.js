@@ -12,7 +12,7 @@ export default class Controller extends ServiceInjector {
   async doRegister() {
     if (this.password !== this.password2) {
       this.dialogs.error(
-        this.$translate.instant('ui.page.register.failMsg'),
+        this.$translate.instant('ui.page.ajax.postFailMsg'),
         this.$translate.instant('ui.page.register.retypeNotMatchMsg')
       );
       return;

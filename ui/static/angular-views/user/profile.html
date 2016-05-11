@@ -8,49 +8,80 @@
 </section>
 
 <section class="content">
-  <div class="alert alert-info alert-dismissible" ng-show="!ctrl.user.validated">
-    <h4><i class="icon fa fa-info"></i> {{ 'ui.page.user.profile.info.title' | translate }}</h4>
-    {{ 'ui.page.user.profile.info.content' | translate }}
-  </div>
-  <div class="box box-info">
-    <form ng-submit="ctrl.doUpdateProfile()">
-      <div class="box-header with-border">
-        <h3 class="box-title">{{ 'ui.page.user.profile.title' | translate }}</h3>
+  <div class="row">
+    <div class="col-md-9">
+      <div class="alert alert-info alert-dismissible" ng-show="!ctrl.user.validated">
+        <h4><i class="icon fa fa-info"></i> {{ 'ui.page.user.profile.info.title' | translate }}</h4>
+        {{ 'ui.page.user.profile.info.content' | translate }}
       </div>
-      <div class="box-body">
-        <div class="form-group">
-          <label>{{ 'ui.page.user.profile.nickname' | translate }}</label>
-          <input type="text" class="form-control" required ng-model="ctrl.user.profile.nickname">
-        </div>
-        <div class="form-group">
-          <label>{{ 'ui.page.user.profile.name' | translate }}</label>
-          <input type="text" class="form-control" required ng-model="ctrl.user.profile.name">
-        </div>
-        <div class="form-group">
-          <label>{{ 'ui.page.user.profile.stdid' | translate }}</label>
-          <input type="text" class="form-control" required ng-model="ctrl.user.profile.stdid">
-        </div>
-        <div class="form-group">
-          <label>{{ 'ui.page.user.profile.department' | translate }}</label>
-          <input type="text" class="form-control" required ng-model="ctrl.user.profile.department">
-        </div>
-        <div class="form-group">
-          <label>{{ 'ui.page.user.profile.grade' | translate }}</label>
-          <input type="text" class="form-control" required ng-model="ctrl.user.profile.grade">
-        </div>
-        <div class="form-group">
-          <label>{{ 'ui.page.user.profile.phone' | translate }}</label>
-          <input type="text" class="form-control" required ng-model="ctrl.user.profile.phone">
-        </div>
-        <div class="form-group">
-          <label>{{ 'ui.page.user.profile.email' | translate }}</label>
-          <input type="email" class="form-control" required ng-model="ctrl.user.profile.email">
-        </div>
+      <div class="box box-info">
+        <form ng-submit="ctrl.doUpdateProfile()">
+          <div class="box-header with-border">
+            <h3 class="box-title">{{ 'ui.page.user.profile.title' | translate }}</h3>
+          </div>
+          <div class="box-body">
+            <div class="form-group">
+              <label>{{ 'ui.page.user.profile.nickname' | translate }}</label>
+              <input type="text" class="form-control" required ng-model="ctrl.user.profile.nickname">
+            </div>
+            <div class="form-group">
+              <label>{{ 'ui.page.user.profile.name' | translate }}</label>
+              <input type="text" class="form-control" required ng-model="ctrl.user.profile.name">
+            </div>
+            <div class="form-group">
+              <label>{{ 'ui.page.user.profile.stdid' | translate }}</label>
+              <input type="text" class="form-control" required ng-model="ctrl.user.profile.stdid">
+            </div>
+            <div class="form-group">
+              <label>{{ 'ui.page.user.profile.department' | translate }}</label>
+              <input type="text" class="form-control" required ng-model="ctrl.user.profile.department">
+            </div>
+            <div class="form-group">
+              <label>{{ 'ui.page.user.profile.grade' | translate }}</label>
+              <input type="text" class="form-control" required ng-model="ctrl.user.profile.grade">
+            </div>
+            <div class="form-group">
+              <label>{{ 'ui.page.user.profile.phone' | translate }}</label>
+              <input type="text" class="form-control" required ng-model="ctrl.user.profile.phone">
+            </div>
+            <div class="form-group">
+              <label>{{ 'ui.page.user.profile.email' | translate }}</label>
+              <input type="email" class="form-control" required ng-model="ctrl.user.profile.email">
+            </div>
+          </div>
+          <div class="box-footer">
+            <button type="submit" class="btn btn-primary">{{ 'ui.page.user.profile.submit' | translate }}</button>
+            <a class="btn btn-default pull-right" ng-click="ctrl.doCancel()">{{ 'ui.page.user.profile.cancel' | translate }}</a>
+          </div>
+        </form>
       </div>
-      <div class="box-footer">
-        <button type="submit" class="btn btn-primary">{{ 'ui.page.user.profile.submit' | translate }}</button>
-        <a class="btn btn-default pull-right" ng-click="ctrl.doCancel()">{{ 'ui.page.user.profile.cancel' | translate }}</a>
+    </div>
+    <div class="col-md-3">
+      <div class="box box-warning">
+        <form ng-submit="ctrl.doUpdatePassword()">
+          <div class="box-header with-border">
+            <h3 class="box-title">{{ 'ui.page.user.profile.updatePass.title' | translate }}</h3>
+          </div>
+          <div class="box-body">
+            <div class="form-group">
+              <label>{{ 'ui.page.user.profile.updatePass.original' | translate }}</label>
+              <input type="password" class="form-control" required ng-model="ctrl.updatePass.originalPassword">
+            </div>
+            <div class="form-group">
+              <label>{{ 'ui.page.user.profile.updatePass.new' | translate }}</label>
+              <input type="password" class="form-control" required ng-model="ctrl.updatePass.password">
+            </div>
+            <div class="form-group">
+              <label>{{ 'ui.page.user.profile.updatePass.newRepeat' | translate }}</label>
+              <input type="password" class="form-control" required ng-model="ctrl.updatePass.password2">
+            </div>
+          </div>
+          <div class="box-footer">
+            <button type="submit" class="btn btn-warning">{{ 'ui.page.user.profile.updatePass.submit' | translate }}</button>
+            <a class="btn btn-default pull-right" ng-click="ctrl.doCancel()">{{ 'ui.page.user.profile.updatePass.cancel' | translate }}</a>
+          </div>
+        </form>
       </div>
-    </form>
+    </div>
   </div>
 </section>

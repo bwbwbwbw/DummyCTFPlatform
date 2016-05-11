@@ -116,8 +116,19 @@ export default (DI, eventBus, db) => {
    * Reset the password of the user
    * @return {User} The new user object
    */
-  userService.resetPassword = async (userId, newPassword) => {
+  userService.resetPassword = async (userId, newPassword, oldPassword = null) => {
     const user = await userService.getUserObjectById(userId);
+    if (oldPassword !== null) {
+      try {
+        await bcrypt.compare(oldPassword, user.hash);
+      } catch (e) {
+        if (e instanceof bcrypt.MISMATCH_ERROR) {
+          throw new UserError(i18n.__('error.password.mismatch'));
+        } else {
+          throw e;
+        }
+      }
+    }
     user.hash = await bcrypt.hash(newPassword);
     await user.save();
     return user;

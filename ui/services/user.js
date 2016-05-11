@@ -28,6 +28,10 @@ export default class Service extends ServiceInjector {
     return this.$http.post('/public/user/profile', profile);
   }
 
+  updatePassword(form) {
+    return this.$http.post('/public/user/password', form);
+  }
+
   getValidationStatus() {
     return this.$http.get('/public/user/isValidated');
   }
