@@ -18,7 +18,7 @@
       <div class="box-body" ng-include="'/static/angular-views/manage/contest_basicform.html'"></div>
       <div class="box-footer">
         <button type="submit" class="btn btn-primary">{{ 'ui.page.manage.contest.create.submit' | translate }}</button>
-        <a class="btn btn-default pull-right" ui-sref="manage_contest">{{ 'ui.page.manage.contest.create.cancel' | translate }}</a>
+        <a class="btn btn-default pull-right" ng-click="$root.goBack()">{{ 'ui.page.manage.contest.create.cancel' | translate }}</a>
       </div>
     </form>
   </div>

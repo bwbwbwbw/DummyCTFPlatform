@@ -29,7 +29,7 @@
       </div>
       <div class="box-footer">
         <button type="submit" class="btn btn-primary">{{ 'ui.page.manage.contest.challenge.add.submit' | translate }}</button>
-        <a class="btn btn-default pull-right" ui-sref="manage_contest_info({id: ctrl.contest._id })">{{ 'ui.page.manage.contest.challenge.add.cancel' | translate }}</a>
+        <a class="btn btn-default pull-right" ng-click="$root.goBack()">{{ 'ui.page.manage.contest.challenge.add.cancel' | translate }}</a>
       </div>
     </form>
   </div>

@@ -6,9 +6,6 @@ export default class Controller extends ServiceInjector {
     super(...props);
     this.updatePass = {};
   }
-  doCancel() {
-    this.$window.history.back();
-  }
 
   async doUpdateProfile() {
     await this.User.updateProfile(this.user.profile);
@@ -30,7 +27,7 @@ export default class Controller extends ServiceInjector {
   }
 }
 
-Controller.$inject = ['user', 'User', '$window', '$state', 'toastr', '$translate', 'dialogs'];
+Controller.$inject = ['user', 'User', '$state', 'toastr', '$translate', 'dialogs'];
 
 angular
   .module('dummyctf.dashboard')

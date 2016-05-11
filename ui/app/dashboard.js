@@ -6,6 +6,9 @@ import configRouter from 'config/router';
 const app = angular
   .module('dummyctf.dashboard', ['dummyctf.shared'])
   .config(configRouter)
+  .run(['$rootScope', '$window', ($rootScope, $window) => {
+    $rootScope.goBack = () => $window.history.back();
+  }])
   .run(['$transitions', $transitions => {
     $transitions.onEnter({}, function () { NProgress.start(); });
     $transitions.onFinish({}, function () { NProgress.done(); });
