@@ -43,6 +43,9 @@ const resolveContestAvailableChallenges = ['Contest', '$stateParams', async (Con
 const resolveContestGetChallenges = ['Contest', '$stateParams', async (Contest, $stateParams) => {
   return (await Contest.getChallenges($stateParams.id)).data;
 }];
+const resolveContestGetChallengesPublic = ['Contest', async (Contest) => {
+  return (await Contest.getChallengesPublic()).data;
+}];
 const resolveContestGetEvents = ['Contest', '$stateParams', async (Contest, $stateParams) => {
   return (await Contest.getEvents($stateParams.id)).data;
 }];
@@ -78,6 +81,14 @@ export default function router ($urlRouterProvider, $stateProvider) {
       resolve: {
         contests: resolveContestQueryPublic,
         validateStatus: resolveUserIsValidated,
+      },
+    })
+    .state('public_challenge', {
+      url: '/public/challenges',
+      templateUrl: '/static/angular-views/public/challenge_list.html',
+      controller: 'publicChallengeListController as ctrl',
+      resolve: {
+        data: resolveContestGetChallengesPublic,
       },
     })
     .state('manage', {

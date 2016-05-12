@@ -1,0 +1,23 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{ ctrl.data.cc.challenge.name }} <span ng-show="ctrl.data.cc.solved">(Solved)</span></h4>
+</div>
+<div class="modal-body">
+  <p>Category: {{ ctrl.data.cc.challenge.category }} / Difficulty: {{ ctrl.data.cc.challenge.difficulty }} / Points: {{ ctrl.data.cc.score }}</p>
+  <div ng-bind-html="ctrl.data.cc.challenge.description"></div>
+</div>
+<div class="modal-footer">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="input-group" ng-show="!ctrl.data.cc.solved">
+        <input class="form-control" placeholder="Flag" ng-model="ctrl.form.flag">
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-primary" ng-click="ctrl.doSubmitFlag()">Check</button>
+        </span>
+      </div>
+    </div>
+    <div class="col-md-4 pull-right">
+      <button type="button" class="btn btn-default" ng-click="ctrl.doCancel()">Close</button>
+    </div>
+  </div>
+</div>
+

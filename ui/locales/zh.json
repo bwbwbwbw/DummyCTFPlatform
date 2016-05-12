@@ -21,6 +21,7 @@
 		},
 		"contest": {
 			"notfound": "比赛未找到",
+			"notregistered": "您未注册该比赛",
 			"regBegin": {
 				"greaterThanEnd": "报名开始时间必须小于报名结束时间"
 			},

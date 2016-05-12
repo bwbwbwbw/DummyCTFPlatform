@@ -1,0 +1,62 @@
+<section class="content-header">
+  <h1>
+    {{ ctrl.data.contest.name }}
+  </h1>
+  <ol class="breadcrumb">
+    <li class="active">{{ ctrl.data.contest.name }}</li>
+  </ol>
+</section>
+<section class="content page--challenges">
+  <div class="row">
+    <div class="col-md-8">
+      <h1 ng-show="ctrl.data.challenges.length == 0" class="text-gray">There are no open challenges</h1>
+      <div style="position: relative;" ng-show="ctrl.data.challenges.length > 0">
+        <div class="challenge-container" ng-repeat="cc in ctrl.data.challenges">
+          <div class="box challenge-box" ng-class="{ state_solved: cc.solved, state_open: !cc.solved }" ng-click="ctrl.doShowChallengeDetail(cc)">
+            <div class="challenge-meta">
+              <div class="challenge-name">{{ cc.challenge.name }}</div>
+              <div class="challenge-state">
+                <span ng-show="cc.solved"><i class="fa fa-check" aria-hidden="true"></i> Solved</span>
+                <span ng-hide="cc.solved"><i class="fa fa-question" aria-hidden="true"></i> Open</span>
+              </div>
+            </div>
+            <div class="challenge-info">
+              {{ cc.challenge.category }} ({{ cc.score }})
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="box box-warning">
+        <div class="box-header with-border">
+          <h3 class="box-title">Latest Events</h3>
+        </div>
+        <div class="box-footer" ng-show="ctrl.data.events.length == 0">
+          No events
+        </div>
+        <div class="box-body no-padding" ng-show="ctrl.data.events.length > 0">
+          <table class="table table-striped">
+            <tbody>
+              <tr ng-repeat="e in ctrl.data.events">
+                <td>
+                  <div><small>{{ e.createdAt | amTimeAgo }}</small></div>
+                  <div>{{ e.content | translate:e.args }}</div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="box box-default">
+        <div class="box-header with-border">
+          <h3 class="box-title">{{ ctrl.data.contest.name }}</h3>
+        </div>
+        <div class="box-body">
+          <p>Contest begin at: {{ ctrl.data.contest.begin | date: 'yyyy-MM-dd (EEE) HH:mm Z' }}</p>
+          <p>Contest end at: {{ ctrl.data.contest.end | date: 'yyyy-MM-dd (EEE) HH:mm Z' }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

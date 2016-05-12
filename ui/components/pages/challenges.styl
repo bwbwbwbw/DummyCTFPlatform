@@ -1,0 +1,40 @@
+$color-open = #3698d1
+$color-solved = #74af00
+
+.page--challenges
+  .challenge-container
+    width: 25%
+    box-sizing: border-box
+    display: inline-block
+    padding-right: 5px
+    text-align: center
+
+  .challenge-box
+    cursor: pointer
+    &.state_solved
+      border-top: 3px solid $color-solved
+    &.state_open
+      border-top: 3px solid $color-open
+
+  .challenge-meta
+    padding: 20px 0
+    color: #666
+
+  .challenge-name
+    font-size: 2em
+    font-weight: 300
+
+  .challenge-state
+    font-size: 1.4em
+    margin-top: 5px
+
+  .challenge-info
+    padding: 10px 0
+    color: #FFF
+
+  .state_solved
+    .challenge-info
+      background: $color-solved
+  .state_open
+    .challenge-info
+      background: $color-open

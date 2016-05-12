@@ -295,7 +295,7 @@ export default (DI, eventBus, db) => {
     const contestChallenges = await ContestChallenge
       .find({ contest: contestId, visible: true })
       .sort({ updatedAt: -1 })
-      .populate('challenge', { name: 1, category: 1, difficulty: 1 });
+      .populate('challenge', { name: 1, category: 1, difficulty: 1, description: 1 });
     return contestChallenges;
   };
 

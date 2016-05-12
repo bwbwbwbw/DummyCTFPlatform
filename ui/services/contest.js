@@ -38,6 +38,10 @@ export default class Service extends ServiceInjector {
     return this.$http.get(`/api/contests/${id}/challenges`);
   }
 
+  getChallengesPublic() {
+    return this.$http.get('/public/challenges');
+  }
+
   addChallenge(id, props) {
     return this.$http.post(`/api/contests/${id}/challenges`, props);
   }
