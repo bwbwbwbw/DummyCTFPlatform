@@ -259,6 +259,9 @@
 						"successMsg": "创建比赛成功"
 					},
 					"info": {
+						"eventAnnouncement": {
+							"successMsg": "创建事件成功，该事件目前处于未发布状态"
+						},
 						"eventPublish": {
 							"successMsg": {
 								"publish": "发布事件成功",

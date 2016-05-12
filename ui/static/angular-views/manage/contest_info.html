@@ -58,7 +58,7 @@
         <div class="box-header with-border">
           <h3 class="box-title">Events</h3>
           <div class="box-tools pull-right">
-            <a class="btn btn-box-tool"><i class="fa fa-plus"></i> Publish</a>
+            <a class="btn btn-box-tool" href="javascript:;" ng-click="ctrl.onPromptPublishEvent()"><i class="fa fa-plus"></i> Publish</a>
           </div>
         </div>
         <div class="box-footer" ng-show="ctrl.contestEvents.length == 0">
@@ -98,7 +98,7 @@
           <ul class="nav nav-pills nav-stacked">
             <li><a ui-sref="manage_contest_edit({id: ctrl.contest.id})"><i class="fa fa-pencil" aria-hidden="true"></i> Edit contest properties</a></li>
             <li><a ui-sref="manage_contest_challenge_add({id: ctrl.contest.id})"><i class="fa fa-flag" aria-hidden="true"></i> Add a challenge</a></li>
-            <li><a href="#"><i class="fa fa-bell" aria-hidden="true"></i> Publish a notice</a></li>
+            <li><a href="javascript:;" ng-click="ctrl.onPromptPublishEvent()"><i class="fa fa-bell" aria-hidden="true"></i> Publish a notice</a></li>
             <li><a href="#"><i class="fa fa-users" aria-hidden="true"></i> View registrants</a></li>
           </ul>
         </div>

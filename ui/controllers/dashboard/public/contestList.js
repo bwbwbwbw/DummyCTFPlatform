@@ -24,7 +24,7 @@ export default class Controller extends ServiceInjector {
         '/static/angular-views/public/contest_register.html',
         'publicContestRegisterController',
         { payload: resp.data.payload },
-        { copy: true },
+        { copy: true, size: 'md' },
         'ctrl'
       ).result);
       this.doRegister(id, {

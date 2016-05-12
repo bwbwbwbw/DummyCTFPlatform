@@ -7,7 +7,7 @@ export default class Controller extends ServiceInjector {
       '/static/angular-views/manage/user_resetpass.html',
       'manageUserResetpassController',
       { user },
-      { copy: true },
+      { copy: true, size: 'sm' },
       'ctrl'
     ).result);
     if (form.password.length > 0) {

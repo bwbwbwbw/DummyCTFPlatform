@@ -7,6 +7,21 @@ export default class Controller extends ServiceInjector {
     return events.filter(e => !e.processed).length;
   }
 
+  async onPromptPublishEvent() {
+    const form = (await this.dialogs.create(
+      '/static/angular-views/manage/contest_event_publish.html',
+      'manageContestEventPublishController',
+      {},
+      { size: 'md' },
+      'ctrl'
+    ).result);
+    if (form && form.message && form.message.length > 0) {
+      await this.Contest.addEvent(this.contest._id, form);
+      this.toastr.success(this.$translate.instant('ui.page.manage.contest.info.eventAnnouncement.successMsg'));
+      this.$state.reload();
+    }
+  }
+
   async onSetPublish(event, isPublished) {
     const op = (isPublished) ? 'publish' : 'unpublish';
     try {

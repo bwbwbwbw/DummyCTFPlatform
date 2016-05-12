@@ -142,6 +142,19 @@ export default (DI, parentRouter, app) => {
     }
   );
 
+  router.post('/:id/events',
+    contestService.checkBodyForPublishEvent,
+    libRequestChecker.raiseValidationErrors,
+    async (req, res) => {
+      const event = await contestService.addEvent(
+        req.params.id,
+        'event.contest.announcement',
+        req.body
+      );
+      res.json(event);
+    }
+  );
+
   router.put('/:id',
     contestService.checkBodyForCreateOrEdit,
     libRequestChecker.raiseValidationErrors,
@@ -151,7 +164,7 @@ export default (DI, parentRouter, app) => {
     }
   );
 
-  router.put('/:id/challenges',
+  router.post('/:id/challenges',
     contestService.checkBodyForAddChallenge,
     libRequestChecker.raiseValidationErrors,
     async (req, res) => {

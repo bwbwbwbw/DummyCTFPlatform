@@ -39,7 +39,7 @@ export default class Service extends ServiceInjector {
   }
 
   addChallenge(id, props) {
-    return this.$http.put(`/api/contests/${id}/challenges`, props);
+    return this.$http.post(`/api/contests/${id}/challenges`, props);
   }
 
   getChallenge(ccId) {
@@ -48,6 +48,10 @@ export default class Service extends ServiceInjector {
 
   getEvents(id) {
     return this.$http.get(`/api/contests/${id}/events`);
+  }
+
+  addEvent(id, props) {
+    return this.$http.post(`/api/contests/${id}/events`, props);
   }
 
   setEventPublishState(evid, published) {

@@ -418,6 +418,11 @@ export default (DI, eventBus, db) => {
     next();
   };
 
+  contestService.checkBodyForPublishEvent = (req, res, next) => {
+    req.checkBody('message', i18n.__('error.validation.required')).notEmpty();
+    next();
+  };
+
   /**
    * Handle challenge update. When a challenge is updated
    * and it is part of an active contest, create an event

@@ -1,0 +1,15 @@
+<div class="modal-header">
+  <h4 class="modal-title">Publish New Event</h4>
+</div>
+<div class="modal-body">
+  <div class="form-group">
+    <label class="control-label">Content</label>
+    <div>
+      <input type="text" class="form-control" ng-model="ctrl.form.message">
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" ng-click="ctrl.doSubmit()">Publish</button>
+  <button type="button" class="btn btn-default pull-right" ng-click="ctrl.doCancel()">Cancel</button>
+</div>
