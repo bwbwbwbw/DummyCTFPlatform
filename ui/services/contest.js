@@ -42,6 +42,10 @@ export default class Service extends ServiceInjector {
     return this.$http.get('/public/challenges');
   }
 
+  submitFlag(ccId, flag) {
+    return this.$http.post(`/public/challenges/${ccId}/submit`, { flag });
+  }
+
   addChallenge(id, props) {
     return this.$http.post(`/api/contests/${id}/challenges`, props);
   }

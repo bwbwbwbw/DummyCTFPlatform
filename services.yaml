@@ -83,6 +83,10 @@ contestService:
   path: business/contest
   inject: ['eventBus', 'db']
 
+submissionService:
+  path: business/submission
+  inject: ['eventBus', 'db']
+
 # ========================
 # Presentation Layer
 

@@ -5,12 +5,24 @@ export default class Controller extends ServiceInjector {
   constructor(...args) {
     super(...args);
     this.form = {
-      flag: ''
+      flag: '',
     };
   }
 
-  doSubmitFlag() {
-    console.log('123');
+  async doSubmitFlag() {
+    if (this.form.flag) {
+      const data = (await this.Contest.submitFlag(this.data.cc._id, this.form.flag)).data;
+      if (!data.success) {
+        this.dialogs.error(
+          this.$translate.instant('ui.page.ajax.postFailMsg'),
+          this.$translate.instant('ui.page.challenge.detail.wrongFlag'),
+          { size: 'sm' }
+        );
+        return;
+      } else {
+        this.$uibModalInstance.close(data);
+      }
+    }
   }
 
   doCancel() {
@@ -18,7 +30,7 @@ export default class Controller extends ServiceInjector {
   }
 }
 
-Controller.$inject = ['$uibModalInstance', 'data'];
+Controller.$inject = ['$uibModalInstance', 'data', 'Contest', 'dialogs', '$translate'];
 
 angular
   .module('dummyctf.dashboard')

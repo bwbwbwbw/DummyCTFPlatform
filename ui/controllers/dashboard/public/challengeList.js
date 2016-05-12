@@ -8,20 +8,24 @@ export default class Controller extends ServiceInjector {
 
   async doShowChallengeDetail(cc) {
     try {
-      (await this.dialogs.create(
+      const form = (await this.dialogs.create(
         '/static/angular-views/public/challenge_detail.html',
         'publicChallengeDetailController',
         { cc },
-        { copy: true },
+        { copy: true, size: 'md' },
         'ctrl'
       ).result);
+      if (form.success) {
+        this.toastr.success(this.$translate.instant('ui.page.challenge.detail.successMsg'));
+        this.$state.reload();
+      }
     } catch (ignore) {
-      // TODO: Refresh on success submission
+      // ignore
     }
   }
 }
 
-Controller.$inject = ['data', 'dialogs'];
+Controller.$inject = ['data', 'dialogs', 'toastr', '$translate', '$state'];
 
 angular
   .module('dummyctf.dashboard')

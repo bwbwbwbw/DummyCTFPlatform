@@ -115,6 +115,12 @@
 				"create": "创建",
 				"add": "添加"
 			},
+			"challenge": {
+				"detail": {
+					"wrongFlag": "Flag 错误",
+					"successMsg": "Congratulations! 您成功解决了这个任务"
+				}
+			},
 			"user": {
 				"profile": {
 					"title": "个人资料",
