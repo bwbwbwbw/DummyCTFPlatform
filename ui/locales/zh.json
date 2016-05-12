@@ -65,6 +65,11 @@
 				"open": "已开放新任务「{{ name }}」。",
 				"updated": "任务「{{ name }}」的内容已调整。"
 			}
+		},
+		"state": {
+			"PENDING": "待处理",
+			"PUBLISHED": "已发布",
+			"IGNORED": "已忽略"
 		}
 	},
 	"contest": {
@@ -252,6 +257,14 @@
 					},
 					"create": {
 						"successMsg": "创建比赛成功"
+					},
+					"info": {
+						"eventPublish": {
+							"successMsg": {
+								"publish": "发布事件成功",
+								"unpublish": "忽略或撤下事件成功"
+							}
+						}
 					},
 					"challenge": {
 						"add": {

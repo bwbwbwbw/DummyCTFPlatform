@@ -10,16 +10,16 @@
   </ol>
 </section>
 
-<section class="content">
+<section class="content page--manage-contest-info">
   <div class="row">
     <div class="col-md-8">
-      <div class="alert alert-danger" ng-show="{{ ctrl.contest.state === 'ACTIVE' }}">
+      <div class="alert alert-danger" ng-show="ctrl.contest.state === 'ACTIVE'">
         <h4><i class="icon fa fa-ban"></i> Active Contest</h4>
         Caution! This contest is active and your operation cannot be recovered.
       </div>
-      <div class="alert alert-warning">
+      <div class="alert alert-warning" ng-show="ctrl.getPendingEventCount(ctrl.contestEvents) > 0">
         <h4><i class="icon fa fa-warning"></i> Pending Operation</h4>
-        There are 4 pending events to process.
+        There are {{ ctrl.getPendingEventCount(ctrl.contestEvents) }} pending events to process.
       </div>
       <div class="box box-default">
         <div class="box-header with-border">
@@ -61,8 +61,31 @@
             <a class="btn btn-box-tool"><i class="fa fa-plus"></i> Publish</a>
           </div>
         </div>
-        <div class="box-body">
-          The body of the box
+        <div class="box-footer" ng-show="ctrl.contestEvents.length == 0">
+          No challenges
+        </div>
+        <div class="box-body no-padding" ng-show="ctrl.contestEvents.length > 0">
+          <div class="table-responsive">
+            <table class="table table-hover table-striped contest-events">
+              <tbody>
+              <tr>
+                <th class="col-content">Content</th>
+                <th style="width: 90px">State</th>
+                <th style="width: 120px">Created At</th>
+                <th style="width: 130px">Operation</th>
+              </tr>
+              <tr ng-repeat="e in ctrl.contestEvents" class="event" ng-class="{ ignored: e.processed && !e.published }">
+                <td class="col-content" ng-class="{ notprocessed: !e.processed }">{{ e.content | translate:e.args }}</td>
+                <td>{{ ('event.state.' + e.state) | translate }}</td>
+                <td>{{ e.createdAt | amTimeAgo }}</td>
+                <td>
+                  <a href="javascript:;" ng-click="ctrl.onSetPublish(e, true)" ng-show="!e.processed || !e.published">Publish</a>
+                  <a href="javascript:;" ng-click="ctrl.onSetPublish(e, false)" ng-show="!e.processed">Ignore</a>
+                  <a href="javascript:;" ng-click="ctrl.onSetPublish(e, false)" ng-show="e.published">Withdraw</a></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

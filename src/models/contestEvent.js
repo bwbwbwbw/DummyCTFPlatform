@@ -8,9 +8,23 @@ const ContestEventSchema = new Schema({
   args: Schema.Types.Mixed,
 }, {
   timestamps: true,
+  toObject: { virtuals: true },
+  toJSON: { virtuals: true },
 });
 
-ContestEventSchema.index({ contest: 1, published: 1, updatedAt: -1 });
-ContestEventSchema.index({ contest: 1, updatedAt: -1 });
+ContestEventSchema.virtual('state').get(function () {
+  if (!this.processed) {
+    return 'PENDING';
+  } else {
+    if (this.published) {
+      return 'PUBLISHED';
+    } else {
+      return 'IGNORED';
+    }
+  }
+});
+
+ContestEventSchema.index({ contest: 1, published: 1, createdAt: -1 });
+ContestEventSchema.index({ contest: 1, createdAt: -1 });
 
 mongoose.model('ContestEvent', ContestEventSchema);

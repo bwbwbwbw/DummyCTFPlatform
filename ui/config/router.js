@@ -40,8 +40,11 @@ const resolveContestAvailableValidators = ['Contest', async (Contest) => {
 const resolveContestAvailableChallenges = ['Contest', '$stateParams', async (Contest, $stateParams) => {
   return (await Contest.getAvailableChallenges($stateParams.id)).data;
 }];
-const resolveContestGetAllChallenges = ['Contest', '$stateParams', async (Contest, $stateParams) => {
-  return (await Contest.getAllChallenges($stateParams.id)).data;
+const resolveContestGetChallenges = ['Contest', '$stateParams', async (Contest, $stateParams) => {
+  return (await Contest.getChallenges($stateParams.id)).data;
+}];
+const resolveContestGetEvents = ['Contest', '$stateParams', async (Contest, $stateParams) => {
+  return (await Contest.getEvents($stateParams.id)).data;
 }];
 const resolveContestGetCurrentContest = ['Contest', async (Contest) => {
   return (await Contest.getCurrentContest()).data;
@@ -155,7 +158,8 @@ export default function router ($urlRouterProvider, $stateProvider) {
       controller: 'manageContestInfoController as ctrl',
       resolve: {
         contest: resolveContestGet,
-        contestChallenges: resolveContestGetAllChallenges,
+        contestChallenges: resolveContestGetChallenges,
+        contestEvents: resolveContestGetEvents,
       },
     })
     .state('manage_contest_edit', {

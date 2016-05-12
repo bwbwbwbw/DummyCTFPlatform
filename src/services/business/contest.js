@@ -63,7 +63,7 @@ export default (DI, eventBus, db) => {
     if (filterNotPublished) {
       findExp.published = true;
     }
-    const events = await ContestEvent.find(findExp).sort({ updatedAt: -1 });
+    const events = await ContestEvent.find(findExp).sort({ createdAt: -1 });
     return events;
   };
 
@@ -408,8 +408,13 @@ export default (DI, eventBus, db) => {
     next();
   };
 
-  contestService.checkBodyForSetVisibility = (req, res, next) => {
+  contestService.checkBodyForSetChallengeVisibility = (req, res, next) => {
     req.checkBody('visibility', i18n.__('error.validation.required')).notEmpty();
+    next();
+  };
+
+  contestService.checkBodyForSetEventPublishState = (req, res, next) => {
+    req.checkBody('published', i18n.__('error.validation.required')).notEmpty();
     next();
   };
 

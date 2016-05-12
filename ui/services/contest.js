@@ -34,8 +34,8 @@ export default class Service extends ServiceInjector {
     return this.$http.post(`/public/contests/${id}/register`, form);
   }
 
-  getAllChallenges(id) {
-    return this.$http.get(`/api/contests/${id}/allChallenges`);
+  getChallenges(id) {
+    return this.$http.get(`/api/contests/${id}/challenges`);
   }
 
   addChallenge(id, props) {
@@ -44,6 +44,14 @@ export default class Service extends ServiceInjector {
 
   getChallenge(ccId) {
     return this.$http.get(`/api/contests/contestChallenge/${ccId}`);
+  }
+
+  getEvents(id) {
+    return this.$http.get(`/api/contests/${id}/events`);
+  }
+
+  setEventPublishState(evid, published) {
+    return this.$http.post(`/api/contests/events/${evid}/publish`, { published });
   }
 
   updateChallenge(ccId, form) {

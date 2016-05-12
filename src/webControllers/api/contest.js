@@ -88,11 +88,21 @@ export default (DI, parentRouter, app) => {
 
   // Set visibility of a contest challenge
   router.post('/contestChallenge/:id/visibility',
-    contestService.checkBodyForSetVisibility,
+    contestService.checkBodyForSetChallengeVisibility,
     libRequestChecker.raiseValidationErrors,
     async (req, res) => {
       const cc = await contestService.setChallengeVisibility(req.params.id, req.body.visibility === 'true');
       res.json(cc);
+    }
+  );
+
+  // Set publish state of a contest event
+  router.post('/events/:id/publish',
+    contestService.checkBodyForSetEventPublishState,
+    libRequestChecker.raiseValidationErrors,
+    async (req, res) => {
+      const ce = await contestService.setEventPublishState(req.params.id, req.body.published === 'true');
+      res.json(ce);
     }
   );
 
@@ -103,7 +113,7 @@ export default (DI, parentRouter, app) => {
     }
   );
 
-  router.get('/:id/allChallenges',
+  router.get('/:id/challenges',
     async (req, res) => {
       const challenges = await contestService.getAllChallenges(req.params.id);
       res.json(challenges);
@@ -122,6 +132,13 @@ export default (DI, parentRouter, app) => {
         (c) => existChallenge[c.id] === undefined
       );
       res.json(challenges);
+    }
+  );
+
+  router.get('/:id/events',
+    async (req, res) => {
+      const events = await contestService.getEvents(req.params.id, false);
+      res.json(events);
     }
   );
 
