@@ -69,7 +69,6 @@ export default (DI, eventBus, db) => {
     const newUser = new User({
       username,
       username_std: userService.normalizeUserNameSync(username),
-      hash: await bcrypt.hash(password, 10),
       roles,
       disabled: false,
       validated: false,
@@ -78,6 +77,7 @@ export default (DI, eventBus, db) => {
         nickname: username,
       },
     });
+    await newUser.setPassword(password);
     try {
       await newUser.save();
     } catch (e) {
@@ -97,14 +97,9 @@ export default (DI, eventBus, db) => {
    */
   userService.authenticate = async (username, password, allowDisabled = false) => {
     const user = await userService.getUserObjectByUsername(username);
-    try {
-      await bcrypt.compare(password, user.hash);
-    } catch (e) {
-      if (e instanceof bcrypt.MISMATCH_ERROR) {
-        throw new UserError(i18n.__('error.password.mismatch'));
-      } else {
-        throw e;
-      }
+    const match = await user.testPassword(password);
+    if (!match) {
+      throw new UserError(i18n.__('error.password.mismatch'));
     }
     if (user.disabled && !allowDisabled) {
       throw new UserError(i18n.__('error.user.disabled', { reason: user.disableReason }));
@@ -119,17 +114,12 @@ export default (DI, eventBus, db) => {
   userService.resetPassword = async (userId, newPassword, oldPassword = null) => {
     const user = await userService.getUserObjectById(userId);
     if (oldPassword !== null) {
-      try {
-        await bcrypt.compare(oldPassword, user.hash);
-      } catch (e) {
-        if (e instanceof bcrypt.MISMATCH_ERROR) {
-          throw new UserError(i18n.__('error.password.mismatch'));
-        } else {
-          throw e;
-        }
+      const match = await user.testPassword(oldPassword);
+      if (!match) {
+        throw new UserError(i18n.__('error.password.mismatch'));
       }
     }
-    user.hash = await bcrypt.hash(newPassword);
+    await user.setPassword(newPassword);
     await user.save();
     return user;
   };

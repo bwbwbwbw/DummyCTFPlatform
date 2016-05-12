@@ -1,5 +1,4 @@
 import libObjectId from 'libs/objectId';
-import bcrypt from 'bcrypt-as-promised';
 import randomstring from 'randomstring';
 import i18n from 'i18n';
 import _ from 'lodash';
@@ -21,23 +20,6 @@ export default (DI, eventBus, db) => {
       flag: 0,
       description: 0,
     }).sort({ category: 1, name: 1 });
-  };
-
-  /**
-   * Hash the flag and retrive the flag thumbnail
-   * @return {Object} Containing {flag, flagThumb}
-   */
-  challengeService.makeFlagHashAndThumb = async (plainFlag) => {
-    let flagThumb;
-    if (plainFlag.length > 10) {
-      flagThumb = plainFlag.substr(0, 6) + '...' + plainFlag.substr(-4, 4);
-    } else {
-      flagThumb = plainFlag.substr(0, 3) + '...';
-    }
-    return {
-      flag: await bcrypt.hash(plainFlag),
-      flagThumb,
-    };
   };
 
   /**
@@ -72,8 +54,8 @@ export default (DI, eventBus, db) => {
       deleted: false,
       ..._.pick(props, updateFields),
     };
-    _.assign(obj, await challengeService.makeFlagHashAndThumb(`ctf{${randomstring.generate()}}`));
     const challenge = new Challenge(obj);
+    await challenge.setFlag(`ctf{${randomstring.generate()}}`);
     await challenge.save();
     eventBus.emit('challenge.create', challenge);
     return challenge;
@@ -104,7 +86,7 @@ export default (DI, eventBus, db) => {
    */
   challengeService.updateChallengeFlag = async (id, newFlag) => {
     const challenge = await challengeService.getChallengeObjectById(id);
-    _.assign(challenge, await challengeService.makeFlagHashAndThumb(newFlag));
+    await challenge.setFlag(newFlag);
     await challenge.save();
     return challenge;
   };
