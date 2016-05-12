@@ -42,6 +42,10 @@ export default class Service extends ServiceInjector {
     return this.$http.get('/public/challenges');
   }
 
+  getScoreboardPublic() {
+    return this.$http.get('/public/challenges/scoreboard');
+  }
+
   submitFlag(ccId, flag) {
     return this.$http.post(`/public/challenges/${ccId}/submit`, { flag });
   }

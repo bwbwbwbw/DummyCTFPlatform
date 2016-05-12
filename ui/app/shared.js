@@ -1,6 +1,7 @@
 import 'angular-datepicker/dist/index.min.css';
 import 'textangular/dist/textAngular.css';
 import 'balloon-css/balloon.min.css';
+import 'angular-data-table/release/dataTable.css';
 
 import angular from 'angular';
 import angularTranslate from 'angular-translate';
@@ -14,6 +15,7 @@ import angularDatePicker from 'angular-datepicker/index.js';
 import angularFormly from 'angular-formly';
 import angularFormlyBootstrap from 'angular-formly-templates-bootstrap';
 import 'angular-moment';
+import 'angular-data-table/release/dataTable.helpers.js';
 import textAngular from 'textangular';
 
 import configToastr from 'config/toastr';
@@ -35,6 +37,7 @@ const app = angular
     angularFormly,
     angularFormlyBootstrap,
     'angularMoment',
+    'data-table',
     textAngular,
     'dummyctf.services',
   ])

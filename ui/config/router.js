@@ -46,6 +46,9 @@ const resolveContestGetChallenges = ['Contest', '$stateParams', async (Contest, 
 const resolveContestGetChallengesPublic = ['Contest', async (Contest) => {
   return (await Contest.getChallengesPublic()).data;
 }];
+const resolveContestGetScoreboardPublic = ['Contest', async (Contest) => {
+  return (await Contest.getScoreboardPublic()).data;
+}];
 const resolveContestGetEvents = ['Contest', '$stateParams', async (Contest, $stateParams) => {
   return (await Contest.getEvents($stateParams.id)).data;
 }];
@@ -89,6 +92,14 @@ export default function router ($urlRouterProvider, $stateProvider) {
       controller: 'publicChallengeListController as ctrl',
       resolve: {
         data: resolveContestGetChallengesPublic,
+      },
+    })
+    .state('public_scoreboard', {
+      url: '/public/scoreboard',
+      templateUrl: '/static/angular-views/public/scoreboard.html',
+      controller: 'publicScoreboardController as ctrl',
+      resolve: {
+        data: resolveContestGetScoreboardPublic,
       },
     })
     .state('manage', {

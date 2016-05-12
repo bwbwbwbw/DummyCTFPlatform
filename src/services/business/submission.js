@@ -46,7 +46,6 @@ export default (DI, eventBus, db) => {
       new: true,
       upsert: true,
     });
-    // TODO: run score update
   };
 
   /**
@@ -61,9 +60,24 @@ export default (DI, eventBus, db) => {
       throw new UserError(i18n.__('error.contest.notfound'));
     }
     const submissions = await Submission.find({
-      user: userId,
       contest: contestId,
-      valid: true
+      valid: true,
+      user: userId,
+    });
+    return submissions;
+  };
+
+  /**
+   * Get succeeded submissions of a contest
+   * @return {[Submission]}
+   */
+  submissionService.getContestSubmissions = async (contestId) => {
+    if (!libObjectId.isValid(contestId)) {
+      throw new UserError(i18n.__('error.contest.notfound'));
+    }
+    const submissions = await Submission.find({
+      contest: contestId,
+      valid: true,
     });
     return submissions;
   };

@@ -2,10 +2,6 @@ import angular from 'angular';
 import ServiceInjector from 'utils/ServiceInjector';
 
 export default class Controller extends ServiceInjector {
-  constructor(...args) {
-    super(...args);
-  }
-
   async doShowChallengeDetail(cc) {
     try {
       const form = (await this.dialogs.create(

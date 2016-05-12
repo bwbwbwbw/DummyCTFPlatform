@@ -1,5 +1,4 @@
 import libObjectId from 'libs/objectId';
-import bcrypt from 'bcrypt-as-promised';
 import i18n from 'i18n';
 
 export default (DI, eventBus, db) => {

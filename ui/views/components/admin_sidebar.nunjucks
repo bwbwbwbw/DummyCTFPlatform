@@ -8,7 +8,7 @@
       {% if req.session.user and req.session.user|isContester %}
       <li><a ui-sref="public_challenge"><i class="fa fa-list-ul"></i> <span>{{ 'ui.sidebar.tasks' | translate }}</span></a></li>
       {% endif %}
-      <li><a href="/contests/scoreboard"><i class="fa fa-trophy"></i> <span>{{ 'ui.sidebar.scoreboard' | translate }}</span></a></li>
+      <li><a ui-sref="public_scoreboard"><i class="fa fa-trophy"></i> <span>{{ 'ui.sidebar.scoreboard' | translate }}</span></a></li>
       {% endif %}
       {% if req.session.user and req.session.user|isAdmin %}
       <li class="header">{{ 'ui.sidebar.manage.header' | translate }}</li>

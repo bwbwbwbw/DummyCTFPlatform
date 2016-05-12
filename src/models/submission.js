@@ -13,7 +13,7 @@ const SubmissionSchema = new Schema({
 });
 
 // user task view
-SubmissionSchema.index({ user: 1, contest: 1, valid: 1 });
+SubmissionSchema.index({ contest: 1, valid: 1, user: 1 });
 
 // submission insertion
 SubmissionSchema.index({ user: 1, cc: 1, valid: 1 });
