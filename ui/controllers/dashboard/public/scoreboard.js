@@ -1,5 +1,6 @@
 import angular from 'angular';
 import ServiceInjector from 'utils/ServiceInjector';
+import escape from 'lodash/escape';
 
 export default class Controller extends ServiceInjector {
   constructor(...args) {
@@ -17,6 +18,7 @@ export default class Controller extends ServiceInjector {
           minWidth: 100,
           sortable: false,
           resizable: false,
+          cellDataGetter: (data) => escape(data),
         },
         {
           name: 'Score',
