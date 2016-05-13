@@ -1,3 +1,5 @@
+import RateLimiter from 'rolling-rate-limiter';
+import promisify from 'promisify-node';
 import libRequestChecker from 'libs/requestChecker';
 import Router from 'express-promise-router';
 import i18n from 'i18n';
@@ -10,6 +12,19 @@ export default (DI, parentRouter, app) => {
   const systemPropertyService = DI.get('systemPropertyService');
 
   const logger = DI.get('logger');
+
+  const registrantLimiter = promisify(RateLimiter({
+    redis: DI.get('redis'),
+    namespace: 'limiter-flag-user',
+    interval: 5 * 60 * 1000,
+    maxInInterval: 3,
+  }));
+  const ipLimiter = promisify(RateLimiter({
+    redis: DI.get('redis'),
+    namespace: 'limiter-flag-ip',
+    interval: 10 * 60 * 1000,
+    maxInInterval: 30,
+  }));
 
   async function enforceCurrentContestExists(req, res, next) {
     const contestId = await systemPropertyService.get('current_contest', '');
@@ -30,6 +45,21 @@ export default (DI, parentRouter, app) => {
       return;
     }
     next();
+  }
+
+  async function limitRate(req, ccId) {
+    let timeLeft = 0;
+    if (!timeLeft) {
+      timeLeft = await registrantLimiter(`${ccId}_${req.contestId}`);
+    }
+    if (!timeLeft) {
+      timeLeft = await ipLimiter(`${ccId}_${req.connection.remoteAddress}`);
+    }
+    if (timeLeft) {
+      throw new UserError(i18n.__('error.generic.limitExceeded', {
+        minutes: (timeLeft / 1000 / 60).toFixed(1),
+      }));
+    }
   }
 
   const router = Router();
@@ -145,6 +175,7 @@ export default (DI, parentRouter, app) => {
     submissionService.checkBodyForSubmitFlag,
     libRequestChecker.raiseValidationErrors,
     async (req, res) => {
+      await limitRate(req, req.params.ccid.toLowerCase());
       const submission = await submissionService.addSubmission(
         req.session.user._id,
         req.connection.remoteAddress,
