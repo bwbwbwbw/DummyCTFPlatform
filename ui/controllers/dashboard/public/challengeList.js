@@ -2,6 +2,23 @@ import angular from 'angular';
 import ServiceInjector from 'utils/ServiceInjector';
 
 export default class Controller extends ServiceInjector {
+  constructor(...args) {
+    super(...args);
+    this.$scope.$on('$destroy', this.stopAutoRefresh.bind(this));
+    this.startAutoRefresh();
+    this.refreshAt = new Date();
+  }
+
+  stopAutoRefresh() {
+    if (this.timer) {
+      this.$interval.cancel(this.timer);
+    }
+  }
+
+  startAutoRefresh() {
+    this.timer = this.$interval(() => this.$state.reload(), 60 * 1000);
+  }
+
   async doShowChallengeDetail(cc) {
     try {
       const form = (await this.dialogs.create(
@@ -21,7 +38,7 @@ export default class Controller extends ServiceInjector {
   }
 }
 
-Controller.$inject = ['data', 'dialogs', 'toastr', '$translate', '$state'];
+Controller.$inject = ['data', 'dialogs', 'toastr', '$translate', '$state', '$scope', '$interval'];
 
 angular
   .module('dummyctf.dashboard')
