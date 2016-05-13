@@ -116,6 +116,7 @@ export default class TongjiValidator extends BaseValidator {
       }),
     };
     this.nodemailerMailgun.sendMail(data);
+    DI.get('oplogger').info('validator.tongji.sendmail', { to: email });
   }
 
   async limitRate(req, email) {

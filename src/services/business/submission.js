@@ -15,6 +15,12 @@ export default (DI, eventBus, db) => {
     if (!libObjectId.isValid(userId)) {
       throw new UserError(i18n.__('error.user.notfound'));
     }
+    DI.get('oplogger').info('service.submission.add', {
+      userId,
+      ip,
+      contestChallengeId,
+      flag,
+    });
     const contestService = DI.get('contestService');
     const _cc = await contestService.getContestChallengeObjectById(contestChallengeId);
     const cc = await _cc
