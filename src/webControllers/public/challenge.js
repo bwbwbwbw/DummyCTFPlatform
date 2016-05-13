@@ -7,11 +7,19 @@ import _ from 'lodash-joins';
 
 export default (DI, parentRouter, app) => {
 
+  const eventBus = DI.get('eventBus');
   const contestService = DI.get('contestService');
   const submissionService = DI.get('submissionService');
   const systemPropertyService = DI.get('systemPropertyService');
 
   const logger = DI.get('logger');
+
+  // cache scoreboard
+  let scoreboardCache = null;
+  eventBus.on('contest.challenge.visibilityChanged', () => scoreboardCache = null);
+  eventBus.on('contest.current.changed', () => scoreboardCache = null);
+  eventBus.on('contest.submission.passed', () => scoreboardCache = null);
+  eventBus.on('contest.registrant.new', () => scoreboardCache = null);
 
   const registrantLimiter = promisify(RateLimiter({
     redis: DI.get('redis'),
@@ -100,6 +108,11 @@ export default (DI, parentRouter, app) => {
   router.get('/scoreboard',
     enforceCurrentContestExists,
     async (req, res) => {
+      if (scoreboardCache !== null) {
+        res.json(scoreboardCache);
+        return;
+      }
+
       const contest = await contestService.getContestObjectById(req.contestId);
       const submissions = await submissionService.getContestSubmissions(req.contestId);
 
@@ -153,8 +166,8 @@ export default (DI, parentRouter, app) => {
         }
       });
 
-      res.json({
-        contest,
+      scoreboardCache = {
+        contest: contest.toObject(),
         challenges: cc.map(c => c.challenge.name),
         data: cr.map(x => {
           return {
@@ -164,7 +177,8 @@ export default (DI, parentRouter, app) => {
             ..._.mapKeys(x.row, (v, k) => `c_${k}`),
           };
         }),
-      });
+      };
+      res.json(scoreboardCache);
     }
   );
 

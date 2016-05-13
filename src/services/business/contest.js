@@ -260,11 +260,11 @@ export default (DI, eventBus, db) => {
    */
   contestService.setChallengeVisibility = async (contestChallengeId, visibility = true) => {
     const contestChallenge = await contestService.getContestChallengeObjectById(contestChallengeId);
-    const emitEvent = (contestChallenge.visible !== true && visibility === true);
+    const emitEvent = (contestChallenge.visible !== visibility);
     contestChallenge.visible = (visibility === true);
     await contestChallenge.save();
     if (emitEvent) {
-      eventBus.emit('contest.challenge.open', contestChallenge);
+      eventBus.emit('contest.challenge.visibilityChanged', visibility, contestChallenge);
     }
     return contestChallenge;
   };
@@ -357,6 +357,7 @@ export default (DI, eventBus, db) => {
         throw e;
       }
     }
+    eventBus.emit('contest.registrant.new', contestId, userId);
     return reg;
   };
 
@@ -449,7 +450,10 @@ export default (DI, eventBus, db) => {
    * Handle challenge open. When a challenge is open
    * and it is part of an active contest, create an event
    */
-  eventBus.on('contest.challenge.open', async (contestChallenge) => {
+  eventBus.on('contest.challenge.visibilityChanged', async (newVisibility, contestChallenge) => {
+    if (newVisibility === false) {
+      return;
+    }
     contestChallenge = await contestChallenge
       .populate('contest')
       .populate('challenge')

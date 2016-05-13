@@ -35,6 +35,7 @@ export default (DI, eventBus, db) => {
       await submission.save();
       return submission;
     }
+    eventBus.emit('contest.submission.passed', contestChallengeId);
     // match: upsert
     return await Submission.findOneAndUpdate({
       user: userId,

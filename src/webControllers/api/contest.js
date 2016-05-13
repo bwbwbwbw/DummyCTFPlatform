@@ -4,6 +4,7 @@ import _ from 'lodash-joins';
 
 export default (DI, parentRouter, app) => {
 
+  const eventBus = DI.get('eventBus');
   const systemPropertyService = DI.get('systemPropertyService');
   const contestService = DI.get('contestService');
   const challengeService = DI.get('challengeService');
@@ -30,6 +31,7 @@ export default (DI, parentRouter, app) => {
         contestId = String(contestId);
       }
       await systemPropertyService.set('current_contest', contestId);
+      eventBus.emit('contest.current.changed', contestId);
       res.json({});
     }
   );
