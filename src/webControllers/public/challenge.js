@@ -4,6 +4,7 @@ import libRequestChecker from 'libs/requestChecker';
 import Router from 'express-promise-router';
 import i18n from 'i18n';
 import _ from 'lodash-joins';
+import moment from 'moment';
 
 export default (DI, parentRouter, app) => {
 
@@ -134,6 +135,7 @@ export default (DI, parentRouter, app) => {
         r.score = 0;
         r.time = 0;
         r.row = new Array(cc.length);
+        r.submissions = [];
       });
 
       const baseTime = contest.begin.getTime();
@@ -152,7 +154,11 @@ export default (DI, parentRouter, app) => {
         }
         cr[userIdx].row[ccIdx] = true;
         cr[userIdx].score += cc[ccIdx].score;
-        cr[userIdx].time += sm.createdAt.getTime() - baseTime;
+        cr[userIdx].submissions.push({
+          at: sm.createdAt.getTime(),
+          newScore: cr[userIdx].score,
+        });
+        cr[userIdx].time = Math.max(cr[userIdx].time, sm.createdAt.getTime());
       });
 
       // sort
@@ -166,17 +172,57 @@ export default (DI, parentRouter, app) => {
         }
       });
 
+      // for top 15, calculate chart data
+      const seriesCount = Math.min(cr.length, 15);
+      const timestamps = _(cr)
+        .take(seriesCount)
+        .flatMap('submissions')
+        .map('at')
+        .sortBy()
+        .uniq()
+        .value();
+      timestamps.unshift(contest.begin.getTime());
+      timestamps.push(contest.end.getTime());
+      const timestamp2index = _.invert(timestamps);
+      const seriesData = _(cr)
+        .take(seriesCount)
+        .map(r => {
+          const ret = new Array(timestamps.length);
+          r.submissions.forEach(s => ret[timestamp2index[s.at]] = s.newScore);
+          _.reduce(ret, (last, current, key) => {
+            if (current === undefined) {
+              ret[key] = last;
+              return last;
+            } else {
+              return current;
+            }
+          }, 0);
+          return ret;
+        })
+        .value();
+      const series = _(cr)
+        .take(seriesCount)
+        .map('user.profile.nickname')
+        .value();
+
       scoreboardCache = {
         contest: contest.toObject(),
         challenges: cc.map(c => c.challenge.name),
-        data: cr.map(x => {
+        data: cr.map((x, idx) => {
           return {
+            verified: x.meta.validated ? 'Yes' : '',
             nickname: x.user.profile.nickname,
             score: x.score,
             time: x.time,
+            order: idx + 1,
             ..._.mapKeys(x.row, (v, k) => `c_${k}`),
           };
         }),
+        chart: {
+          data: seriesData,
+          series,
+          labels: timestamps.map(t => moment(t).format('MM-DD HH:mm')),
+        },
       };
       res.json(scoreboardCache);
     }

@@ -15,6 +15,9 @@ const SubmissionSchema = new Schema({
 // user task view
 SubmissionSchema.index({ contest: 1, valid: 1, user: 1 });
 
+// chart view
+SubmissionSchema.index({ contest: 1, valid: 1, createdAt: 1 });
+
 // submission insertion
 SubmissionSchema.index({ user: 1, cc: 1, valid: 1 });
 

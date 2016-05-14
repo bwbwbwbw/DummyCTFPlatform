@@ -85,7 +85,7 @@ export default (DI, eventBus, db) => {
     const submissions = await Submission.find({
       contest: contestId,
       valid: true,
-    });
+    }).sort({ createdAt: 1 });
     return submissions;
   };
 

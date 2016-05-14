@@ -16,6 +16,7 @@ import angularFormly from 'angular-formly';
 import angularFormlyBootstrap from 'angular-formly-templates-bootstrap';
 import 'angular-moment';
 import 'angular-data-table/release/dataTable.helpers.js';
+import 'angular-chart.js';
 import textAngular from 'textangular';
 
 import configToastr from 'config/toastr';
@@ -38,6 +39,7 @@ const app = angular
     angularFormlyBootstrap,
     'angularMoment',
     'data-table',
+    'chart.js',
     textAngular,
     'dummyctf.services',
   ])

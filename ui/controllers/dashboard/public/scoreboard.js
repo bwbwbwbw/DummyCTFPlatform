@@ -5,12 +5,43 @@ import escape from 'lodash/escape';
 export default class Controller extends ServiceInjector {
   constructor(...args) {
     super(...args);
+    this.chartOptions = {
+      elements: {
+        line: {
+          tension: 0.0,
+          fill: false,
+        },
+        point: {
+          radius: 0,
+          hitRadius: 4,
+          hoverRadius: 4,
+        },
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+    };
     this.tableOptions = {
       rowHeight: 35,
       headerHeight: 35,
       footerHeight: false,
       reorderable: false,
       columns: [
+        {
+          name: '#',
+          prop: 'order',
+          width: 50,
+          minWidth: 50,
+          sortable: false,
+          resizable: false,
+        },
+        {
+          name: 'Verified',
+          prop: 'verified',
+          width: 70,
+          minWidth: 70,
+          sortable: false,
+          resizable: false,
+        },
         {
           name: 'Nickname',
           prop: 'nickname',
