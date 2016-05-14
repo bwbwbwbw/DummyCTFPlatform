@@ -15,7 +15,7 @@ export default (DI, eventBus, db) => {
    * @return {[Announcement]} Announcement list
    */
   announcementService.getAnnouncements = async () => {
-    return await Announcement.find({ deleted: false }).sort({ createdAt: 1 });
+    return await Announcement.find({ deleted: false }).sort({ createdAt: -1 });
   };
 
   /**

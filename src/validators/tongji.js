@@ -138,7 +138,7 @@ export default class TongjiValidator extends BaseValidator {
     if (req.body.fromForm !== 'true') {  // first time submit
       if (prevReg && prevReg.meta) {    // previously registered, re-validate
         if (prevReg.meta.validated) {   // break if already validated
-          throw new Error('error.contest.registration.validated');
+          throw new UserError('error.contest.registration.validated');
         }
         if (!prevReg.meta.tongji        // previously using other validate method
           || prevReg.meta.tongji.isSkip // previously skipped

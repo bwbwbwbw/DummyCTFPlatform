@@ -6,8 +6,8 @@ export default class Controller extends ServiceInjector {
   constructor(...args) {
     super(...args);
     this.tableOptions = {
-      scrollbarV: false,
-      rowHeight: 'auto',
+      rowHeight: 35,
+      headerHeight: 35,
       footerHeight: false,
       reorderable: false,
       columns: [
@@ -41,8 +41,12 @@ export default class Controller extends ServiceInjector {
             headerRenderer: () => {
               return `<span title="${cname}">${idx}</span>`;
             },
-            cellRenderer: () => {
-              return '<span ng-show="$cell" class="scoreboard-check"><i class="fa fa-check" aria-hidden="true"></i></span>';
+            cellDataGetter: (data) => {
+              if (data === true) {
+                return '<span class="scoreboard-check"><i class="fa fa-check" aria-hidden="true"></i></span>';
+              } else {
+                return '';
+              }
             },
           };
         }),
