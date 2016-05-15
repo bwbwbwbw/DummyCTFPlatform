@@ -26,13 +26,7 @@ export default (DI, parentRouter, app) => {
     redis: DI.get('redis'),
     namespace: 'limiter-flag-user',
     interval: 5 * 60 * 1000,
-    maxInInterval: 3,
-  }));
-  const ipLimiter = promisify(RateLimiter({
-    redis: DI.get('redis'),
-    namespace: 'limiter-flag-ip',
-    interval: 10 * 60 * 1000,
-    maxInInterval: 30,
+    maxInInterval: 10,
   }));
 
   async function enforceCurrentContestExists(req, res, next) {
@@ -59,11 +53,12 @@ export default (DI, parentRouter, app) => {
   async function limitRate(req, ccId) {
     let timeLeft = 0;
     if (!timeLeft) {
-      timeLeft = await registrantLimiter(`${ccId}_${req.contestId}`);
+      timeLeft = await registrantLimiter(`${ccId}_${req.contestId}_${req.session.user._id}`);
     }
+    /*
     if (!timeLeft) {
       timeLeft = await ipLimiter(`${ccId}_${req.connection.remoteAddress}`);
-    }
+    }*/
     if (timeLeft) {
       throw new UserError(i18n.__('error.generic.limitExceeded', {
         minutes: (timeLeft / 1000 / 60).toFixed(1),
