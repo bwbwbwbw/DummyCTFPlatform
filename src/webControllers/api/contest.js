@@ -8,6 +8,7 @@ export default (DI, parentRouter, app) => {
   const systemPropertyService = DI.get('systemPropertyService');
   const contestService = DI.get('contestService');
   const challengeService = DI.get('challengeService');
+  const submissionService = DI.get('submissionService');
   const validator = DI.get('validator');
 
   const router = Router();
@@ -95,6 +96,14 @@ export default (DI, parentRouter, app) => {
     async (req, res) => {
       const cc = await contestService.setChallengeVisibility(req.params.id, req.body.visibility === 'true');
       res.json(cc);
+    }
+  );
+
+  // Get submissions of a contest challenge
+  router.get('/contestChallenge/:id/submissions',
+    async (req, res) => {
+      const submissions = await submissionService.getContestChallengeAllSubmissions(req.params.id);
+      res.json(submissions);
     }
   );
 

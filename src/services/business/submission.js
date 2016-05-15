@@ -78,7 +78,7 @@ export default (DI, eventBus, db) => {
    * Get succeeded submissions of a contest
    * @return {[Submission]}
    */
-  submissionService.getContestSubmissions = async (contestId) => {
+  submissionService.getContestSucceededSubmissions = async (contestId) => {
     if (!libObjectId.isValid(contestId)) {
       throw new UserError(i18n.__('error.contest.notfound'));
     }
@@ -86,6 +86,20 @@ export default (DI, eventBus, db) => {
       contest: contestId,
       valid: true,
     }).sort({ createdAt: 1 });
+    return submissions;
+  };
+
+  /**
+   * Get all submissions of a contest challenge
+   */
+  submissionService.getContestChallengeAllSubmissions = async (ccId) => {
+    if (!libObjectId.isValid(ccId)) {
+      throw new UserError(i18n.__('error.contest.challenge.notfound'));
+    }
+    const submissions = await Submission
+      .find({ cc: ccId })
+      .sort({ createdAt: -1 })
+      .populate('user');
     return submissions;
   };
 

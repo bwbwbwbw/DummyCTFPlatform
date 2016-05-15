@@ -34,6 +34,9 @@ const resolveContestGet = ['Contest', '$stateParams', async (Contest, $statePara
 const resolveContestGetChallenge = ['Contest', '$stateParams', async (Contest, $stateParams) => {
   return (await Contest.getChallenge($stateParams.cid)).data;
 }];
+const resolveContestGetChallengeSubmissions = ['Contest', '$stateParams', async (Contest, $stateParams) => {
+  return (await Contest.getChallengeSubmissions($stateParams.cid)).data;
+}];
 const resolveContestAvailableValidators = ['Contest', async (Contest) => {
   return (await Contest.getAvailableValidators()).data;
 }];
@@ -208,6 +211,7 @@ export default function router ($urlRouterProvider, $stateProvider) {
       controller: 'manageContestChallengeViewController as ctrl',
       resolve: {
         cc: resolveContestGetChallenge,
+        submissions: resolveContestGetChallengeSubmissions,
       },
     })
     .state('manage_contest_challenge_edit', {

@@ -55,7 +55,7 @@ export default (DI, eventBus, db) => {
    * Get events of a contest
    * @return {[ContestEvent]}
    */
-  contestService.getEvents = async (contestId, filterNotPublished = true) => {
+  contestService.getEvents = async (contestId, filterNotPublished = true, limit = -1) => {
     if (!libObjectId.isValid(contestId)) {
       throw new UserError(i18n.__('error.contest.notfound'));
     }
@@ -63,7 +63,11 @@ export default (DI, eventBus, db) => {
     if (filterNotPublished) {
       findExp.published = true;
     }
-    const events = await ContestEvent.find(findExp).sort({ createdAt: -1 });
+    let p = ContestEvent.find(findExp).sort({ createdAt: -1 });
+    if (limit !== -1) {
+      p = p.limit(limit);
+    }
+    const events = await p;
     return events;
   };
 

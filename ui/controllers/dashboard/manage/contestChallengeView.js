@@ -20,7 +20,7 @@ export default class Controller extends ServiceInjector {
   }
 }
 
-Controller.$inject = ['cc', 'dialogs', '$translate', 'Contest', 'toastr', '$state'];
+Controller.$inject = ['submissions', 'cc', 'dialogs', '$translate', 'Contest', 'toastr', '$state'];
 
 angular
   .module('dummyctf.dashboard')

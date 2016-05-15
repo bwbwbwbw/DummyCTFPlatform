@@ -92,7 +92,7 @@ export default (DI, parentRouter, app) => {
         submissions.map(s => { return { _id: s.challenge, solved: true }; }),
         (s) => String(s._id)
       );
-      const events = await contestService.getEvents(req.contestId);
+      const events = await contestService.getEvents(req.contestId, true, 6);
       res.json({
         contest,
         challenges,
@@ -110,7 +110,7 @@ export default (DI, parentRouter, app) => {
       }
 
       const contest = await contestService.getContestObjectById(req.contestId);
-      const submissions = await submissionService.getContestSubmissions(req.contestId);
+      const submissions = await submissionService.getContestSucceededSubmissions(req.contestId);
 
       // all visible challenges
       let cc = [];
