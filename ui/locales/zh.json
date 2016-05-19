@@ -19,6 +19,10 @@
 		"challenge": {
 			"notfound": "任务未找到"
 		},
+		"submission": {
+			"failedByContest": "该比赛目前无法递交 Flag",
+			"failedByChallenge": "该题目目前无法递交 Flag"
+		},
 		"contest": {
 			"notfound": "比赛未找到",
 			"notregistered": "您未注册该比赛",

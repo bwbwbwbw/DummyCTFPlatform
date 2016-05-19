@@ -15,18 +15,24 @@ export default (DI, eventBus, db) => {
     if (!libObjectId.isValid(userId)) {
       throw new UserError(i18n.__('error.user.notfound'));
     }
-    DI.get('oplogger').info('service.submission.add', {
-      userId,
-      ip,
-      contestChallengeId,
-      flag,
-    });
     const contestService = DI.get('contestService');
     const _cc = await contestService.getContestChallengeObjectById(contestChallengeId);
     const cc = await _cc
       .populate('contest')
       .populate('challenge')
       .execPopulate();
+    if (cc.contest.deleted || cc.contest.state !== 'ACTIVE') {
+      throw new UserError(i18n.__('error.submission.failedByContest'));
+    }
+    if (cc.challenge.deleted) {
+      throw new UserError(i18n.__('error.submission.failedByChallenge'));
+    }
+    DI.get('oplogger').info('service.submission.add', {
+      userId,
+      ip,
+      contestChallengeId,
+      flag,
+    });
     const isMatch = await cc.challenge.testFlag(flag);
     const submission = new Submission({
       user: userId,
