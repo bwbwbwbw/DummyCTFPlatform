@@ -61,6 +61,7 @@
     "moment": "^2.13.0",
     "mongoose": "^4.4.13",
     "morgan": "^1.7.0",
+    "node-xlsx": "^0.7.1",
     "nodemailer": "^2.3.2",
     "nodemailer-mailgun-transport": "^1.0.2",
     "nprogress": "^0.2.0",

@@ -5,10 +5,12 @@ import Router from 'express-promise-router';
 import i18n from 'i18n';
 import _ from 'lodash-joins';
 import moment from 'moment';
+import { build } from 'node-xlsx';
 
 export default (DI, parentRouter, app) => {
 
   const eventBus = DI.get('eventBus');
+  const userService = DI.get('userService');
   const contestService = DI.get('contestService');
   const submissionService = DI.get('submissionService');
   const systemPropertyService = DI.get('systemPropertyService');
@@ -205,6 +207,7 @@ export default (DI, parentRouter, app) => {
         challenges: cc.map(c => c.challenge.name),
         data: cr.map((x, idx) => {
           return {
+            uid: x.user._id,
             verified: x.meta.validated ? 'Yes' : '',
             nickname: x.user.profile.nickname,
             score: x.score,
@@ -223,6 +226,38 @@ export default (DI, parentRouter, app) => {
     }
   );
 
+  router.get('/scoreboard/export',
+    libRequestChecker.enforceRole(['ADMIN']),
+    enforceCurrentContestExists,
+    enforceCurrentContestRegistered,
+    async (req, res) => {
+      if (!scoreboardCache) {
+        res.end();
+        return;
+      }
+      const data = [];
+      for (const row of scoreboardCache.data) {
+        const user = await userService.getUserObjectById(row.uid);
+        data.push([
+          row.order,
+          row.nickname,
+          user.username,
+          row.verified,
+          user.profile.name,
+          user.profile.stdid,
+          user.profile.department,
+          user.profile.grade,
+          user.profile.phone,
+          user.profile.email,
+          row.score,
+          moment(row.time).format('MM-DD HH:mm'),
+        ]);
+      }
+      const buffer = build([{name: "Contest", data: data}]);
+      res.send(buffer);
+    }
+  );
+
   router.post('/:ccid/submit',
     libRequestChecker.enforceRole(['CONTESTER']),
     enforceCurrentContestExists,
@@ -237,6 +272,7 @@ export default (DI, parentRouter, app) => {
         req.params.ccid,
         req.body.flag.substr(0, 50)
       );
+      res.set({"Content-Disposition":"attachment; filename=\"contest.xlsx\""});
       res.json({ success: submission.valid });
     }
   );
