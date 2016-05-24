@@ -6,15 +6,15 @@ A (nearly) full-featured CTF platform with a easy-to-use management UI.
 
 - I18N
 
-  Currently we only have Chinese language, PRs are welcome! See [ui/locales/zh.json](https://github.com/SummerWish/DummyCTFPlatform/blob/master/ui/locales/zh.json).
+  Currently we only have [Chinese](https://github.com/SummerWish/DummyCTFPlatform/blob/master/ui/locales/zh.json). PRs are welcome!
 
 - User register and login
 
   A user can take part in multiple CTF contests in the platform.
 
-- Challenge repository
+- Challenge pool
 
-  You can store candidate challenges and only choose what you want to a CTF contest.
+  You can store candidate challenges and only add what you want to a CTF contest.
 
 - Multiple CTF contests
 
@@ -24,23 +24,23 @@ A (nearly) full-featured CTF platform with a easy-to-use management UI.
 
   You can request an email validation if a user want to take part in the CTF contest. You can also implement your own validation method.
 
-- Trendings, Scoreboards
+- Trending, Scoreboard
 
-  A chart for displaying the trending and a table for displaying the scoreboard.
+  Support real-time trending charts and scoreboards.
 
 - Event timeline
 
-  Let contesters know new challenges or announements.
+  Let contesters know new challenges or announcements.
 
 - Management UI
 
-  You can do everything in the Web UI! Add challenges, add contests, change flags, view users, reset user passwords, view submission historys, etc.
+  You can do everything in the Web UI! Add challenges, add contests, change flags, view users, reset users' password, view submission histories, etc.
 
 - Site Announcements
 
-  Write anything you want with a WYSIWYG editor when user opens the website.
+  Publish site announcements for visitors using a WYSIWYG editor.
 
-- Modern and fansy UI
+- Modern and fancy UI
 
   Built with cutting-edge front-end technologies.
 
@@ -105,30 +105,32 @@ npm start
 
 ### Switch to debug mode
 
-The default mode is production mode. You can create a file named `.debug` to switch to debug mode (restart application is required).
+Currently there are no difference between debug mode and production mode :P
+
+The default mode is production mode. You can create a file named `.debug` in the root of the project to switch to debug mode (restarting application is required).
 
 ### Customize configurations
 
 `config.yaml` is the base config file from the project. It is not recommended to edit it. Instead, please create a file named `config.debug.yaml` or `config.production.yaml`.
 
-You can write `base`, `debug`, `production` section in any of the three config files. In production environment, it will use `base`+`production`, and in debug environment, it will use `base`+`debug`. (`+` means deep-merge)
+You can write `base`, `debug`, `production` section in any of the three config files. In the production environment, it will use `base`+`production` and in the debug environment, it will use `base`+`debug`. (`+` means deep-merge)
 
 In other words:
 
-- production mode loads `base` from `config.yaml` + `base` from `config.debug.yaml` + `base` from `config.production.yaml` + `production` from `config.yaml` + `production` from `config.debug.yaml` + `production` from `config.production.yaml`
+- the production mode loads `base` from `config.yaml` + `base` from `config.debug.yaml` + `base` from `config.production.yaml` + `production` from `config.yaml` + `production` from `config.debug.yaml` + `production` from `config.production.yaml`
 
-- debug mode loads `base` from `config.yaml` + `base` from `config.debug.yaml` + `base` from `config.production.yaml` + `debug` from `config.yaml` + `debug` from `config.debug.yaml` + `debug` from `config.production.yaml`
+- the debug mode loads `base` from `config.yaml` + `base` from `config.debug.yaml` + `base` from `config.production.yaml` + `debug` from `config.yaml` + `debug` from `config.debug.yaml` + `debug` from `config.production.yaml`
 
 
 ## TODO
 
 - [ ] Customize profile fields
-- [ ] Remove challenge
-- [ ] Remove contest
-- [ ] Disable a user
-- [ ] Allow customizing event content
-- [ ] Refresh scoreboard when user modified its nickname
-- [ ] Provide a link to export contesters
+- [ ] Remove challenges
+- [ ] Remove contests
+- [ ] Deactivate / activate a user from UI
+- [ ] Customize content of a pre-built event
+- [ ] Refresh scoreboard when user modified its nickname or admin changed the score of a challenge
+- [ ] Provide a button to export contesters
 
 ## License
 
